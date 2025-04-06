@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.commands.caches.cleargroup;
+module uim.commands.classes.caches.cleargroup;
 
 import uim.commands;
 @safe:
@@ -61,13 +61,13 @@ class DCacheClearGroupCommand : DCommand {
     }
 
     auto configData = commandArguments.getArgument("config");
-    if (!configData.isNull && Cache.configuration.get(configData).isNull) {
+    if (!configuration.isNull && Cache.configuration.getEntry(configData).isNull) {
       console.error("Cache config '%s' not found".format(configData));
 
       return false;
     }
     anGroupConfigs[anGroup]
-      .filter(config => configData.isNull || configData == config)
+      .filter(config => configuration.isNull || configData == config)
       .each!((config) {
         if (!Cache.clearGroup(anGroup, config)) {
           console.error(

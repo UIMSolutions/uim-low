@@ -33,7 +33,7 @@ class DCommandScanner {
 
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
-        configuration.data(initData);
+        configuration.setEntries(initData);
 
         return true;
     }
@@ -46,7 +46,7 @@ class DCommandScanner {
      */
     Json[string] scanCore() {
         /* return _scanDir(
-            dirname(__DIR__) ~ DIRECTORY_SEPARATOR ~ "Command" ~ DIRECTORY_SEPARATOR,
+            dirname(__DIR__) ~ DIR_SEPARATOR ~ "Command" ~ DIR_SEPARATOR,
             "UIM\Command\\",
             "",
             ["command_list"]
@@ -56,7 +56,7 @@ class DCommandScanner {
 
     // Scan the application for shells & commands.
     Json[string] scanApp() {
-        auto appNamespace = configuration.get("App.namespace");
+        auto appNamespace = configuration.getEntry("App.namespace");
 
         /* return _scanDir(
             App.classPath("Command")[0],
@@ -99,7 +99,7 @@ class DCommandScanner {
             auto file = fileInfo.getFilename();
 
             string name = to!string(preg_replace(classnamePattern, "", file)).underscore;
-            if (commandsToHide.has(name)) {
+            if (commandsToHide.hasValue(name)) {
                 continue;
             }
             

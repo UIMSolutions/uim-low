@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.commands.plugins.load;
+module uim.commands.classes.plugins.load;
 
 import uim.commands;
 
@@ -71,14 +71,14 @@ class DPluginLoadCommand : DCommand {
   }
 
   // Modify the plugins config file.
-  protected int modifyConfigFile(string pluginName, Json[string] options = null) {
+  protected int modifyConfigFile(string pluginName, Json[string] options = new Json[string]) {
 
     /*
         configData = @include _configFile;
-        configData = !configData.isArray ? Json.empty;
+        configData = !configuration.isArray ? Json.empty;
     }
  */
-    /* configuration.set(pluginName, options);
+    /* configuration.setEntry(pluginName, options);
     auto Json[string] = class_hasKey(VarExporter.classname)
         ? VarExporter.export_(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) 
         : var_export_(configData, true);

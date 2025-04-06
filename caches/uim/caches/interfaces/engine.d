@@ -10,29 +10,32 @@ import uim.caches;
 @safe:
 
 interface ICacheEngine : IObject {
-  /* void groupName(string name);
+  // #region groupName
+  ICacheEngine groupName(string name);
   string groupName();
 
-  void items(Json[string] newItems, long timeToLive = 0);
-  Json[string] items(string[] keys);
+  ICacheEngine clearGroup(string groupName);
+  // #endregion groupName
 
   string[] keys();
 
-  bool merge(Json[string] newItems, long timeToLive = 0);
-  bool merge(string key, Json value, long timeToLive = 0);
+  // #region timeToLive
+  long timeToLive(); 
+  ICacheEngine timeToLive(long newTimeToLive);
+  // #endregion timeToLive
 
-  bool updateKey(Json[string] newItems, long timeToLive = 0);
-  bool updateKey(string key, Json value, long timeToLive = 0);
+  // #region entries
+  ICacheEngine entries(Json[string] newItems);
+  Json[string] entries();
+  // #endregion entries
 
-  Json[] read(string key, Json defaultValue = null);
-  Json read(string key, Json defaultValue = null);
+  mixin(HasInterfaces!("Entries", "Entry", "string"));
+  mixin(GetInterfaces!("Json", "Entries", "Entry", "string"));
+  mixin(SetInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  mixin(MergeInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  mixin(UpdateInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  mixin(RemoveInterfaces!("ICacheEngine", "Entries", "Entry", "string"));
 
   long increment(string key, int incValue = 1);
   long decrement(string key, int decValue = 1);
-
-  bool removeKey(string[] keys);
-  bool removeKey(string key);
-
-  bool clear();
-  bool clearGroup(string groupName); */
 }

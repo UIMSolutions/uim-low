@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.commands.plugins.unload;
+module uim.commands.classes.plugins.unload;
 
 import uim.commands;
 
@@ -44,13 +44,13 @@ class DPluginUnloadCommand : DCommand {
     //  Modify the plugins config file.
     protected string modifyConfigFile(string pluginName) {
         /* auto configData = @include _configFile;
-        if (!configData.isArray) {
+        if (!configuration.isArray) {
             return "`CONFIG/plugins.d` not found or does not return an array";
         }
         if (!hasKey(pluginName, configData)) {
             return "plugin-`%s` could not be found".format(pluginName);
         }
-        configData.removeKey(pluginName);
+        configuration.removeKey(pluginName);
 
         string exported = class_hasKey(VarExporter.classname)
             ? VarExporter.export_(configData)

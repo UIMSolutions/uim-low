@@ -3,11 +3,18 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.commands.i18n.i18ninit;
+module uim.commands.classes.i18n.i18ninit;
 
 import uim.commands;
 
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 
 // Command for interactive I18N management.
 class DI18nInitCommand : DCommand {
@@ -35,13 +42,13 @@ class DI18nInitCommand : DCommand {
             plugin = arguments.getString("plugin").camelize;
             somePaths = [
                 Plugin.path(
-                    plugin) ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR
+                    plugin) ~ "resources" ~ DIR_SEPARATOR ~ "locales" ~ DIR_SEPARATOR
             ];
         } */
         
-/*         string response = console.ask("What folder?", stripRight(somePaths[0], DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
-        string sourceFolder = stripRight(response, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
-        string targetFolder = sourceFolder ~ myLanguage ~ DIRECTORY_SEPARATOR;
+/*         string response = console.ask("What folder?", stripRight(somePaths[0], DIR_SEPARATOR) ~ DIR_SEPARATOR);
+        string sourceFolder = stripRight(response, DIR_SEPARATOR) ~ DIR_SEPARATOR;
+        string targetFolder = sourceFolder ~ myLanguage ~ DIR_SEPARATOR;
  *//*         if (!isDir(targetFolder)) {
             mkdir(targetFolder, 0770, true);
         } */

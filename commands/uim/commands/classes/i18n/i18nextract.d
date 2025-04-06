@@ -3,11 +3,18 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.commands.i18n.i18nextract;
+module uim.commands.classes.i18n.i18nextract;
 
 import uim.commands;
 
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 
 // Language string extractor
 class DI18nExtractCommand : DCommand {
@@ -138,13 +145,13 @@ class DI18nExtractCommand : DCommand {
     } else if (arguments.hasOption("plugin")) {
       _output = Plugin.path(
         plugin)
-        ~ "resources" ~ DIRECTORY_SEPARATOR
-        ~ "locales" ~ DIRECTORY_SEPARATOR;
+        ~ "resources" ~ DIR_SEPARATOR
+        ~ "locales" ~ DIR_SEPARATOR;
     } else {
       message = "What is the path you would like to output?\n[Q]uit";
       localePaths = App.path("locales");
       if (!localePaths) {
-        localePaths ~= ROOT ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales";
+        localePaths ~= ROOT ~ "resources" ~ DIR_SEPARATOR ~ "locales";
       }
       while (true) {
         response = console.ask(
@@ -157,7 +164,7 @@ class DI18nExtractCommand : DCommand {
           return false;
         }
         if (_isPathUsable(response)) {
-          _output = response ~ DIRECTORY_SEPARATOR;
+          _output = response ~ DIR_SEPARATOR;
           break;
         }
         console.writeErrorMessages("");
@@ -184,7 +191,7 @@ class DI18nExtractCommand : DCommand {
     if (_fileNames.isEmpty) {
       _searchFiles();
     }
-    _output = stripRight(_output, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+    _output = stripRight(_output, DIR_SEPARATOR) ~ DIR_SEPARATOR;
     if (!_isPathUsable(_output)) {
       console.writeErrorMessages(
         "The output directory `%s` was not found or writable.".format(_output));
@@ -407,7 +414,7 @@ class DI18nExtractCommand : DCommand {
   // Build the translate template file contents out of obtained strings
   protected void _buildFiles(Json[string] consoleArguments) {
     auto somePaths = _paths;
-    /* somePaths ~= realpath(APP) ~ DIRECTORY_SEPARATOR; */
+    /* somePaths ~= realpath(APP) ~ DIR_SEPARATOR; */
 
     /* usort(somePaths, auto (string aa, string ab) {
             return a.length - b.length;
@@ -429,7 +436,7 @@ class DI18nExtractCommand : DCommand {
                         auto occurrences = occurrences.join("\n#: ");
 
                         aHeader = "#: " ~ 
-                            occurrences.replace(DIRECTORY_SEPARATOR, "/") ~ 
+                            occurrences.replace(DIR_SEPARATOR, "/") ~ 
                             "\n";
                     }
                     
@@ -447,8 +454,8 @@ class DI18nExtractCommand : DCommand {
                         "msgstr[1] \"\"\n\n";
 
                     domain != "default" && _merge 
-                        ? _store("default",  aHeader, sentence)
-                        : _store(domain,  aHeader, sentence);
+                        ? _store("default", aHeader, sentence)
+                        : _store(domain, aHeader, sentence);
                 });
             }
         }; */
@@ -637,8 +644,8 @@ class DI18nExtractCommand : DCommand {
         if (!_exclude.isEmpty) {
             exclude = null;
             foreach (anException; _exclude) {
-                if (DIRECTORY_SEPARATOR != "\\" &&  anException[0] != DIRECTORY_SEPARATOR) {
-                     anException = DIRECTORY_SEPARATOR ~  anException;
+                if (DIR_SEPARATOR != "\\" &&  anException[0] != DIR_SEPARATOR) {
+                     anException = DIR_SEPARATOR ~  anException;
                 }
                 exclude ~= preg_quote(anException, "/");
             }
@@ -649,7 +656,7 @@ class DI18nExtractCommand : DCommand {
             if (somePath == false) {
                 continue;
             }
-            somePath ~= DIRECTORY_SEPARATOR;
+            somePath ~= DIR_SEPARATOR;
             
             auto fs = new DFilesystem();
             files = fs.findRecursive(somePath, "/\.d$/");
