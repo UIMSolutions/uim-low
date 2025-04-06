@@ -24,8 +24,8 @@ class DJsonLogFormatter : DLogFormatter {
     }
 
     configuration
-      .setDefault("dateFormat", "DATE_ATOM")
-      .setDefault("appendNewline", true);
+      .setEntry("dateFormat", "DATE_ATOM")
+      .setEntry("appendNewline", true);
 
     return true;
   }
@@ -33,11 +33,11 @@ class DJsonLogFormatter : DLogFormatter {
     override string format(LogLevels logLevel, string logMessage, Json[string] logData = null) {
     Json[string] log;
         log
-      // .set("date", uim.core.datatypes.datetime.toString(nowDateTime, configuration.getString("dateFormat"))) 
+      // .set("date", uim.core.datatypes.datetime.toString(nowDateTime, configuration.getStringEntry("dateFormat"))) 
       // .set("level", to!string(logLevel))
       .set("message", logMessage);
 
-    return log.toString ~ configuration.hasKey("appendNewline") ? "\n" : "";
+    return log.toString ~ configuration.hasEntry("appendNewline") ? "\n" : "";
   }
 }
 mixin(LogFormatterCalls!("Json"));

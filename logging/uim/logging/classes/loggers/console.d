@@ -21,25 +21,25 @@ class DConsoleLogger : DLogger {
 
     writeln("StandardLogFormatter.classname -> ", StandardLogFormatter.classname);
     configuration
-      .setDefault("stream", "d://stderr") // `stream` the path to save logs on.
-      .setDefault("levels", Json(null)) // `levels` string or array, levels the engine is interested in
-      .setDefault("scopes", Json.emptyArray) // `scopes` string or array, scopes the engine is interested in
-      .setDefault("outputAs", Json(null)) // `outputAs` integer or ConsoleOutput.[RAW|PLAIN|COLOR]
-      /* .setDefault("formatter", createMap!(string, Json)
+      .setEntry("stream", "d://stderr") // `stream` the path to save logs on.
+      .setEntry("levels", Json(null)) // `levels` string or array, levels the engine is interested in
+      .setEntry("scopes", Json.emptyArray) // `scopes` string or array, scopes the engine is interested in
+      .setEntry("outputAs", Json(null)) // `outputAs` integer or ConsoleOutput.[RAW|PLAIN|COLOR]
+      /* .setEntry("formatter", createMap!(string, Json)
           .set("classname", StandardLogFormatter.className)
           .set("includeTags", true)) */
       ;
     // `dateFormat` UIM date() format.
 
-    /* if (cast(DConsoleOutput) configuration.get("stream")) {
-      _output = configuration.get("stream");
-    } else if (configuration.isString("stream")) {
-      _output = new DConsoleOutput(configuration.get("stream"));
+    /* if (cast(DConsoleOutput) configuration.getEntry("stream")) {
+      _output = configuration.getEntry("stream");
+    } else if (configuration.isStringEntry("stream")) {
+      _output = new DConsoleOutput(configuration.getEntry("stream"));
     } else {
       throw new DInvalidArgumentException("`stream` not a ConsoleOutput nor string");
     }
-    if (configuration.hasKey("outputAs")) {
-      _output.setOutputAs(configuration.get("outputAs"));
+    if (configuration.hasEntry("outputAs")) {
+      _output.setOutputAs(configuration.getEntry("outputAs"));
     } */
 
     return true;

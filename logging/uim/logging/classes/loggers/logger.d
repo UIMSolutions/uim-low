@@ -17,26 +17,26 @@ version (test_uim_logging) {
 class DLogger : UIMObject, ILogger {
   mixin(LoggerThis!());
 
-  override bool initialize(Json[string] options = null) {
+  override bool initialize(Json[string] options = new Json[string]) {
     if (!super.initialize(options)) {
       return false;
     }
 
     configuration
-      .setDefault("levels", Json.emptyArray)
-      .setDefault("scopes", Json.emptyArray)
-      .setDefault("formatter.classname", StandardLogFormatter.classname);
+      .setEntry("levels", Json.emptyArray)
+      .setEntry("scopes", Json.emptyArray)
+      .setEntry("formatter.classname", StandardLogFormatter.classname);
 
     if (options.hasKey("scopes")) {
-      configuration.set("scopes", options.getArray("scopes"));
+      configuration.setEntry("scopes", options.getArray("scopes"));
     }
-    configuration.set("levels", options.getArray("levels"));
+    configuration.setEntry("levels", options.getArray("levels"));
   
-    if (options.hasKey("types") && configuration.isEmpty("levels")) {
-      configuration.set("levels", options.getArray("types"));
+    if (options.hasKey("types") && configuration.isEmptyEntry("levels")) {
+      configuration.setEntry("levels", options.getArray("types"));
     }
 
-    _formatter = LogFormatterFactory.create(configuration.getString("formatter.classname"));
+    _formatter = LogFormatterFactory.create(configuration.getStringEntry("formatter.classname"));
 
     return true;
   }
@@ -54,12 +54,12 @@ class DLogger : UIMObject, ILogger {
 
     // Get the levels this logger is interested in.
   string[] levels() {
-    return configuration.getStringArray("levels");
+    return configuration.getArrayEntry("levels").map!(x => x.toString).array;
   }
 
   // Get the scopes this logger is interested in.
   string[] scopes() {
-    return configuration.getStringArray("scopes");
+    return configuration.getArrayEntry("scopes").map!(x => x.toString).array;
   }
 
  // Replaces placeholders in message string with logContext values.

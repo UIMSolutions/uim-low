@@ -44,33 +44,33 @@ class DFileLogger : DLogger {
      *
      */
      configuration
-      .setDefault("path", Json(null))
-      .setDefault("file", Json(null))
-      .setDefault("types", Json(null))
-      .setDefault("mask", Json(null));
+      .setEntry("path", Json(null))
+      .setEntry("file", Json(null))
+      .setEntry("types", Json(null))
+      .setEntry("mask", Json(null));
 /*     configuration
-      .setDefault(["path", "file", "types", "mask"], Json(null))
-      .setDefault(["levels", "scopes"], Json.emptyArray)
-      .setDefault("rotate", 10)
-      .setDefault("size", 10_485_760) */ // 10M)
-      // .setDefault("dirMask", 0770)
-      /* .setDefault("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
+      .setEntry(["path", "file", "types", "mask"], Json(null))
+      .setEntry(["levels", "scopes"], Json.emptyArray)
+      .setEntry("rotate", 10)
+      .setEntry("size", 10_485_760) */ // 10M)
+      // .setEntry("dirMask", 0770)
+      /* .setEntry("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
           .classname)) *//* ; */
 
-    /* auto _path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
+    /* auto _path = configuration.getStringEntry("path", sys_get_temp_dir() ~ DIR_SEPARATOR);
         if (!isDir(_path)) {
-            mkdir(_path, configuration.get("dirMask"), true);
+            mkdir(_path, configuration.getEntry("dirMask"), true);
         }
-        if (!configuration.isEmpty("file")) {
-           _fileNamename = configuration.getString("file");
+        if (!configuration.isEmptyEntry("file")) {
+           _fileNamename = configuration.getStringEntry("file");
             if (!_fileNamename.endsWith(".log")) {
                _fileNamename ~= ".log";
             }
         }
-        if (!configuration.isEmpty("size")) {
-            _maxFileSize = isNumeric(configuration.get("size"))
+        if (!configuration.isEmptyEntry("size")) {
+            _maxFileSize = isNumeric(configuration.getEntry("size"))
                 ? configuration.toLong("size")
-                : Text.parseFileSize(configuration.get("size"));
+                : Text.parseFileSize(configuration.getEntry("size"));
         } */
 
     return true;
@@ -100,7 +100,7 @@ class DFileLogger : DLogger {
       return _fileName;
     } else if (logLevel == "error" || logLevel == "warning") {
       return "error.log";
-    } else if (debugTypes.has(logLevel)) {
+    } else if (debugTypes.hasValue(logLevel)) {
       return "debug.log";
     }
     return logLevel ~ ".log";
@@ -137,7 +137,7 @@ class DFileLogger : DLogger {
     }
 
     string filePath = _path ~ filename;
-    Json mask = configuration.get("mask");
+    Json mask = configuration.getEntry("mask");
     /* if (!mask) {
             file_put_contents(filePath, message ~ "\n", FILE_APPEND);
 
@@ -173,7 +173,7 @@ class DFileLogger : DLogger {
             return null;
         } */
 
-    /* size_t rotate = configuration.get("rotate");
+    /* size_t rotate = configuration.getEntry("rotate");
         result = rotate == 0
             ? unlink(logFilepath) : rename(logFilepath, logFilepath ~ "." ~ time()); */
 
