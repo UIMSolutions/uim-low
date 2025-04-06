@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.commands.server;
+module uim.commands.classes.server;
 
 import uim.commands;
 @safe:
@@ -58,14 +58,14 @@ class DServerCommand : DCommand {
             _iniPath = arguments.getString("ini_path");
         }
         // For Windows
-        if (_documentRoot.subString(-1, 1) == DIRECTORY_SEPARATOR) {
+        if (_documentRoot.subString(-1, 1) == DIR_SEPARATOR) {
             _documentRoot = _documentRoot.subString(0, _documentRoot.length - 1);
         }
         /*         if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _documentRoot, m)) {
            _documentRoot = m[1] ~ "\\" ~ m[2];
         }
  * /
-        _iniPath = stripRight(_iniPath, DIRECTORY_SEPARATOR);
+        _iniPath = stripRight(_iniPath, DIR_SEPARATOR);
         /* if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _iniPath, m)) {
            _iniPath = m[1] ~ "\\" ~ m[2];
         }
@@ -73,7 +73,7 @@ class DServerCommand : DCommand {
             writeln();
             writeln("<info>Welcome to UIM %s Console</info>".format("v" ~ Configure.currentVersion()));
             hr();
-            writeln("App : %s".format(configuration.get("App.dir")));
+            writeln("App : %s".format(configuration.getEntry("App.dir")));
             writeln("Path: %s".format(APP));
             writeln("DocumentRoot: %s".format(_documentRoot));
             writeln("Ini Path: %s".format(_iniPath));
