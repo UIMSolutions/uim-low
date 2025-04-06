@@ -41,17 +41,17 @@ class DRedisCacheEngine : DCacheEngine {
         } 
 
         configuration
-            .setDefault("database", 0)
-            .setDefault("duration", 3600)
-            .setDefault("groups", Json.emptyArray)
-            .setDefault("persistent", true)
-            .setDefault("port", 6379)
-            .setDefault("prefix", "uim_")
-            .setDefault("host", Json(null))
-            .setDefault("server", "127.0.0.1")
-            .setDefault("timeout", 0)
-            .setDefault(["password", "unix_socket"], false)
-            .setDefault("scanCount", 10);
+            .setEntry("database", 0)
+            .setEntry("duration", 3600)
+            .setEntry("groups", Json.emptyArray)
+            .setEntry("persistent", true)
+            .setEntry("port", 6379)
+            .setEntry("prefix", "uim_")
+            .setEntry("host", Json(null))
+            .setEntry("server", "127.0.0.1")
+            .setEntry("timeout", 0)
+            .setEntry(["password", "unix_socket"], false)
+            .setEntry("scanCount", 10);
 
         return true;
         // TODO return _connect();
@@ -66,20 +66,20 @@ class DRedisCacheEngine : DCacheEngine {
         // TODO
         /* try {
             _redis = new DRedis();
-            if (!configuration.isEmpty("unix_socket")) {
-                result = _redis.connect(configuration.get("unix_socket"));
-            } else if (configuration.isEmpty("persistent")) {
+            if (!configuration.isEmptyEntry("unix_socket")) {
+                result = _redis.connect(configuration.getEntry("unix_socket"));
+            } else if (configuration.isEmptyEntry("persistent")) {
                 result = _redis.connect(
-                    configuration.get("server"),
-                    configuration.getLong("port"),
-                    configuration.getLong("timeout")
+                    configuration.getEntry("server"),
+                    configuration.getLongEntry("port"),
+                    configuration.getLongEntry("timeout")
                );
             } else {
-                persistentId = configuration.getString("port") ~ configuration.getString("timeout") ~ configuration.getString("database");
+                persistentId = configuration.getStringEntry("port") ~ configuration.getStringEntry("timeout") ~ configuration.getStringEntry("database");
                 result = _redis.pconnect(
-                    configuration.get("server"),
-                    configuration.getLong("port"),
-                    configuration.getLong("timeout"),
+                    configuration.getEntry("server"),
+                    configuration.getLongEntry("port"),
+                    configuration.getLongEntry("timeout"),
                     persistentId
                );
             }
@@ -89,17 +89,17 @@ class DRedisCacheEngine : DCacheEngine {
             }
             return false;
         }
-        if (result && configuration.hasKey("password")) {
-            result = _redis.auth(configuration.getString("password"));
+        if (result && configuration.hasEntry("password")) {
+            result = _redis.auth(configuration.getStringEntry("password"));
         }
         if (result) {
-            result = _redis.select(configuration.getLong("database"));
+            result = _redis.select(configuration.getLongEntry("database"));
         } */
         return result;
     }
     
     // Write data for key into cache.
-    override bool updateKey(string key, Json dataToCache, long timeToLive = 0) {
+    override bool updateKey(string key, Json dataToCache) {
         auto internKey = internalcorrectKey(key);
         auto serializedData = serialize(dataToCache);
 
@@ -121,32 +121,33 @@ class DRedisCacheEngine : DCacheEngine {
     // Increments the value of an integer cached key & update the expiry time
     override long increment(string key, int incOffset = 1) {
         auto aKey = internalKey(itemKey);
-        auto aDuration = configuration.getLong("duration");
+        auto aDuration = configuration.getLongEntry("duration");
 
         /* 
         auto aValue = _redis.incrBy(aKey, incOffset);
         if (aDuration > 0) {
-           _redis.expire(aKey,  aDuration);
+           _redis.expire(aKey, aDuration);
         } */
         return 0; // aValue;
     }
     
     // Decrements the value of an integer cached key & update the expiry time
     override long decrement(string itemKey, int decValue = 1) {
-        auto aDuration = configuration.get("duration");
+        auto aDuration = configuration.getEntry("duration");
         auto aKey = internalKey(itemKey);
 
         auto aValue = _redis.decrBy(aKey,  decValue);
         if (aDuration > 0) {
-           _redis.expire(aKey,  aDuration);
+           _redis.expire(aKey, aDuration);
         }
         return aValue;
     }
     
     // Delete a key from the cache
-    override bool removeKey(string key) {
+    override ICacheEngine removeKey(string key) {
         auto key = internalKey(dataIdentifier);
-        return _redis.del(key) > 0;
+        _redis.del(key);
+        return this;
     }
     
     /**
@@ -165,10 +166,10 @@ class DRedisCacheEngine : DCacheEngine {
         // TODO
         /* override bool isAllDeleted = true;
         auto anIterator = null;
-        auto somePattern = configuration.getString("prefix") ~ "*";
+        auto somePattern = configuration.getStringEntry("prefix") ~ "*";
 
         while (true) {
-            auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getLong("scanCount"));
+            auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getLongEntry("scanCount"));
 
             if (someKeys == false) {
                 break;
@@ -194,9 +195,9 @@ class DRedisCacheEngine : DCacheEngine {
 
         override bool isAllDeleted = true;
         auto anIterator = null;
-        string somePattern = configuration.getString("prefix") ~ "*";
+        string somePattern = configuration.getStringEntry("prefix") ~ "*";
         while (true) {
-            auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getLong("scanCount"));
+            auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getLongEntry("scanCount"));
 
             if (someKeys == false) {
                 break;
@@ -214,7 +215,7 @@ class DRedisCacheEngine : DCacheEngine {
      * If it already exists, it fails and returns false.
      */
     override bool add(string dataId, Json dataToCache) {
-        auto aDuration = configuration.get("duration");
+        auto aDuration = configuration.getEntry("duration");
         auto aKey = internalKey(dataId);
         auto aValue = serialize(dataToCache);
 
@@ -227,11 +228,11 @@ class DRedisCacheEngine : DCacheEngine {
      */
     override string[] groups() {
         string[] result;
-        configuration.get("groups").each!((group) {
-            auto aValue = _redis.get(configuration.getString("prefix") ~  group);
+        configuration.getEntry("groups").each!((group) {
+            auto aValue = _redis.get(configuration.getStringEntry("prefix") ~  group);
             if (!aValue) {
                 aValue = serialize(1);
-               _redis.set(configuration.getString("prefix") ~  group, aValue);
+               _redis.set(configuration.getStringEntry("prefix") ~  group, aValue);
             }
             result ~= anGroup ~ aValue;
         });
@@ -244,7 +245,7 @@ class DRedisCacheEngine : DCacheEngine {
      * old values will remain in storage until they expire.
     */
     override bool clearGroup(string groupName) {
-        return /* (bool) */_redis.incr(configuration.getString("prefix") ~  groupName);
+        return /* (bool) */_redis.incr(configuration.getStringEntry("prefix") ~  groupName);
     }
     
     /**
@@ -270,7 +271,7 @@ class DRedisCacheEngine : DCacheEngine {
     
     // Disconnects from the redis server
     auto close() {
-        if (configuration.isEmpty("persistent")) {
+        if (configuration.isEmptyEntry("persistent")) {
            _redis.close();
         }
     }

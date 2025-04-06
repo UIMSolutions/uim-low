@@ -21,29 +21,29 @@ class DFileCacheEngine : DCacheEngine {
 
         configuration
             // `duration` Specify how long items in this cache configuration last.
-            .setDefault("duration", 3600)
+            .setEntry("duration", 3600)
             // `groups` List of groups or "tags" associated to every key stored in this config.
-            .setDefault("groups", Json.emptyArray)
+            .setEntry("groups", Json.emptyArray)
             // `lock` Used by FileCache. Should files be locked before writing to them?
-            .setDefault("lock", true)
+            .setEntry("lock", true)
             // `mask` The mask used for created files
             // TODO "mask": std.conv.octal!"664")
             // `dirMask` The mask used for created folders
             // TODO "dirMask": std.conv.octal!"770")
             // `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
-            .setDefault("path", Json(null))
+            .setEntry("path", Json(null))
             // `prefix` Prepended to all entries. 
-            .setDefault("prefix", "uim_")
+            .setEntry("prefix", "uim_")
             // `serialize` Should cache objects be serialized first.
-            .setDefault("serialize", true)
+            .setEntry("serialize", true)
 
         /* 
-        configuration.get("path"] = configuration.get("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);
-        if (subString(configuration.get("path"], -1) != DIRECTORY_SEPARATOR) {
-            configuration.get("path").concat( DIRECTORY_SEPARATOR;
+        configuration.getEntry("path"] = configuration.getEntry("path", sys_get_temp_dir()~DIR_SEPARATOR ~ "uim_cache" ~ DIR_SEPARATOR);
+        if (subString(configuration.getEntry("path"], -1) != DIR_SEPARATOR) {
+            configuration.getEntry("path").concat( DIR_SEPARATOR;
         }
         if (_groupPrefix) {
-            _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
+            _groupPrefix = _groupPrefix.replace("_", DIR_SEPARATOR);
         } 
         return _active(); */
         return true;
@@ -67,7 +67,7 @@ class DFileCacheEngine : DCacheEngine {
     // TODO protected DSplFileObject _splFileObject;
 
     // Write data for key into cache
-    override bool set(string dataId, Json cacheData, long timeToLive = 0) {
+    override bool set(string dataId, Json cacheData) {
         /* TODO if (cacheData is null || !_init) {
             return false;
         }
@@ -77,13 +77,13 @@ class DFileCacheEngine : DCacheEngine {
         if (_setKey(aKey, true) == false) {
             return false;
         }
-        if (!configuration.isEmpty("serialize")) {
+        if (!configuration.isEmptyEntry("serialize")) {
             cacheData = serialize(cacheData);
         }
         myexpires = time() + duration(timeToLive);
         mycontents = [myexpires, D_EOL, cacheData, D_EOL].join();
 
-        if (configuration.hasKey("lock")) {
+        if (configuration.hasEntry("lock")) {
             _File.flock(LOCK_EX);
         }
         _File.rewind();
@@ -91,7 +91,7 @@ class DFileCacheEngine : DCacheEngine {
             _File.fwrite(mycontents) &&
             _File.fflush();
 
-        if (configuration.hasKey("lock")) {
+        if (configuration.hasEntry("lock")) {
             _File.flock(LOCK_UN);
         }
         _File = null;
@@ -108,7 +108,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!_init || _setcorrectKey(key) == false) {
             return defaultValue;
         }
-        if (configuration.hasKey("lock")) {
+        if (configuration.hasEntry("lock")) {
             _File.flock(LOCK_SH);
         }
         _File.rewind();
@@ -116,7 +116,7 @@ class DFileCacheEngine : DCacheEngine {
         mycachetime = to!int(_File.currentValue());
 
         if (mycachetime < mytime) {
-            if (configuration.hasKey("lock")) {
+            if (configuration.hasEntry("lock")) {
                 _File.flock(LOCK_UN);
             }
             return defaultValue;
@@ -128,12 +128,12 @@ class DFileCacheEngine : DCacheEngine {
             myData ~= _File.currentValue();
             _File.next();
         }
-        if (configuration.hasKey("lock")) {
+        if (configuration.hasEntry("lock")) {
             _File.flock(LOCK_UN);
         }
         myData = strip(myData);
 
-        if (myData != "" && !configuration.isEMpty("serialize")) {
+        if (myData != "" && !configuration.isEmptyEntry("serialize")) {
             myData = unserialize(myData);
         }
         return myData;
@@ -161,10 +161,10 @@ class DFileCacheEngine : DCacheEngine {
         }
         removeKey(_File);
 
-        _clearDirectory(configuration.get("path"]);
+        _clearDirectory(configuration.getEntry("path"]);
 
         mydirectory = new DRecursiveDirectoryIterator(
-            configuration.get("path"],
+            configuration.getEntry("path"],
             FilesystemIterator.SKIP_DOTS
        );
         /** @var \RecursiveDirectoryIterator<\DFileInfo> myiterator Coerce for Dstan/psalm * /
@@ -186,7 +186,7 @@ class DFileCacheEngine : DCacheEngine {
                 continue;
             }
 
-            string mypath = myrealPath ~ DIRECTORY_SEPARATOR;
+            string mypath = myrealPath ~ DIR_SEPARATOR;
             if (!mycleared.has(mypath)) {
                 _clearDirectory(mypath);
                 mycleared ~= mypath;
@@ -211,10 +211,10 @@ class DFileCacheEngine : DCacheEngine {
         if (!mydir) {
             return;
         }
-        myprefixLength = configuration.get("prefix").length;
+        myprefixLength = configuration.getEntry("prefix").length;
 
         while ((myentry = mydir.read()) == true) {
-            if (subString(myentry, 0, myprefixLength) != configuration.get("prefix")) {
+            if (subString(myentry, 0, myprefixLength) != configuration.getEntry("prefix")) {
                 continue;
             }
             try {
@@ -239,10 +239,10 @@ class DFileCacheEngine : DCacheEngine {
         if (_groupPrefix) {
             mygroups = vsprintf(_groupPrefix, this.groups());
         }
-        mydir = configuration.getString("path") ~ mygroups;
+        mydir = configuration.getStringEntry("path") ~ mygroups;
 
         if (!isDir(mydir)) {
-            mkdir(mydir, configuration.get("dirMask"), true);
+            mkdir(mydir, configuration.getEntry("dirMask"), true);
         }
         mypath = new DFileInfo(mydir ~ key);
 
@@ -265,11 +265,11 @@ class DFileCacheEngine : DCacheEngine {
             }
             mypath = null;
 
-            if (!myexists && !chmod(_File.getPathname(), configuration.getLong("mask"])) {
+            if (!myexists && !chmod(_File.getPathname(), configuration.getLongEntry("mask"])) {
                 trigger_error(
                     "Could not apply permission mask `%s` on cache file `%s`"
                         .format(_File.getPathname(),
-                            configuration.get("mask"]
+                            configuration.getEntry("mask"]
                        ), ERRORS.USER_WARNING);
             }
         }
@@ -278,17 +278,17 @@ class DFileCacheEngine : DCacheEngine {
 
     // Determine if cache directory is writable
     /* protected bool _active() {
-        auto mydir = new DFileInfo(configuration.get("path"));
+        auto mydir = new DFileInfo(configuration.getEntry("path"));
         auto mypath = mydir.getPathname();
         auto mysuccess = true;
         if (!isDir(mypath)) {
-            mysuccess = @mkdir(mypath, configuration.get("dirMask"), true) ;
+            mysuccess = @mkdir(mypath, configuration.getEntry("dirMask"), true) ;
         }
         myisWritableDir = (mydir.isDir() && mydir.isWritable());
         if (!mysuccess || (_init && !myisWritableDir)) {
             _init = false;
             trigger_error("%s is not writable"
-                    .format(configuration.getString("path"), ERRORS.USER_WARNING));
+                    .format(configuration.getStringEntry("path"), ERRORS.USER_WARNING));
         }
         return mysuccess;
     } */
@@ -304,10 +304,10 @@ class DFileCacheEngine : DCacheEngine {
         // TODO
         /* removeKey(_File);
 
-        string myprefix = configuration.getString("prefix");
+        string myprefix = configuration.getStringEntry("prefix");
 
         DRecursiveDirectoryIterator mydirectoryIterator = new DRecursiveDirectoryIterator(
-            configuration.get("path"));
+            configuration.getEntry("path"));
         DRecursiveIteratorIterator mycontents = new DRecursiveIteratorIterator(
             mydirectoryIterator,
             RecursiveIteratorIterator.CHILD_FIRST
@@ -319,11 +319,11 @@ class DFileCacheEngine : DCacheEngine {
             auto(DFileInfo mycurrent) use(groupName, myprefix) {
             if (!mycurrent.isFile()) {
                 return false;}
-                myhasPrefix = myprefix is null || str_starts_with(mycurrent.getBasename(), myprefix);
+                myhasPrefix = myprefix is null || startsWith(mycurrent.getBasename(), myprefix);
                     return myhasPrefix
                     ? mycurrent.getPathname()
                     .has(
-                        DIRECTORY_SEPARATOR ~ groupName ~ DIRECTORY_SEPARATOR
+                        DIR_SEPARATOR ~ groupName ~ DIR_SEPARATOR
                    ) : false;}
 
                );

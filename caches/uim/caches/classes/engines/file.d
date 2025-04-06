@@ -17,97 +17,83 @@ import uim.caches;
  * You can configure a FileEngine cache, using Cache.config()
  */
 class DFileCacheEngine : DCacheEngine {
-    mixin(CacheEngineThis!("File"));
+  mixin(CacheEngineThis!("File"));
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-        configuration
-            .setDefault("duration", 3600) // `duration` Specify how long items in this cache configuration last.
-            .setDefault("groups", Json.emptyArray) // `groups` List of groups or "tags" associated to every key stored in this config.
-            .setDefault("lock", true) // `lock` Used by FileCache. Should files be locked before writing to them?
-            .setDefault("mask", std.conv.octal!"664") // `mask` The mask used for created files
-            .setDefault("dirMask", std.conv.octal!"770") // `dirMask` The mask used for created folders
-            .setDefault("path", Json(null)) // `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
-            .setDefault("prefix", "uim_") // `prefix` Prepended to all entries. 
-            .setDefault("serialize", true); // `serialize` Should cache objects be serialized first.
+    configuration
+      .setEntry("duration", 3600) // `duration` Specify how long items in this cache configuration last.
+      .setEntry("groups", Json.emptyArray) // `groups` List of groups or "tags" associated to every key stored in this config.
+      .setEntry("lock", true) // `lock` Used by FileCache. Should files be locked before writing to them?
+      .setEntry("mask", std.conv.octal!"664") // `mask` The mask used for created files
+      .setEntry("dirMask", std.conv.octal!"770") // `dirMask` The mask used for created folders
+      .setEntry("path", Json(null)) // `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
+      .setEntry("prefix", "uim_") // `prefix` Prepended to all entries. 
+      .setEntry("serialize", true); // `serialize` Should cache objects be serialized first.
 
-        /* 
-        string path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);
-        configuration.set("path", path.subString(-1) != DIRECTORY_SEPARATOR
-            ? path ~ DIRECTORY_SEPARATOR
+    /* 
+        string path = configuration.getStringEntry("path", sys_get_temp_dir() ~ DIR_SEPARATOR ~ "uim_cache" ~ DIR_SEPARATOR);
+        configuration.setEntry("path", path.subString(-1) != DIR_SEPARATOR
+            ? path ~ DIR_SEPARATOR
             : path;
 
         if (_groupPrefix) {
-            _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
+            _groupPrefix = _groupPrefix.replace("_", DIR_SEPARATOR);
         } 
         return _active(); */
-        return true;
+    return true;
+  }
+
+  override ICacheEngine entries(Json[string] newEntries) {
+    // TODO 
+    return this;
+  }
+  override Json[string] entries() {
+    return null;
+  }
+
+  // #region keys
+  override string[] keys() {
+    return entries.keys;
+  }
+  // #endregion keys
+
+  // #region groupName
+  protected string _groupName;
+  override ICacheEngine groupName(string name) {
+    _groupName = name;
+    return this;
+  }
+
+  override string groupName() {
+    if (_groupName.isEmpty) {
+      _groupName = configuration.getStringEntry("prefix");
     }
+    return _groupName;
+  }
+  // #endregion groupName
 
-/*     override long decrement(string itemKey, int decValue = 1) {
-        // TODO throw new DLogicException("Files cannot be atomically decremented.");
-        return 0;
-    }
+  // #region has
+  override bool hasEntry(string key) {
+    // return _entries.hasKey(key);
+    return false;
+  }
+  // #endregion has
 
-    override long increment(string itemKey, int incValue = 1) {
-        // TODO 
-        // throw new DLogicException("Files cannot be atomically incremented.");
-        return 0;
-    }
- */
-    // True unless FileEngine.__active(); fails
-    protected bool _init = true;
+  // #region get
+  override Json getEntry(string key) {
+    // return _entries.get(key, Json(null));
 
-    // Instance of SplFileObject class
-    // TODO protected DSplFileObject _splFileObject;
-
-    // Write data for key into cache
-    /* override */
-    bool set(string dataId, Json cacheData, long timeToLive = 0) {
-        /* TODO if (cacheData is null || !_init) {
-            return false;
-        }
-
-        auto aKey = internalKey(dataId);
-
-        if (_setKey(aKey, true) == false) {
-            return false;
-        }
-        if (!configuration.isEmpty("serialize")) {
-            cacheData = serialize(cacheData);
-        }
-        myexpires = time() + duration(timeToLive);
-        mycontents = [myexpires, D_EOL, cacheData, D_EOL].join();
-
-        if (configuration.hasKey("lock")) {
-            _File.flock(LOCK_EX);
-        }
-        _File.rewind();
-        mysuccess = _File.ftruncate(0) &&
-            _File.fwrite(mycontents) &&
-            _File.fflush();
-
-        if (configuration.hasKey("lock")) {
-            _File.flock(LOCK_UN);
-        }
-        _File = null;
-
-        return mysuccess; */
-        return false;
-    }
-
-    /* 
-    // Read a key from the cache
-    Json get(string dataId, Json defaultValue = Json(null)) {
+    /*
         auto key = internalKey(dataId);
 
         if (!_init || _setcorrectKey(key) == false) {
             return defaultValue;
         }
-        if (configuration.hasKey("lock")) {
+        if (configuration.hasEntry("lock")) {
             _File.flock(LOCK_SH);
         }
         _File.rewind();
@@ -115,7 +101,7 @@ class DFileCacheEngine : DCacheEngine {
         auto mycachetime = to!int(_File.currentValue());
 
         if (mycachetime < mytime) {
-            if (configuration.hasKey("lock")) {
+            if (configuration.hasEntry("lock")) {
                 _File.flock(LOCK_UN);
             }
             return defaultValue;
@@ -127,20 +113,65 @@ class DFileCacheEngine : DCacheEngine {
             myData ~= _File.currentValue();
             _File.next();
         }
-        if (configuration.hasKey("lock")) {
+        if (configuration.hasEntry("lock")) {
             _File.flock(LOCK_UN);
         }
         myData = myData.strip;
 
-        if (myData != "" && !configuration.isEMpty("serialize")) {
+        if (myData != "" && !configuration.isEmptyEntry("serialize")) {
             myData = unserialize(myData);
         }
         return myData;
-    }
+    */
+    
+    return Json(null);
+  }
+  // #endregion get
 
-    // Delete a key from the cache
-    override bool removeKey(string dataId) {
-        auto key = internalKey(dataId);
+  // #region set
+  override ICacheEngine setEntry(string key, Json value) {
+    // TODO _entries[key] = value;
+
+    /* 
+      if (cacheData is null || !_init) {
+            return false;
+        }
+
+        auto aKey = internalKey(dataId);
+
+        if (_setKey(aKey, true) == false) {
+            return false;
+        }
+        if (!configuration.isEmptyEntry("serialize")) {
+            cacheData = serialize(cacheData);
+        }
+        myexpires = time() + duration(timeToLive);
+        mycontents = [myexpires, D_EOL, cacheData, D_EOL].join();
+
+        if (configuration.hasEntry("lock")) {
+            _File.flock(LOCK_EX);
+        }
+        _File.rewind();
+        mysuccess = _File.ftruncate(0) &&
+            _File.fwrite(mycontents) &&
+            _File.fflush();
+
+        if (configuration.hasEntry("lock")) {
+            _File.flock(LOCK_UN);
+        }
+        _File = null;
+
+        return mysuccess;
+    */
+    return this;
+  }
+  // #endregion set
+
+  // #region remove
+  override ICacheEngine removeEntry(string key) {
+    // TODO _entries.removeKey(key);
+
+    /* auto key = internalKey(dataId);
 
         if (_setcorrectKey(key) == false || !_init) {
             return false;
@@ -151,7 +182,30 @@ class DFileCacheEngine : DCacheEngine {
         return mypath.isEmpty
             ? false
             : @unlink(mypath) ;
-    }
+     */
+    return this;
+  }
+  // #endregion remove
+
+  override long decrement(string itemKey, int decValue = 1) {
+    // TODO throw new DLogicException("Files cannot be atomically decremented.");
+    return 0;
+  }
+
+  override long increment(string itemKey, int incValue = 1) {
+    // TODO 
+    // throw new DLogicException("Files cannot be atomically incremented.");
+    return 0;
+  }
+
+  // True unless FileEngine.__active(); fails
+  protected bool _init = true;
+
+  // Instance of SplFileObject class
+  // TODO protected DSplFileObject _splFileObject;
+
+
+  /* 
 
     // Delete all values from the cache
     bool clear() {
@@ -160,10 +214,10 @@ class DFileCacheEngine : DCacheEngine {
         }
         removeKey(_File);
 
-        _clearDirectory(configuration.get("path"]);
+        _clearDirectory(configuration.getEntry("path"]);
 
         mydirectory = new DRecursiveDirectoryIterator(
-            configuration.get("path"],
+            configuration.getEntry("path"],
             FilesystemIterator.SKIP_DOTS
        );
         /** @var \RecursiveDirectoryIterator<\DFileInfo> myiterator Coerce for Dstan/psalm * /
@@ -185,7 +239,7 @@ class DFileCacheEngine : DCacheEngine {
                 continue;
             }
 
-            string mypath = myrealPath ~ DIRECTORY_SEPARATOR;
+            string mypath = myrealPath ~ DIR_SEPARATOR;
             if (!mycleared.has(mypath)) {
                 _clearDirectory(mypath);
                 mycleared ~= mypath;
@@ -210,10 +264,10 @@ class DFileCacheEngine : DCacheEngine {
         if (!mydir) {
             return;
         }
-        myprefixLength = configuration.get("prefix").length;
+        myprefixLength = configuration.getEntry("prefix").length;
 
         while ((myentry = mydir.read()) == true) {
-            if (subString(myentry, 0, myprefixLength) != configuration.get("prefix")) {
+            if (subString(myentry, 0, myprefixLength) != configuration.getEntry("prefix")) {
                 continue;
             }
             try {
@@ -233,15 +287,15 @@ class DFileCacheEngine : DCacheEngine {
      * Sets the current cache key this class is managing, and creates a writable SplFileObject
      * for the cache file the key is referring to.
      */
-    /* protected bool _setKey(string key, bool createKeyIfNotExists = false) {
+  /* protected bool _setKey(string key, bool createKeyIfNotExists = false) {
         mygroups = null;
         if (_groupPrefix) {
             mygroups = vsprintf(_groupPrefix, this.groups());
         }
-        mydir = configuration.getString("path") ~ mygroups;
+        mydir = configuration.getStringEntry("path") ~ mygroups;
 
         if (!isDir(mydir)) {
-            mkdir(mydir, configuration.get("dirMask"), true);
+            mkdir(mydir, configuration.getEntry("dirMask"), true);
         }
         mypath = new DFileInfo(mydir ~ key);
 
@@ -264,50 +318,52 @@ class DFileCacheEngine : DCacheEngine {
             }
             mypath = null;
 
-            if (!myexists && !chmod(_File.getPathname(), configuration.getLong("mask"])) {
+            if (!myexists && !chmod(_File.getPathname(), configuration.getLongEntry("mask"])) {
                 trigger_error(
                     "Could not apply permission mask `%s` on cache file `%s`"
                         .format(_File.getPathname(),
-                            configuration.get("mask"]
+                            configuration.getEntry("mask"]
                        ), ERRORS.USER_WARNING);
             }
         }
         return true;
     } */
 
-    // Determine if cache directory is writable
-    /* protected bool _active() {
-        mydir = new DFileInfo(configuration.get("path"]);
+  // Determine if cache directory is writable
+  /* protected bool _active() {
+        mydir = new DFileInfo(configuration.getEntry("path"]);
         mypath = mydir.getPathname();
         mysuccess = true;
         if (!isDir(mypath)) {
-            mysuccess = @mkdir(mypath, configuration.get("dirMask"], true) ;
+            mysuccess = @mkdir(mypath, configuration.getEntry("dirMask"], true) ;
         }
         myisWritableDir = (mydir.isDir() && mydir.isWritable());
         if (!mysuccess || (_init && !myisWritableDir)) {
             _init = false;
             trigger_error("%s is not writable"
-                    .format(configuration.get("path"]
+                    .format(configuration.getEntry("path"]
                    ), ERRORS.USER_WARNING);
         }
         return mysuccess;
     } */
 
-    /* override */ protected string internalKey(string key) {
-        // auto newKey = super.internalcorrectKey(key);
-        /* return rawUrlEncode(newKey); */
-        return null;
-    }
+  /* override */
+  protected string internalKey(string key) {
+    // auto newKey = super.internalcorrectKey(key);
+    /* return rawUrlEncode(newKey); */
+    return null;
+  }
 
-    // Recursively deletes all files under any directory named as mygroup
-    /* override */ bool clearGroup(string groupName) {
-        // TODO
-        /* removeKey(_File);
+  // Recursively deletes all files under any directory named as mygroup
+  override ICacheEngine clearGroup(string groupName) {
+    string prefix = configuration.getStringEntry("prefix");
+    string path = configuration.getStringEntry("path");
 
-        string myprefix = configuration.getString("prefix");
+    // TODO
+    /* removeKey(_File);
 
-        DRecursiveDirectoryIterator mydirectoryIterator = new DRecursiveDirectoryIterator(
-            configuration.get("path"));
+
+        DRecursiveDirectoryIterator mydirectoryIterator = new DRecursiveDirectoryIterator(            "path"));
         DRecursiveIteratorIterator mycontents = new DRecursiveIteratorIterator(
             mydirectoryIterator,
             RecursiveIteratorIterator.CHILD_FIRST
@@ -316,16 +372,18 @@ class DFileCacheEngine : DCacheEngine {
         /* 
         DFileInfo[] myfiltered = new DCallbackFilterIterator(
             mycontents,
-            auto(DFileInfo mycurrent) use(groupName, myprefix) {
-            if (!mycurrent.isFile()) {
-                return false;}
-                myhasPrefix = myprefix is null || str_starts_with(mycurrent.getBasename(), myprefix);
+            auto(DFileInfo currentFile) use(groupName, myprefix) {
+            if (!currentFile.isFile()) {
+                return false;
+                }
+                myhasPrefix = myprefix is null || startsWith(currentFile.getBasename(), myprefix);
                     return myhasPrefix
-                    ? mycurrent.getPathname()
+                    ? currentFile.getPathname()
                     .has(
-                        DIRECTORY_SEPARATOR ~ groupName ~ DIRECTORY_SEPARATOR
-                   ) : false;}
-
+                        DIR_SEPARATOR ~ groupName ~ DIR_SEPARATOR
+                    ) 
+                    : false;
+                  }
                );
 
                 myfiltered.each!((obj) {
@@ -338,8 +396,13 @@ class DFileCacheEngine : DCacheEngine {
                 return true;
             }
         } */
-        return false;
-    }
+    return this;
+  }
 }
 
 mixin(CacheEngineCalls!("File"));
+
+unittest {
+  auto engine = new DFileCacheEngine;
+  // TODO
+}

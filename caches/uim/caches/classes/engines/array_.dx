@@ -24,7 +24,7 @@ class DArrayCacheEngine : DCacheEngine {
   }
 
   // Write data for key into cache
-  override bool updateKey(string itemKey, Json dataForCache, long timeToLive = 0) {
+  override bool updateKey(string itemKey, Json dataForCache) {
     Json data = Json.emptyObject;
     data.set("exp", 0); // TODO time() + duration(timeToLive));
     data.set("val", dataForCache);
@@ -94,8 +94,8 @@ class DArrayCacheEngine : DCacheEngine {
 
     // TODO
     /*
-    configuration.get("groups").each!((group) {
-      string key = configuration.getString("prefix") ~ myGroup;
+    configuration.getEntry("groups").each!((group) {
+      string key = configuration.getStringEntry("prefix") ~ myGroup;
       if (!_cachedData.hasKey(key)) {
         _cachedData[aKey] = ["exp": D_INT_MAX, "val": 1];
       }
@@ -114,7 +114,7 @@ class DArrayCacheEngine : DCacheEngine {
      * old values will remain in storage until they expire.
      */
   override bool clearGroup(string groupName) {
-    string key = configuration.get("prefix").toString ~ groupName;
+    string key = configuration.getEntry("prefix").toString ~ groupName;
     // TODO 
     /*   if (_cachedData.hasKey(key)) {
       _cachedData[key]["val"] += 1;
@@ -124,3 +124,5 @@ class DArrayCacheEngine : DCacheEngine {
 }
 
 mixin(CacheEngineCalls!("Array"));
+
+unittest 

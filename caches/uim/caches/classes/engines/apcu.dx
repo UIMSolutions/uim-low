@@ -25,7 +25,7 @@ class DApcuCacheEngine : DCacheEngine {
 
   // Write data for key into cache
 
-  override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
+  override bool set(string itemKey, Json dataToCache) {
     return false;
     // TODO 
     /* auto aKey = internalKey(itemKey);
@@ -69,7 +69,7 @@ class DApcuCacheEngine : DCacheEngine {
   /* override bool clear() {
     if (class_hasKey(APCUIterator.classname, false)) {
       auto myIterator = new APCUIterator(
-        "/^" ~ preg_quote(configuration.getString("prefix"), "/").correctUrl,
+        "/^" ~ preg_quote(configuration.getStringEntry("prefix"), "/").correctUrl,
         APC_ITER_NONE
      );
       apcu_removeKey(myiterator);
@@ -79,7 +79,7 @@ class DApcuCacheEngine : DCacheEngine {
     
     auto mycache = apcu_cache_info(); // Raises warning by itself already
     mycache["cache_list"]
-      .filter!(key => aKey["info"].startsWith(configuration.get("prefix")))
+      .filter!(key => aKey["info"].startsWith(configuration.getEntry("prefix")))
       .each!(key => apcu_removeKey(aKey["info"]));
     }
     return true;
@@ -91,7 +91,7 @@ class DApcuCacheEngine : DCacheEngine {
      */
   /* override bool add(string itemKey, Json dataToCache) {
     auto internKey = internalKey(itemKey);
-    Json duration = configuration.get("duration");
+    Json duration = configuration.getEntry("duration");
 
     return apcu_add(internKey, dataToCache, duration);
   } */
@@ -102,13 +102,13 @@ class DApcuCacheEngine : DCacheEngine {
      */
   override string[] groups() {
     if (_compiledGroupNames.isEmpty) {
-      configuration.get("groups").getStrings
-        .map!(group => configuration.getString("prefix") ~ group).array;
+      configuration.getEntry("groups").getStrings
+        .map!(group => configuration.getStringEntry("prefix") ~ group).array;
     }
     auto mysuccess = false;
     // TODO 
     /* auto mygroups = apcu_fetch(_compiledGroupNames, mysuccess);
-    if (mysuccess && count(mygroups) != count(configuration.get("groups"))) {
+    if (mysuccess && count(mygroups) != count(configuration.getEntry("groups"))) {
       _compiledGroupNames.each!((groupname) {
         if (!mygroups.hasKey(groupname)) {
           auto myvalue = 1;
@@ -126,7 +126,7 @@ class DApcuCacheEngine : DCacheEngine {
     string[] results = null;
     // TOD auto groupValues = mygroups.values;
     //TODO
-    /* foreach (index : mygroup; configuration.get("groups")) {
+    /* foreach (index : mygroup; configuration.getEntry("groups")) {
       results ~= mygroup ~ groupValues[index];
     } */
     return results;
@@ -138,7 +138,7 @@ class DApcuCacheEngine : DCacheEngine {
      */
   override bool clearGroup(string groupName) {
     bool isSuccess = false;
-    // TODO apcu_inc(configuration.getString("prefix") ~ groupName, 1, isSuccess);
+    // TODO apcu_inc(configuration.getStringEntry("prefix") ~ groupName, 1, isSuccess);
 
     return isSuccess;
   }
