@@ -52,16 +52,16 @@ class DErrorTrap : UIMObject {
         * - `trace` - boolean - Whether or not backtraces should be included in logged errors.
         */
     configuration // TODOD "errorLevel": E_ALL,
-    .setDefault("errorRenderer", Json(null))
-      .setDefault("log", true) // TODO "logger": ErrorLogger.classname,
-      .setDefault("trace", false);
+    .setEntry("errorRenderer", Json(null))
+      .setEntry("log", true) // TODO "logger": ErrorLogger.classname,
+      .setEntry("trace", false);
 
     return true;
   }
 
   // Choose an error renderer based on config or the SAPI
   protected string chooseErrorRenderer() {
-    auto errorRendererData = configuration.get("errorRenderer");
+    auto errorRendererData = configuration.getEntry("errorRenderer");
     /*         if (!errorRendererData.isNull) {
             return errorRendererData;
         }
@@ -80,7 +80,7 @@ class DErrorTrap : UIMObject {
      * via error_reporting().
      */
   void register() {
-    auto level = configuration.getLong("errorLevel", -1);
+    auto level = configuration.isLongEntry("errorLevel") ? configuration.getLongEntry("errorLevel") : -1;
     /* error_reporting(level);
         set_error_handler(this.handleError(...), level); */
   }
@@ -113,19 +113,19 @@ class DErrorTrap : UIMObject {
             ]);
         auto error = new DError(errorCode, errorDescription, fileName, errorTriggerLine, trace);
  */
-    /*  auto anIgnoredPaths = configuration.getArray("Error.ignoredDeprecationPaths");
+    /*  auto anIgnoredPaths = configuration.getArrayEntry("Error.ignoredDeprecationPaths");
         if (errorCode == ERRORS.USER_DEPRECATED && anIgnoredPaths) {
             string relativePath = subString(fileName, ROOT.length + 1).replace(
-                DIRECTORY_SEPARATOR, "/");
+                DIR_SEPARATOR, "/");
             foreach (pattern; anIgnoredPaths) {
-                string pattern = pattern.replace(DIRECTORY_SEPARATOR, "/");
+                string pattern = pattern.replace(DIR_SEPARATOR, "/");
                 if (fnmatch(pattern, relativePath)) {
                     return true;
                 }
             }
         } */
 
-    auto debugData = configuration.get("debugData");
+    auto debugData = configuration.getEntry("debugData");
     auto renderer = this.renderer();
     /* try {
             // Log first incase rendering or event listeners fail
@@ -145,15 +145,15 @@ class DErrorTrap : UIMObject {
 
   // Logging helper method.
   protected void logError(IError error) {
-    /*         if (!configuration.hasKey("log")) {
+    /*         if (!configuration.hasEntry("log")) {
             return;
         }
-        logger().logError(error, Router.getRequest(), configuration.get("trace")); */
+        logger().logError(error, Router.getRequest(), configuration.getEntry("trace")); */
   }
 
   // Get an instance of the renderer.
   IErrorRenderer renderer() {
-    /*         string classname = configuration.getString("errorRenderer", chooseErrorRenderer());
+    /*         string classname = configuration.getStringEntry("errorRenderer", chooseErrorRenderer());
 
         return new classname(_config); */
     return null; // TODO
@@ -161,7 +161,7 @@ class DErrorTrap : UIMObject {
 
   // Get an instance of the logger.
   IErrorLogger logger() {
-    /*         string classname = configuration.getString("logger", defaultconfiguration.getString(
+    /*         string classname = configuration.getStringEntry("logger", defaultconfiguration.getStringEntry(
                 "logger"));
         return new classname(_config); */
     return null; // TODO

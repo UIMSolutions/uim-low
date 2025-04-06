@@ -37,6 +37,10 @@ class DArguments {
     return index;
   }
 
+  bool hasIndex(size_t index) {
+    return (index in _names) ? true : false;
+  }
+
   // Get positional arguments by index.
   string argumentAt(size_t index) {
     /* return hasArgumentAt(index) 
@@ -54,20 +58,20 @@ class DArguments {
 
   // Check if a positional argument exists
   bool hasArgumentAt(size_t index) {
-    return _arguments.hasKey(index);
+    return hasIndex(index) ? true : false;
   }
 
   // Check if a positional argument exists by name
   bool hasArgument(string name) {
     size_t index = indexOfName(name);
     return index < 0
-      ? false : arguments.hasKey(index);
+      ? false : hasIndex(index);
   }
 
   // Check if a positional argument exists by name
   string argument(string name) {
     size_t index = indexOfName(name);
-    return index < 0 || !_arguments.hasKey(index)
+    return index < 0 || !hasIndex(index)
       ? null : _arguments[index];
   }
   // #endregion arguments
@@ -77,6 +81,9 @@ class DArguments {
   protected Json[string] _options;
 
   Json[string] options() {
+    if (_options is null) {
+      _options = new Json[string];
+    }
     return _options.dup;
   }
 

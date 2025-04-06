@@ -29,7 +29,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
             return false;
         }
 
-        configuration.setDefault("trace", false); // `trace` = Should error logs include stack traces?        
+        configuration.setEntry("trace", false); // `trace` = Should error logs include stack traces?        
         return true;
     }
 
@@ -44,7 +44,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
         /* label = error.label();
         level = match (label) {
             "strict": LogLevels.trace,
-            "deprecated": LogLevel.debug__,
+            "deprecated": LogLevels.debug__,
             default: label,
         };
 
@@ -75,7 +75,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
                 exceptionToLog.getLine()
            );
 
-        debug = configuration.get("debug");
+        debug = configuration.getEntry("debug");
  */
         /*         if (debug && cast(DException)exceptionToLog) {
             attributes = exceptionToLog.getAttributes();

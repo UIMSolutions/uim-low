@@ -51,7 +51,7 @@ class DConsoleErrorFormatter : DErrorFormatter {
         }
         // Windows environment checks
         if (
-            DIRECTORY_SEPARATOR == "\\" &&
+            DIR_SEPARATOR == "\\" &&
             !D_uname("v").lower.contains("windows 10") &&
             !strtolower((string)enviroment("SHELL")).contains("bash.exe") &&
             !(bool)enviroment("ANSICON") &&
@@ -66,7 +66,7 @@ class DConsoleErrorFormatter : DErrorFormatter {
     string formatWrapper(string contents, Json[string] location) {
         string lineInfo = "";
         if (location.hasAllKeys(["file", "line"])) {
-            lineInfo = "%s (line %s)".format(location["file"], location["line"]);
+            lineInfo = "%s (line %s)".format(location.getString("file"), location.getString("line"));
         }
 
         return [

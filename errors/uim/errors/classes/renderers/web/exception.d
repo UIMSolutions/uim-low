@@ -185,7 +185,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         ];
         
         auto serialize = ["message", "url", "code"];
-        auto isDebug = configuration.get("debug");
+        auto isDebug = configuration.getEntry("debug");
         if (isDebug) {
             trace =/*  (array) * / Debugger.formatTrace(exception.getTrace(), [
                     "format": "array",
@@ -261,7 +261,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     /* string result = exception.message();
 
         if (
-            !configuration.hasKey("debug") &&
+            !configuration.hasEntry("debug") &&
             !(cast(HttpException) exception)
             ) {
             result = code < 500
@@ -279,7 +279,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * \Throwable exception Exception instance.
      */
   protected string templateName(Throwable exception, string methodName, int errorCode) {
-    /* if (cast(HttpException) exception || !configuration.hasKey("debug")) {
+    /* if (cast(HttpException) exception || !configuration.hasEntry("debug")) {
         return _template = errorCode < 500 ? "error400' : 'error500";
     }
 

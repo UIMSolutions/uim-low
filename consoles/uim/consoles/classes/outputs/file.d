@@ -124,7 +124,7 @@ class DFileOutput : DOutput {
     /* 
         if (
             (
-                DIRECTORY_SEPARATOR == "\\" &&
+                DIR_SEPARATOR == "\\" &&
                 !uim_uname("v").lower.contains("windows 10") &&
                 !to!string(enviroment("SHELL")).lower.contains("bash.exe") &&
                 !(bool)enviroment("ANSICON") &&

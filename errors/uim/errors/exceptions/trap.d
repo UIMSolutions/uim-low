@@ -76,20 +76,20 @@ class DExceptionTrap {
     initialize;
   }
 
-  this(Json[string] options = null) {
+  this(Json[string] options = new Json[string]) {
     this();
     _configData = merge(options, _configData);
   }
 
   bool initialize(Json[string] initData = null) {
 /*     configuration
-      .setDefault("exceptionRenderer", Json(null))
-      .setDefault("logger", ErrorLogger.classname)
-      .setDefault("stderr", Json(null))
-      .setDefault("log", true)
-      .setDefault("skipLog", Json.emptyArray)
-      .setDefault("trace", false)
-      .setDefault("extraFatalErrorMemory", 4);
+      .setEntry("exceptionRenderer", Json(null))
+      .setEntry("logger", ErrorLogger.classname)
+      .setEntry("stderr", Json(null))
+      .setEntry("log", true)
+      .setEntry("skipLog", Json.emptyArray)
+      .setEntry("trace", false)
+      .setEntry("extraFatalErrorMemory", 4);
     _configData = merge(initData, defaultData); */
     return true;
   }
@@ -98,7 +98,7 @@ class DExceptionTrap {
   /* IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
     auto myRequest = serverRequest.isNull ? Router.getRequest() : serverRequest;
 
-    string classname = _configData.hasKey("exceptionRenderer") ? _configuration.get(
+    string classname = _configuration.hasEntry("exceptionRenderer") ? _configuration.getEntry(
       "exceptionRenderer") : chooseRenderer();
     if (isString(classname)) {
       /* if (!isSubclass_of(classname, IExceptionRenderer.classname)) {
@@ -121,7 +121,7 @@ return null;
 
   // Get an instance of the logger.
   IErrorLogger logger() {
-/*     classname = _configData.hasKey("logger", _defaultConfigData["logger"]);
+/*     classname = _configuration.hasEntry("logger", _defaultConfigData["logger"]);
 
     return new classname(_config); */
     return null;
@@ -201,7 +201,7 @@ return null;
 /*     if (this.disabled) {
       return;
     } */
-/*     auto megabytes = configuration.getLong("extraFatalErrorMemory", 4);
+/*     auto megabytes = configuration.getLongEntry("extraFatalErrorMemory", 4);
     if (megabytes > 0) {
       this.increaseMemoryLimit(megabytes * 1024);
     } */
@@ -267,9 +267,9 @@ return null;
      * \Throwable exception The exception to log
      */
   /* void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
-    shouldLog = configuration.get("log");
+    shouldLog = configuration.getEntry("log");
     if (shouldLog) {
-      foreach (classname; _configData.hasKey("skipLog")) {
+      foreach (classname; _configuration.hasEntry("skipLog")) {
         if (cast(classname) exceptionToLog) {
           shouldLog = false;
           break;
@@ -277,7 +277,7 @@ return null;
       }
     }
     if (shouldLog) {
-      logger().logException(exceptionToLog, serverRequest, configuration.get("trace"));
+      logger().logException(exceptionToLog, serverRequest, configuration.getEntry("trace"));
     }
   } */
 

@@ -29,8 +29,8 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
 
     /* this(Throwable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {
         _error = error;
-        // TODO this.output = configuration.get("stderr") ?? new DOutput("d://stderr");
-        _trace = configuration.getBoolean("trace", true);
+        // TODO this.output = configuration.getEntry("stderr") ?? new DOutput("d://stderr");
+        _trace = configuration..getBooleanEntry("trace", true);
     } */
 
     // Render an exception into a plain text message.
@@ -63,7 +63,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
             ),
         ]; */
 
-        // auto debugValue = configuration.get("debug");
+        // auto debugValue = configuration.getEntry("debug");
 /*         if (debugValue && cast(DException) exceptionToRender) {
             auto attributes = exceptionToRender.getAttributes();
             if (attributes) {

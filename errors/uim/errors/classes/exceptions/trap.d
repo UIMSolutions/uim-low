@@ -67,13 +67,13 @@ class DExceptionTrap : UIMObject {
         * - `stderr` Used in console environments so that renderers have access to the current console output stream.
         */
         /* configuration
-            .setDefault("exceptionRenderer", Json(null))
-            .setDefault("logger", ErrorLogger.classname)
-            .setDefault("stderr", Json(null))
-            .setDefault("log", true)
-            .setDefault("skipLog", Json.emptyArray)
-            .setDefault("trace", false)
-            .setDefault("extraFatalErrorMemory", 4); */
+            .setEntry("exceptionRenderer", Json(null))
+            .setEntry("logger", ErrorLogger.classname)
+            .setEntry("stderr", Json(null))
+            .setEntry("log", true)
+            .setEntry("skipLog", Json.emptyArray)
+            .setEntry("trace", false)
+            .setEntry("extraFatalErrorMemory", 4); */
 
         return true;
     }
@@ -104,7 +104,7 @@ class DExceptionTrap : UIMObject {
         /* serverRequest = serverRequest ? serverRequest : Router.getRequest();
 
         /** @var class-string|callable aclassname * /
-        aclassname = configuration.get("exceptionRenderer");
+        aclassname = configuration.getEntry("exceptionRenderer");
         deprecateDFileConfigEngine = (aclassname == ExceptionRenderer.classname && D_SAPI == "cli");
         if (deprecateDFileConfigEngine) {
             deprecationWarning(
@@ -148,7 +148,7 @@ class DExceptionTrap : UIMObject {
     // Get an instance of the logger.
     IErrorLogger logger() {
         /** @var class-string<uim.errors.IErrorLogger> aclassname */
-/*         auto aclassname = configuration.get("logger", _defaultConfig["logger"]);
+/*         auto aclassname = configuration.getEntry("logger", _defaultConfig["logger"]);
 
         return new aclassname(_config); */
         return null;
@@ -290,7 +290,7 @@ class DExceptionTrap : UIMObject {
     /* void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
         /* auto shouldLog = _config["log"];
         if (shouldLog) {
-            foreach (aclassname, configuration.get("skipLog")) {
+            foreach (aclassname, configuration.getEntry("skipLog")) {
                 if (cast(aclassname)exceptionToLog ) {
                     shouldLog = false;
                 }

@@ -27,9 +27,9 @@ class DConsoleErrorRenderer : DErrorRenderer {
     }
 
     // `stderr` - The OutputConsole instance to use. Defaults to `D://stderr`
-    // TODO _output = configuration.get("stderr", new DOutput("d://stderr"));
+    // TODO _output = configuration.getEntry("stderr", new DOutput("d://stderr"));
     // `trace` - Whether or not stacktraces should be output.       
-    _showTrace = configuration.getBoolean("trace", false);
+    _showTrace = configuration.getBooleanEntry("trace");
 
     return true;
   }
