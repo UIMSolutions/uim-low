@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.lowlevel;
+module uim.low;
 
 public {
     import std.functional;
@@ -13,7 +13,7 @@ public {
 }
 
 public {
-    import uim.baselevel;
+    import uim.base;
     import uim.caches;
     import uim.commands;
     import uim.consoles;

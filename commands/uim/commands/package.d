@@ -8,7 +8,7 @@ module uim.commands;
 mixin(ImportPhobos!());
 
 public { // uim libraries
-  import uim.baselevel;
+  import uim.base;
   import uim.consoles;
   import uim.events;
   import uim.i18n;

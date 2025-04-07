@@ -8,7 +8,7 @@ license "Apache-2.0"
 targetName "uim-consoles"
 targetType "library"
 
-dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-base" path="../../uim-base"
 dependency "uim-errors" path="../errors"
 
 sourcePaths "."

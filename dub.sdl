@@ -1,14 +1,14 @@
-name "uim-lowlevel"
+name "uim-low"
 description "UIM framework for building web applications"
 homepage "https://www.sueel.de/uim"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-targetName "uim-lowlevel"
+targetName "uim-low"
 targetType "library"
 
-dependency "uim-baselevel" path="../baselevel"
+dependency "uim-base" version="~>24.0.0" path="../uim-base"
 
 dependency "uim-caches" path="./caches"
 dependency "uim-commands" path="./commands"
@@ -22,7 +22,7 @@ dependency "uim-logging" path="./logging"
 dependency "uim-scriptings" path="./scriptings"
 dependency "uim-securities" path="./securities" 
 
-sourceFiles "./uim/lowlevel.d"
+sourceFiles "./uim/low.d"
 
 sourcePaths "."
 importPaths "."

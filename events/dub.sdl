@@ -7,7 +7,7 @@ license "Apache-2.0"
 targetType "library"
 targetName "uim-events"
 
-dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-base" path="../../uim-base"
 dependency "uim-errors" path="../errors"
 
 sourcePaths "."

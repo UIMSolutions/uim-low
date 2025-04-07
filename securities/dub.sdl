@@ -10,7 +10,7 @@ targetName "uim-securities"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-base" path="../../uim-base"
 dependency "uim-errors" path="../errors"
 
 sourcePaths "."

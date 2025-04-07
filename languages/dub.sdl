@@ -6,7 +6,7 @@ authors "Ozan Nurettin Süel"
 
 description "D-Library for programming languages"
 
-dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-base" path="../../uim-base"
 dependency "uim-errors" path="../errors"
 
 dependency "uim-filesystems" path="../filesystems"
