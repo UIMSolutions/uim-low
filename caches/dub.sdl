@@ -1,23 +1,15 @@
-name "caches"
+name "uim-caches"
 description "V in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
-targetType "library"
+// target
 targetName "uim-caches"
-
-dependency "colored" version="~>0.0.31"
-dependency "vibe-d" version="~>0.10.2"
-
-dependency "uim:core" path="../base-level/"
-dependency "uim:oop" path="../base-level/"
-dependency "uim:errors" path="../"
-
-sourcePaths "."
-importPaths "."
-
 targetType "library"
+
+dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-errors" path="../errors"
 
 sourcePaths "."
 importPaths "."

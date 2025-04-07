@@ -1,25 +1,19 @@
-name "commands"
+name "uim-commands"
 description "V in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
-targetType "library"
+// target
 targetName "uim-commands"
-
-dependency "colored" version="~>0.0.31"
-dependency "vibe-d" version="~>0.10.2"
-
-dependency "uim:core" path="../base-level/"
-dependency "uim:oop" path="../base-level/"
-dependency "uim:consoles" path="../"
-dependency "uim:events" path="../"
-dependency "uim:i18n" path="../"
-
-sourcePaths "."
-importPaths "."
-
 targetType "library"
+
+dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-errors" path="../errors"
+
+dependency "uim-consoles" path="../consoles"
+dependency "uim-events" path="../events"
+dependency "uim-i18n" path="../i18n"
 
 sourcePaths "."
 importPaths "."
