@@ -14,12 +14,12 @@ import uim.commands;
  * from 2 dimensional array data.
  */
 class DTableHelper : UIMObject { // }: Helper {
-  override bool initialize(Json[string] initData = null) {
+  override bool initialize(Json[string] initData = new Json[string]) {
     if (!super.initialize(initData)) {
       return false;
     }
     
-    configuration.mergeDefaults(MapHelper.create!(string, Json)
+    configuration.mergeDefaults(new Json[string]
       .set("headers", true)
       .set("rowSeparator", false)
       .set("headerStyle", "info"));
@@ -118,9 +118,9 @@ class DTableHelper : UIMObject { // }: Helper {
     auto widths = _calculateWidths(commandArguments); */
 
 /*     _rowSeparator(widths);
-    if (configuration.hasKey("headers")) {
+    if (configuration.hasEntry("headers")) {
       _render(commandArguments.shift, widths, [
-          "style": configuration.get("headerStyle")
+          "style": configuration.getEntry("headerStyle")
         ]);
       _rowSeparator(widths);
     }
@@ -129,19 +129,18 @@ class DTableHelper : UIMObject { // }: Helper {
     }
     commandArguments.each!((line) {
       _render(line, widths);
-      if (configuration.hasKey("rowSeparator")) {
+      if (configuration.hasEntry("rowSeparator")) {
         _rowSeparator(widths);
       }
     });
 
-    if (!configuration.hasKey("rowSeparator")) {
+    if (!configuration.hasEntry("rowSeparator")) {
       _rowSeparator(widths);
     } */
   }
 
   // Add style tags
   protected string _addStyle(string textForSurround, string styleToAppy) {
-    // return "<" ~ style ~ ">" ~ textForSurround ~ "</" ~ style ~ ">";
-    return "";
+    return htmlDTag(style, textForSurround);
   }
 }

@@ -37,14 +37,14 @@ mixin template TPluginAssets() {
                 continue;
             }
             string link = plugin.underscore;
-            auto wwwRoot = configuration.get("App.wwwRoot");
+            auto wwwRoot = configuration.getEntry("App.wwwRoot");
             string dir = wwwRoot;
             bool isNamespaced = false;
             if (link.contains("/")) {
                 isNamespaced = true;
                 string[] someParts = link.split("/");
                 link = someParts.pop;
-                dir = wwwRoot ~ someParts.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+                dir = wwwRoot ~ someParts.join(DIR_SEPARATOR) ~ DIR_SEPARATOR;
             }
             plugins.set(plugin, [
                     "srcPath": Plugin.path(plugin) ~ "webroot",
@@ -65,13 +65,13 @@ mixin template TPluginAssets() {
             _io.hr();
 
             if (
-                configuration.hasKey("namespaced") && !isDir(configuration.get("destDir")) &&
-                !_createDirectory(configuration.get("destDir"))
+                configuration.hasEntry("namespaced") && !isDir(configuration.getEntry("destDir")) &&
+                !_createDirectory(configuration.getEntry("destDir"))
                 ) {
                 continue;
             }
 
-            string dest = configuration.getString("destDir") ~ configuration.getString("link");
+            string dest = configuration.getStringEntry("destDir") ~ configuration.getStringEntry("link");
             if (filehasKey(dest)) {
                 if (overwriteExisting && !_removeKey(configData)) {
                     continue;
@@ -86,7 +86,7 @@ mixin template TPluginAssets() {
             }
             if (!copyMode) {
                 result = _createSymlink(
-                    configuration.get("srcPath"),
+                    configuration.getEntry("srcPath"),
                     dest
                 );
                 if (result) {
@@ -94,7 +94,7 @@ mixin template TPluginAssets() {
                 }
             }
             _copyDirectory(
-                configuration.get("srcPath"),
+                configuration.getEntry("srcPath"),
                 dest
             );
         }
@@ -107,17 +107,17 @@ mixin template TPluginAssets() {
      * configData - Plugin config.
      */
     protected bool _removeKey(Json[string] configData = null) {
-        /* if (configuration.hasKey("namespaced") && !isDir(configuration.get("destDir"))) {
+        /* if (configuration.hasEntry("namespaced") && !isDir(configuration.getEntry("destDir"))) {
             _io.verbose(
-                configuration.getString(
-                    "destDir") ~ configuration.getString("link") ~ " does not exist",
+                configuration.getStringEntry(
+                    "destDir") ~ configuration.getStringEntry("link") ~ " does not exist",
                 1
             );
 
             return false;
         }
 
-        string destDirLink = configuration.getString("destDir") ~ configuration.getString("link");
+        string destDirLink = configuration.getStringEntry("destDir") ~ configuration.getStringEntry("link");
         if (!filehasKey(destDirLink)) {
             _io.verbose(
                 destDirLink ~ " does not exist",
@@ -128,7 +128,7 @@ mixin template TPluginAssets() {
         } */
         /* if (isLink(dest)) {
             
-            success = DIRECTORY_SEPARATOR == "\\" ? @rmdir(dest): @unlink(dest);
+            success = DIR_SEPARATOR == "\\" ? @rmdir(dest): @unlink(dest);
             if (success) {
                 _io.writeln("Unlinked " ~ dest);
 
