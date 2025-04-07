@@ -1,1 +1,11 @@
-securities/libssl-3-x64.dll
+*.dll
+*.lib
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst
+*.so
+*.dylib
+*.a
+*.selections.json
