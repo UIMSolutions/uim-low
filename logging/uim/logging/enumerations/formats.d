@@ -1,13 +1,9 @@
 module uim.logging.enumerations.formats;
 
+mixin(Version!"test_uim_logging");
+
 import uim.logging;
 @safe:
-
-version (test_uim_logging) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
 
 enum FileLoggerFormats : string {
     NONE	= "none", 

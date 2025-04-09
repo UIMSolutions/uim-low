@@ -5,14 +5,10 @@
 *****************************************************************************************************************/
 module uim.logging.classes.formatters.formatter;
 
+mixin(Version!"test_uim_logging");
+
 import uim.logging;
 @safe:
-
-version (test_uim_logging) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
 
 // Base class for LogFormatters
 class DLogFormatter : UIMObject, ILogFormatter {

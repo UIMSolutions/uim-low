@@ -5,14 +5,10 @@
 *****************************************************************************************************************/
 module uim.logging.classes.loggers.logger;
 
+mixin(Version!"test_uim_logging");
+
 import uim.logging;
 @safe:
-
-version (test_uim_logging) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
 
 class DLogger : UIMObject, ILogger {
   mixin(LoggerThis!());

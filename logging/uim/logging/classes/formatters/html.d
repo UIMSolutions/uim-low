@@ -5,16 +5,11 @@
 *****************************************************************************************************************/
 module uim.logging.classes.formatters.html;
 
+mixin(Version!"test_uim_logging");
+
 import uim.logging;
-
 @safe:
-
-version (test_uim_logging) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
-
+  
 class DHtmlLogFormatter : DLogFormatter {
   mixin(LogFormatterThis!("Html"));
 

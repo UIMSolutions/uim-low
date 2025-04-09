@@ -5,14 +5,10 @@
 *****************************************************************************************************************/
 module uim.logging.classes.loggers.file;
 
+mixin(Version!"test_uim_logging");
+
 import uim.logging;
 @safe:
-
-version (test_uim_logging) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
 
 /**
  * File Storage stream for Logging. Writes logs to different files

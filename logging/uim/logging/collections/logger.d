@@ -5,14 +5,10 @@
 *****************************************************************************************************************/
 module uim.logging.collections.logger;
 
+mixin(Version!"test_uim_logging");
+
 import uim.logging;
 @safe:
-
-version (test_uim_logging) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
 
 class DLoggerCollection : DCollection!DLogger {   
 }
