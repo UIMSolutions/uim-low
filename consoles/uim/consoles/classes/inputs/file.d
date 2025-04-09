@@ -3,11 +3,11 @@ module uim.consoles.classes.inputs.file;
 import uim.consoles;
 @safe:
 
-version (test_uim_consoles) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
+mixin(Version!"test_uim_consoles");
+
+import uim.consoles;
+@safe:
+
 
 // Object wrapper for interacting with stdin
 class DFileInput : DInput {

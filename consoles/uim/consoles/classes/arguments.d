@@ -8,11 +8,11 @@ module uim.consoles.classes.arguments;
 import uim.consoles;
 @safe:
 
-version (test_uim_consoles) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
+mixin(Version!"test_uim_consoles");
+
+import uim.consoles;
+@safe:
+
 
 // Provides an interface for interacting with a command`s options and arguments.
 class DArguments {

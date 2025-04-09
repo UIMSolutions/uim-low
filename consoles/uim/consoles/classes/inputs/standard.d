@@ -8,11 +8,11 @@ module uim.consoles.classes.inputs.standard;
 import uim.consoles;
 @safe:
 
-version (test_uim_consoles) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
+mixin(Version!"test_uim_consoles");
+
+import uim.consoles;
+@safe:
+
 
 
 // Object wrapper for interacting with stdin

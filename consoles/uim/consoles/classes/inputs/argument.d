@@ -8,11 +8,11 @@ module uim.consoles.classes.inputs.argument;
 import uim.consoles;
 @safe:
 
-version (test_uim_consoles) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
+mixin(Version!"test_uim_consoles");
+
+import uim.consoles;
+@safe:
+
 
 /**
  * An object to represent a single argument used in the command line.

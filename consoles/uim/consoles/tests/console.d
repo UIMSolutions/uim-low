@@ -8,11 +8,11 @@ module uim.consoles.tests.console;
 import uim.consoles;
 @safe:
 
-version (test_uim_consoles) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
+mixin(Version!"test_uim_consoles");
+
+import uim.consoles;
+@safe:
+
 
 
 bool testConsole(IConsole consoleToTest) {

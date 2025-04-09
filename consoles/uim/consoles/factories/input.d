@@ -3,11 +3,11 @@ module uim.consoles.factories.input;
 import uim.consoles;
 @safe:
 
-version (test_uim_consoles) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
+mixin(Version!"test_uim_consoles");
+
+import uim.consoles;
+@safe:
+
 
 class DInputFactory : DFactory!DInput{}
 
