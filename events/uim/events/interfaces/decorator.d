@@ -8,11 +8,11 @@ module uim.events.interfaces.decorator;
 import uim.events;
 @safe:
 
-version (test_uim_events) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_events");
+
+import uim.events;
+@safe:
+
 
 // Common interface for event decorators
 interface IDecorator {

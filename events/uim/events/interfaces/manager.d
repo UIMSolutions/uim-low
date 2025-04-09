@@ -8,11 +8,11 @@ module uim.events.interfaces.manager;
 import uim.events;
 @safe:
 
-version (test_uim_events) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_events");
+
+import uim.events;
+@safe:
+
 
 interface IEventManager {
     /**

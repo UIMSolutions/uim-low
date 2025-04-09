@@ -8,11 +8,11 @@ module uim.events.interfaces.dispatcher;
 import uim.events;
 @safe:
 
-version (test_uim_events) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_events");
+
+import uim.events;
+@safe:
+
 
 /*
  * Objects implementing this interface can emit events.
