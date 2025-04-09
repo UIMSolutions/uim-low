@@ -3,11 +3,11 @@ module uim.i18n.classes.parsers.po.file;
 import uim.i18n;
 @safe:
 
-version (test_uim_i18n) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_i18n");
+
+import uim.i18n;
+@safe:
+
 
 class DPoFile : UIMObject {
     this() {

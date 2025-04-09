@@ -8,11 +8,11 @@ module uim.i18n.classes.formatters.relativetime;
 import uim.i18n;
 @safe:
 
-version (test_uim_i18n) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_i18n");
+
+import uim.i18n;
+@safe:
+
 
 // Helper class for formatting relative dates & times.
 class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {

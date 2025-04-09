@@ -8,11 +8,11 @@ module uim.i18n.classes.loaders.messagesfile;
 import uim.i18n;
 @safe:
 
-version (test_uim_i18n) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_i18n");
+
+import uim.i18n;
+@safe:
+
 
 /**
  * A generic translations catalog factory that will load translations files

@@ -4,11 +4,11 @@ import uim.i18n;
 
 @safe:
 
-version (test_uim_i18n) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_i18n");
+
+import uim.i18n;
+@safe:
+
 
 // Translator to translate the message.
 class DTranslator : UIMObject, ITranslator {

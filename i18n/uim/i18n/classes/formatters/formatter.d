@@ -8,11 +8,11 @@ module uim.i18n.classes.formatters.formatter;
 import uim.i18n;
 @safe:
 
-version (test_uim_i18n) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_i18n");
+
+import uim.i18n;
+@safe:
+
 
 // A formatter that will interpolate variables using the MessageFormatter class
 class DI18NFormatter : UIMObject, II18NFormatter {
