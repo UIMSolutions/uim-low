@@ -8,9 +8,7 @@ license "Apache-2.0"
 targetname "uim_errors"
 targetType "library"
 
-dependency "uim-base" version="~>25.4.7" 
-
-// dependency "uim-base" path="../../uim-base"
+dependency "uim-base" version="~>25.4.8" 
 
 sourcePaths "."
 importPaths "."

@@ -8,12 +8,11 @@ license "Apache-2.0"
 targetname "commands"
 targetType "library"
 
-dependency "uim-base" path="../../uim-base"
+// Internal dependencies
 dependency "uim-low:errors" path=".."
-
-dependency "uim-consoles" path="../consoles"
-dependency "uim-events" path="../events"
-dependency "uim-i18n" path="../i18n"
+dependency "uim-low:consoles" path=".."
+dependency "uim-low:events" path=".."
+dependency "uim-low:i18n" path=".."
 
 sourcePaths "."
 importPaths "."

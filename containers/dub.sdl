@@ -5,10 +5,10 @@ copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 // target
-targetname "containers"
+targetname "uim_containers"
 targetType "library"
 
-dependency "uim-base" path="../../uim-base"
+// Internal dependencies
 dependency "uim-low:errors" path=".."
 
 sourcePaths "."

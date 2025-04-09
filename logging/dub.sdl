@@ -7,8 +7,8 @@ license "Apache-2.0"
 targetType "library"
 targetname "logging"
 
-dependency "uim-base" path="../../uim-base"
-dependency "uim-consoles" path="../consoles"
+// Internal dependencies
+dependency "uim-low:consoles" path=".."
 
 sourcePaths "."
 importPaths "."

@@ -10,7 +10,7 @@ targetname "securities"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-dependency "uim-base" path="../../uim-base"
+// Internal dependencies
 dependency "uim-low:errors" path=".."
 
 sourcePaths "."

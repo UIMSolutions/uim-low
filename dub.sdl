@@ -8,7 +8,7 @@ authors "Ozan Nurettin Süel"
 targetName "uim-low"
 targetType "library"
 
-dependency "uim-base" version="~>25.4.7" 
+dependency "uim-base" version="~>25.4.8" 
 
 dependency ":caches" version="*"
 dependency ":commands" version="*"

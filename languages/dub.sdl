@@ -6,14 +6,13 @@ authors "Ozan Nurettin Süel"
 
 description "D-Library for programming languages"
 
-dependency "uim-base" path="../../uim-base"
-dependency "uim-low:errors" path=".."
-
-dependency "uim-filesystems" path="../filesystems"
-dependency "uim-models" path="../models"
+targetName "uim_languages"
 targetType "library"
+
+// Internal dependencies
+dependency "uim-low:errors" path=".."
+dependency "uim-low:filesystems" path=".."
+dependency "uim-low:models" path=".."
 
 sourcePaths "."
 importPaths "."
-
-targetname "languages"
