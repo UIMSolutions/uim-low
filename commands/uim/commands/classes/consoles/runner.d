@@ -8,11 +8,10 @@ module uim.commands.classes.consoles.runner;
 import uim.commands;
 @safe:
 
-version (test_uim_commands) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_commands");
+
+import uim.commands;
+@safe:
 
 /**
  * Run CLI commands for the provided application.

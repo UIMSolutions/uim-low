@@ -8,11 +8,10 @@ module uim.commands.classes.consoles.help;
 import uim.commands;
 @safe:
 
-version (test_uim_commands) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_commands");
+
+import uim.commands;
+@safe:
 
 // Print out command list
 class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {

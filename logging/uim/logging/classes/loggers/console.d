@@ -4,11 +4,10 @@ import uim.logging;
 
 @safe:
 
-version (test_uim_logging) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_logging");
+
+import uim.logging;
+@safe:
 
 // Console logging. Writes logs to console output.
 class DConsoleLogger : DLogger {

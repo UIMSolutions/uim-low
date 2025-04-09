@@ -9,17 +9,15 @@ import uim.logging;
 
 @safe:
 
-version (test_uim_logging) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_logging");
 
-version (test_uim_logging) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+import uim.logging;
+@safe:
+
+mixin(Version!"test_uim_logging");
+
+import uim.logging;
+@safe:
 
 class DLoggerFactory : DFactory!DLogger {
 }

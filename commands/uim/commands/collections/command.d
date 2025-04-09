@@ -8,11 +8,10 @@ module uim.commands.collections.command;
 import uim.commands;
 @safe:
 
-version (test_uim_commands) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_commands");
+
+import uim.commands;
+@safe:
 
 class DCommandCollection : DCollection!DCommand {   
 }
