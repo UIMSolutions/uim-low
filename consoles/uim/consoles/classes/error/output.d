@@ -8,11 +8,11 @@ module uim.consoles.classes.error.output;
 import uim.consoles;
 @safe:
 
-version (test_uim_consoles) {
-  unittest {
-      writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_consoles");
+
+import uim.consoles;
+@safe:
+
 
 class DErrorOutput : UIMObject, IErrorOutput {
   mixin(ErrorOutputThis!());

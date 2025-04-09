@@ -8,11 +8,11 @@ module uim.consoles.classes.error.rest;
 import uim.consoles;
 @safe:
 
-version (test_uim_consoles) {
-  unittest {
-      writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_consoles");
+
+import uim.consoles;
+@safe:
+
 
 class DRestErrorOutput : DErrorOutput {
   mixin(ErrorOutputThis!("Rest"));

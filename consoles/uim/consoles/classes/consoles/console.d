@@ -9,11 +9,11 @@ import uim.consoles;
 
 @safe:
 
-version (test_uim_consoles) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_consoles");
+
+import uim.consoles;
+@safe:
+
 
 /**
  * A wrapper around the various IO operations shell tasks need to do.
