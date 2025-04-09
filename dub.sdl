@@ -8,25 +8,25 @@ authors "Ozan Nurettin Süel"
 targetName "uim-low"
 targetType "library"
 
-dependency "uim-base" version="~>24.0.0" path="../uim-base"
+dependency "uim-base" version="~>25.4.7" 
 
-dependency "uim-caches" path="./caches"
-dependency "uim-commands" path="./commands"
-dependency "uim-consoles" path="./consoles"
-dependency "uim-containers" path="./containers"
-dependency "uim-errors" path="./errors"
-dependency "uim-events" path="./events"
-dependency "uim-i18n" path="./i18n"
-/* dependency "uim-languages" path="./languages" */
-dependency "uim-logging" path="./logging"
-dependency "uim-scriptings" path="./scriptings"
-dependency "uim-securities" path="./securities" 
+dependency ":caches" version="*"
+dependency ":commands" version="*"
+dependency ":consoles" version="*"
+dependency ":containers" version="*"
+dependency ":errors" version="*"
+dependency ":events" version="*"
+dependency ":i18n" version="*"
+/* dependency "uim-languages" version="*" */
+dependency ":logging" version="*"
+dependency ":scriptings" version="*"
+dependency ":securities" version="*" 
 
 sourceFiles "./uim/low.d"
 
 sourcePaths "."
 importPaths "."
-/*
+
 subPackage "caches"
 subPackage "commands"
 subPackage "consoles"
@@ -37,4 +37,3 @@ subPackage "languages"
 subPackage "logging"
 subPackage "scriptings"
 subPackage "securities"
- */

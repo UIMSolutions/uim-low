@@ -1,14 +1,14 @@
-name "uim-events"
+name "events"
 description "Eventmanagement"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-events"
+targetname "events"
 
 dependency "uim-base" path="../../uim-base"
-dependency "uim-errors" path="../errors"
+dependency "uim-low:errors" path=".."
 
 sourcePaths "."
 importPaths "."

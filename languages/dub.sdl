@@ -1,4 +1,4 @@
-name "uim-languages"
+name "languages"
 homepage "https://www.sueel.de/uim"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
@@ -7,7 +7,7 @@ authors "Ozan Nurettin Süel"
 description "D-Library for programming languages"
 
 dependency "uim-base" path="../../uim-base"
-dependency "uim-errors" path="../errors"
+dependency "uim-low:errors" path=".."
 
 dependency "uim-filesystems" path="../filesystems"
 dependency "uim-models" path="../models"
@@ -16,4 +16,4 @@ targetType "library"
 sourcePaths "."
 importPaths "."
 
-targetName "uim-languages"
+targetname "languages"

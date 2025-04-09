@@ -1,15 +1,15 @@
-name "uim-consoles"
+name "consoles"
 description "V in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 // target
-targetName "uim-consoles"
+targetname "consoles"
 targetType "library"
 
 dependency "uim-base" path="../../uim-base"
-dependency "uim-errors" path="../errors"
+dependency "uim-low:errors" path=".."
 
 sourcePaths "."
 importPaths "."
