@@ -8,11 +8,11 @@ module uim.errors.classes.formatters.formatter;
 import uim.errors;
 @safe:
 
-version (test_uim_errors) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_errors");
+
+import uim.errors;
+@safe:
+
 
 class DErrorFormatter : UIMObject, IErrorFormatter {
     mixin(ErrorFormatterThis!());

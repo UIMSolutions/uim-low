@@ -8,11 +8,11 @@ module uim.errors.interfaces.errors.logger;
 import uim.errors;
 @safe:
 
-version (test_uim_errors) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_errors");
+
+import uim.errors;
+@safe:
+
 
 // Used by the ErrorHandlerMiddleware and global error handlers to log exceptions and errors.
 interface IErrorLogger {

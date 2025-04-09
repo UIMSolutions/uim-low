@@ -8,11 +8,11 @@ module uim.errors.classes.renderers.consoles.exception;
 import uim.errors;
 @safe:
 
-version (test_uim_errors) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_errors");
+
+import uim.errors;
+@safe:
+
 
 
 /**
