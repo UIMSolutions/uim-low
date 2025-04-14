@@ -117,7 +117,7 @@ class DSysLogger : DLogger {
         /*  closelog(); */
     }
 
-    override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
+    override ILogger log(string logLevel, string logMessage, Json[string] logContext = null) {
         return this;
     }
 }

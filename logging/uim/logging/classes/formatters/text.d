@@ -24,7 +24,7 @@ class DTextLogFormatter : DLogFormatter {
         return true;
     }
 
-    override string format(LogLevels logLevel, string logMessage, Json[string] logData = null) {
+    override string format(string logLevel, string logMessage, Json[string] logData = null) {
         string result = logMessage;
         result = configuration.getBooleanEntry("includeDate")
             ? "%s %s: %s".format(

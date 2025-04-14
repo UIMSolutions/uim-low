@@ -87,7 +87,7 @@ class DError : UIMObject, IError {
 
     // #region logLevel
     // Get the mapped LOG_ constant.
-    LogLevels logLevel() {
+    string logLevel() {
         return _logMap.get(label(), LogLevels.ERROR);
     }
     // #endregion logLevel

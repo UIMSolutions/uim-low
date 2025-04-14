@@ -8,6 +8,7 @@ module uim.logging.classes.loggers.file;
 mixin(Version!"test_uim_logging");
 
 import uim.logging;
+
 @safe:
 
 /**
@@ -39,7 +40,7 @@ class DFileLogger : DLogger {
      * - `dirMask` The mask used for created folders.
      *
      */
-     configuration
+    configuration
       .setEntries(["path", "file", "types", "fileMask"], Json(null))
       .setEntries(["levels", "scopes"], Json.emptyArray)
       .setEntry("rotate", 10)
@@ -47,21 +48,20 @@ class DFileLogger : DLogger {
       .setEntry("dirMask", 770)
       .setEntry("formatter", StandardLogFormatter.toJson);
 
-      auto logPath = configuration.getStringEntry("path", tempDir() ~ DIR_SEPARATOR);
-        if (!isDir(logPath)) {
-            mkdir(logPath, configuration.getEntry("dirMask"), true);
-        }
-        if (!configuration.isEmptyEntry("file")) {
-           _fileNamename = configuration.getStringEntry("file");
-            if (!_fileNamename.endsWith(".log")) {
-               _fileNamename ~= ".log";
-            }
-        }
-        if (!configuration.isEmptyEntry("size")) {
-            _maxFileSize = isNumeric(configuration.getEntry("size"))
-                ? configuration.toLong("size")
-                : Text.parseFileSize(configuration.getEntry("size"));
-        }
+    auto logPath = configuration.getStringEntry("path", tempDir() ~ "logs/");
+    if (!isDir(logPath)) {
+      mkdir(logPath, configuration.getEntry("dirMask"), true);
+    }
+    if (!configuration.isEmptyEntry("file")) {
+      _filename = configuration.getStringEntry("file");
+      if (!_filename.endsWith(".log")) {
+        _filename ~= ".log";
+      }
+    }
+    /* if (!configuration.isEmptyEntry("size")) {
+      _maxFileSize = isNumeric(configuration.getEntry("size"))
+        ? configuration.toLong("size") : Text.parseFileSize(configuration.getEntry("size"));
+    } */
 
     return true;
   }
@@ -72,6 +72,7 @@ class DFileLogger : DLogger {
   string logPath() {
     return _logPath;
   }
+
   ILogger logPath(string newPath) {
     _logPath = newPath;
     return this;
@@ -87,7 +88,7 @@ class DFileLogger : DLogger {
     if (!_fileName.isEmpty) {
       return _fileName;
     }
-    
+
     string[] debugTypes = ["notice", "info", "debug"];
     if (logLevel == "error" || logLevel == "warning") {
       return "error.log";
@@ -101,6 +102,7 @@ class DFileLogger : DLogger {
   string fileName() {
     return _fileName;
   }
+
   ILogger fileName(string newName) {
     _fileName = newName;
     return this;
@@ -136,9 +138,9 @@ class DFileLogger : DLogger {
 
   // #region log
   // writing to log files.
-  override void log(int logLevel, string messageToLog, Json[string] contextValues = null) {
+  /* override void log(int logLevel, string messageToLog, Json[string] contextValues = null) {
     string message = interpolate(messageToLog, contextValues);
-    message = _formatter.format(logLevel, message, contextValues); 
+    message = _formatter.format(logLevel, message, contextValues);
 
     string filename = fileName(logLevel);
     if (maxFileSize > 0) {
@@ -149,8 +151,7 @@ class DFileLogger : DLogger {
     string filePath = logPath ~ filename;
     if (existsFile(filePath)) {
       appendToFile(filePath, message ~ "\n");
-    }
-    else {
+    } else {
       // Create the file with the specified mask.
       createFile(filePath);
       appendToFile(filePath, message ~ "\n");
@@ -160,9 +161,10 @@ class DFileLogger : DLogger {
       if (!configuration.isEmptyEntry("dirMask")) {
         chmod(logPath, octal!(configuration.getLongEntry("dirMask")));
       }
-  }
+    }
+  } */
 
-  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
+  override ILogger log(string logLevel, string logMessage, Json[string] logContext = null) {
     return this;
   }
   // #endregion log
@@ -170,8 +172,8 @@ class DFileLogger : DLogger {
   // Rotate log file if size specified in config is reached.
   protected void rotateFile(string filename) {
     string logFilepath = logPath ~ filename;
-    
-    if (!logFilepath.isFile || filesize(logFilepath) < _maxFileSize) {
+
+    if (!logFilepath.isFile || fileSize(logFilepath) < _maxFileSize) {
       return; // do nothing
     }
 
@@ -181,9 +183,10 @@ class DFileLogger : DLogger {
     return result;
   }
 }
+
 mixin(LoggerCalls!("File"));
 
 unittest {
-    auto logger = new DFileLogger;
-    assert(testLogger(logger));
+  auto logger = new DFileLogger;
+  assert(testLogger(logger));
 }
