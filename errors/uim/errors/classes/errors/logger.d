@@ -41,7 +41,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
         if (anIncludeTrace) {
             errorMessage ~= "\nTrace:\n" ~ error.traceAsString() ~ "\n";
         }
-        /* label = error.label();
+        /* label = error.loglevel();
         level = match (label) {
             "strict": LogLevels.trace,
             "deprecated": LogLevels.debug__,

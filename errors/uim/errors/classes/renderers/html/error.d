@@ -42,7 +42,7 @@ class DHtmlErrorRenderer : DErrorRenderer {
         auto line = error.line();
 
         string errorMessage = "<b>%s</b> (%s)"
-            .format(h(capitalize(error.label())), htmlAttributeEscape(error.code())
+            .format(h(capitalize(error.loglevel())), htmlAttributeEscape(error.code())
        );
         toggle = this.renderToggle(errorMessage, anId, "trace");
         codeToggle = this.renderToggle("Code", anId, "code");

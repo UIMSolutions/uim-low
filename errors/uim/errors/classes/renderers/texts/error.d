@@ -40,7 +40,7 @@ class DTextErrorRenderer : DErrorRenderer {
     // isDebug
     return 
       "%s: %s . %s on line %s of %s\nTrace:\n%s".format(
-        error.label(),
+        error.loglevel(),
         error.code(),
         error.message(),
         error.line() ? error.line() : "",
