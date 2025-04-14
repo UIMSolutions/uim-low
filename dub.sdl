@@ -8,7 +8,10 @@ authors "Ozan Nurettin Süel"
 targetName "uim-low"
 targetType "library"
 
-dependency "uim-base" version="~>25.4.11" 
+dependency "uim-base:phobos" version="*" 
+dependency "uim-base:vibe" version="*" 
+dependency "uim-base:core" version="*" 
+dependency "uim-base:oop" version="*" 
 
 dependency ":caches" version="*"
 dependency ":commands" version="*"
