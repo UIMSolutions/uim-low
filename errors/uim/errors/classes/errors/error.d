@@ -11,6 +11,14 @@ version (test_uim_errors) {
 }
 
 // This class is used to represent errors in UIM applications.
+
+enum LogLevels  {
+    ERROR = 0,
+    WARNING = 1,
+    NOTICE = 2,
+    TRACE = 3,
+};
+
 class DError : UIMObject, IError {
     mixin(ErrorThis!());
 

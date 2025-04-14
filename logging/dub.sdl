@@ -8,7 +8,7 @@ targetType "library"
 targetname "uim_logging"
 
 // Internal dependencies
-dependency "uim-low:consoles" path=".."
+dependency "uim-low:consoles" version="*
 
 sourcePaths "."
 importPaths "."
