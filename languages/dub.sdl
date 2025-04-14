@@ -10,9 +10,9 @@ targetName "uim_languages"
 targetType "library"
 
 // Internal dependencies
-dependency ":errors" version="*"
-dependency ":filesystems" version="*"
-dependency ":models" version="*"
+dependency "uim-low:errors" version="*"
+dependency "uim-low:filesystems" version="*"
+dependency "uim-low:models" version="*"
 
 sourcePaths "."
 importPaths "."

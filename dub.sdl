@@ -1,17 +1,18 @@
 name "uim-low"
 description "UIM framework for building web applications"
-homepage "https://www.sueel.de/uim"
+homepage "https://www.sueel.de/uim/low"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-targetName "uim-low"
+targetName "uim_low"
 targetType "library"
 
-dependency "uim-base:phobos" version="*" 
-dependency "uim-base:vibe" version="*" 
-dependency "uim-base:core" version="*" 
-dependency "uim-base:oop" version="*" 
+// External dependencies
+dependency "vibe-d" version="~>0.10.2"
+dependency "unit-threaded" version="~>2.2.2"
+dependency "colored" version="~>0.0.31"
+dependency "uim-base" version="*"
 
 dependency ":caches" version="*"
 dependency ":commands" version="*"

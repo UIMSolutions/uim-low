@@ -8,7 +8,7 @@ targetType "library"
 targetname "uim_i18n"
 
 // Internal dependencies
-dependency ":errors" version="*"
+dependency "uim-low:errors" version="*"
 
 sourcePaths "."
 importPaths "."

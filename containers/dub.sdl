@@ -9,7 +9,7 @@ targetname "uim_containers"
 targetType "library"
 
 // Internal dependencies
-dependency ":errors" version="*"
+dependency "uim-low:errors" version="*"
 
 sourcePaths "."
 importPaths "."

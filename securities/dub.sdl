@@ -11,7 +11,7 @@ dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
 // Internal dependencies
-dependency ":errors" version="*
+dependency "uim-low:errors" version="*"
 
 sourcePaths "."
 importPaths "."
