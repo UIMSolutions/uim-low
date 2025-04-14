@@ -8,6 +8,7 @@ module uim.logging.classes.loggers.logger;
 mixin(Version!"test_uim_logging");
 
 import uim.logging;
+
 @safe:
 
 class DLogger : UIMObject, ILogger {
@@ -27,7 +28,7 @@ class DLogger : UIMObject, ILogger {
       configuration.setEntry("scopes", options.getArray("scopes"));
     }
     configuration.setEntry("levels", options.getArray("levels"));
-  
+
     if (options.hasKey("types") && configuration.isEmptyEntry("levels")) {
       configuration.setEntry("levels", options.getArray("types"));
     }
@@ -48,7 +49,7 @@ class DLogger : UIMObject, ILogger {
   };
   // #endregion formatter
 
-    // Get the levels this logger is interested in.
+  // Get the levels this logger is interested in.
   string[] levels() {
     return configuration.getArrayEntry("levels").map!(x => x.toString).array;
   }
@@ -58,57 +59,33 @@ class DLogger : UIMObject, ILogger {
     return configuration.getArrayEntry("scopes").map!(x => x.toString).array;
   }
 
- // Replaces placeholders in message string with logContext values.
-  protected string interpolate(string message, Json[string] logContext = null) {
+  // Replaces placeholders in message string with logContext values.
+  protected string interpolate(string message, Json[string] contextValues = null) {
     if (!message.containsAll("{", "}")) { // No placeholders
       return message;
     }
 
-    STRINGAA replacements;
-    logContext.byKeyValue.each!(kv => replacements[kv.key] = kv.value.toString);
-    /* if (value.isScalar) {
-                replacements.set(key, value.toString);
-                continue;
-            }
-            if (value.isArray) {
-                replacements.set(key, Json_encode(value, JsonFlags));
-                continue;
-            }
-            if (cast(JsonSerializable)value) {
-                replacements.set(key, Json_encode(value, JsonFlags));
-                continue;
-            }
-            if (cast(DJson[string])value) {
-                replacements.set(key, Json_encode(value.dup, JsonFlags));
-                continue;
-            }
-            if (cast(DSerializable)value) {
-                replacements.set(key, value.serialize());
-                continue;
-            }
-            if (value.isObject) {
-                if (value.hasKey("toArray")) {
-                    replacements.set(key, Json_encode(value.toJString(), JsonFlags));
-                    continue;
-                }
-                if (cast(DSerializable)value) {
-                    replacements.set(key, serialize(value));
-                    continue;
-                }
-                if (cast(DStringable)value) {
-                    replacements.set(key, to!string(value));
-                    continue;
-                }
-                if (value.hasKey("debugInfo")) {
-                    replacements.set(key, Json_encode(value.debugInfo(), JsonFlags));
-                    continue;
-                }
-            }
-            /* replacements.set(key, "[unhandled value of type %s]".format(get_debug_type(value))); * /
-        });
-        return message.mustache(replacements); */
-    return message.mustache(logContext);
+    STRINGAA replacements = logContext.toSringMap;
+    contextValues.each!((key, value) => replacements[key] = interpolateCentextValue(value));
+    return message.mustache(replacements);
   }
 
-  abstract ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null);
+  string interpolateLogCentextValue(Json value) {
+    return value.toString;
+    if (value.isScalar) {
+      return value.toString;
+    }
+
+    if (value.isArray) {
+      return value.toString;
+    }
+
+    if (value.isObject) {
+      return value.toString;
+    }
+
+    return value.toString;
+  }
+
+  abstract ILogger log(LogLevels level, string message, Json[string] contextValues = null);
 }

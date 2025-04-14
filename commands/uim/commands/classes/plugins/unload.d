@@ -57,7 +57,7 @@ class DPluginUnloadCommand : DCommand {
             : var_export_(configData, true);
         contents = "" ~ "\n" ~ "return " ~ exported ~ ";";
 
-        return !file_put_contents(_configFile, contents)
+        return !appendToFile(_configFile, contents)
             ? "Failed to update `CONFIG/plugins.d`"
             : null; */
         return null; 

@@ -40,22 +40,16 @@ class DFileLogger : DLogger {
      *
      */
      configuration
-      .setEntry("path", Json(null))
-      .setEntry("file", Json(null))
-      .setEntry("types", Json(null))
-      .setEntry("mask", Json(null));
-/*     configuration
-      .setEntry(["path", "file", "types", "mask"], Json(null))
-      .setEntry(["levels", "scopes"], Json.emptyArray)
+      .setEntries(["path", "file", "types", "fileMask"], Json(null))
+      .setEntries(["levels", "scopes"], Json.emptyArray)
       .setEntry("rotate", 10)
-      .setEntry("size", 10_485_760) */ // 10M)
-      // .setEntry("dirMask", 0770)
-      /* .setEntry("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
-          .classname)) *//* ; */
+      .setEntry("size", 10_485_760)
+      .setEntry("dirMask", 770)
+      .setEntry("formatter", StandardLogFormatter.toJson);
 
-    /* auto _path = configuration.getStringEntry("path", sys_get_temp_dir() ~ DIR_SEPARATOR);
-        if (!isDir(_path)) {
-            mkdir(_path, configuration.getEntry("dirMask"), true);
+      auto logPath = configuration.getStringEntry("path", tempDir() ~ DIR_SEPARATOR);
+        if (!isDir(logPath)) {
+            mkdir(logPath, configuration.getEntry("dirMask"), true);
         }
         if (!configuration.isEmptyEntry("file")) {
            _fileNamename = configuration.getStringEntry("file");
@@ -67,40 +61,43 @@ class DFileLogger : DLogger {
             _maxFileSize = isNumeric(configuration.getEntry("size"))
                 ? configuration.toLong("size")
                 : Text.parseFileSize(configuration.getEntry("size"));
-        } */
+        }
 
     return true;
   }
 
-  // #region path
+  // #region logPath
   // Path to save log files on.
-  protected string _path;
-  string path() {
-    return _path;
+  protected string _logPath;
+  string logPath() {
+    return _logPath;
   }
-  ILogger path(string newPath) {
-    _path = newPath;
+  ILogger logPath(string newPath) {
+    _logPath = newPath;
     return this;
   }
-  // #endregion path
+  // #endregion logPath
 
   // #region fileName
   // The name of the file to save logs into.
   protected string _fileName = null;
-  // Get filename
-  string getOrCreateFileName(string logLevel) {
-    string[] debugTypes = ["notice", "info", "debug"];
 
-    string result;
+  // The name of the loglevel file to save logs into.
+  string logLevelFileName(string logLevel) {
     if (!_fileName.isEmpty) {
       return _fileName;
-    } else if (logLevel == "error" || logLevel == "warning") {
+    }
+    
+    string[] debugTypes = ["notice", "info", "debug"];
+    if (logLevel == "error" || logLevel == "warning") {
       return "error.log";
     } else if (debugTypes.hasValue(logLevel)) {
       return "debug.log";
     }
     return logLevel ~ ".log";
   }
+
+  // The name of the file to save logs into.
   string fileName() {
     return _fileName;
   }
@@ -112,80 +109,76 @@ class DFileLogger : DLogger {
 
   // #region maxFileSize
   // Max file size, used for log file rotation.
-  protected int _maxFileSize = 0;
+  protected int _maxFileSize = 0; // If size is 0, no rotation is made.
+
+  // Get the max file size.
   int maxFileSize() {
     return _maxFileSize;
   };
+
+  // Set the max file size.
   ILogger maxFileSize(int newMaxSize) {
     _maxFileSize = newMaxSize;
     return this;
   };
+
+  unittest {
+    auto logger = new DFileLogger;
+    assert(logger.maxFileSize == 0);
+
+    logger.maxFileSize(1024);
+    assert(logger.maxFileSize == 1024);
+
+    logger.maxFileSize(0);
+    assert(logger.maxFileSize == 0);
+  }
   // #endregion maxFileSize
 
+  // #region log
   // writing to log files.
-  void log(int logLevel, string messageToLog, Json[string] messageContext = null) {
-    string message; /* = this.interpolate(messageToLog, messageContext);
-        message = _formatter.format(logLevel, message, messageContext); */
+  override void log(int logLevel, string messageToLog, Json[string] contextValues = null) {
+    string message = interpolate(messageToLog, contextValues);
+    message = _formatter.format(logLevel, message, contextValues); 
 
-    string filename; // = fileName(logLevel);
-    if (_maxFileSize) {
-      _rotateFile(filename);
+    string filename = fileName(logLevel);
+    if (maxFileSize > 0) {
+      // Rotate the file if it is too big.
+      rotateFile(filename);
     }
 
-    string filePath = _path ~ filename;
-    Json mask = configuration.getEntry("mask");
-    /* if (!mask) {
-            file_put_contents(filePath, message ~ "\n", FILE_APPEND);
-
-            return;
-        } */
-
-    bool fileExists = isFile(filePath);
-    /* file_put_contents(filePath, message ~ "\n", FILE_APPEND); */
-
-    bool selfError = false;
-    /* if (!selfError && !fileExists && !chmod(filePath, to!int(mask))) {
-            selfError = true;
-            trigger_error(
-                "Could not apply permission mask `%s` on log file `%s`"
-                    .format(mask, filePath),
-                    ERRORS.USER_WARNING);
-            selfError = false;
-        } */
-  }
-
-  /**
-     * Rotate log file if size specified in config is reached.
-     * Also if `rotate` count is reached oldest file is removed.
-     * Params:
-     * string logFilename Log file name
-     */
-  protected bool _rotateFile(string logFilename) {
-    bool result = false;
-    string logFilepath = _path ~ logFilename;
-    /* clearstatcache(true, logFilepath); */
-
-    /* if (!isFile(logFilepath) || filesize(logFilepath) < _maxFileSize) {
-            return null;
-        } */
-
-    /* size_t rotate = configuration.getEntry("rotate");
-        result = rotate == 0
-            ? unlink(logFilepath) : rename(logFilepath, logFilepath ~ "." ~ time()); */
-
-    /* auto files = glob(logFilepath ~ ".*");
-        if (files) {
-            size_t filesToDelete = files.length - rotate;
-            while (filesToDelete > 0) {
-                unlink(to!string(files.shift()));
-                filesToDelete--;
-            }
-        } */
-    return result;
+    string filePath = logPath ~ filename;
+    if (existsFile(filePath)) {
+      appendToFile(filePath, message ~ "\n");
+    }
+    else {
+      // Create the file with the specified mask.
+      createFile(filePath);
+      appendToFile(filePath, message ~ "\n");
+      if (!configuration.isEmptyEntry("fileMask")) {
+        chmod(filePath, octal!(configuration.getLongEntry("fileMask")));
+      }
+      if (!configuration.isEmptyEntry("dirMask")) {
+        chmod(logPath, octal!(configuration.getLongEntry("dirMask")));
+      }
   }
 
   override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
     return this;
+  }
+  // #endregion log
+
+  // Rotate log file if size specified in config is reached.
+  protected void rotateFile(string filename) {
+    string logFilepath = logPath ~ filename;
+    
+    if (!logFilepath.isFile || filesize(logFilepath) < _maxFileSize) {
+      return; // do nothing
+    }
+
+    renameFile(logFilepath, logFilepath ~ "." ~ time());
+    createFile(logFilepath);
+
+    return result;
   }
 }
 mixin(LoggerCalls!("File"));

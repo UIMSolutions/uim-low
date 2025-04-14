@@ -85,7 +85,7 @@ class DPluginLoadCommand : DCommand {
 
     contents = "\n\n" ~ "return " ~ Json[string] ~ ";" ~ "\n";
 
-    return file_put_contents(_configFile, contents)
+    return appendToFile(_configFile, contents)
         ? true : false; */
     return 0;
   }

@@ -12,6 +12,7 @@ import uim.logging;
 mixin(Version!"test_uim_logging");
 
 import uim.logging;
+
 @safe:
 
 /**
@@ -22,44 +23,45 @@ import uim.logging;
  * be used in scenarios where you need to capture logs in application code.
  */
 class DMemoryLogger : DLogger {
-    mixin(LoggerThis!("Memory"));
+  mixin(LoggerThis!("Memory"));
 
-    override bool initialize(Json[string] initData = null) {
-        writeln("DMemoryLogger::initialize(Json[string] initData = null) - ", this.classinfo);
-        if (!super.initialize(initData)) {
-            return false;
-        } 
-        
-        configuration
-            .setEntry("formatter.classname", StandardLogFormatter.classname)
-            .setEntry("formatter.includeDate", false);
-
-        return true;
+  override bool initialize(Json[string] initData = null) {
+    writeln("DMemoryLogger::initialize(Json[string] initData = null) - ", this.classinfo);
+    if (!super.initialize(initData)) {
+      return false;
     }
 
-    // Captured messages
-    protected string[] _content;
+    configuration
+      .setEntry("formatter.classname", StandardLogFormatter.classname)
+      .setEntry("formatter.includeDate", false);
 
-    // Writing to the internal storage.
-    override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
-        // auto interpolatedMessage = interpolate(logMessage, logContext);
-        // TODO _content ~= _formatter.format(logLevel, interpolatedMessage, logContext);
-        return this;
-    }
+    return true;
+  }
 
-    // Read the internal storage
-    string[] read() {
-        return _content;
-    }
+  // Captured messages
+  protected string[] _content;
 
-    // Reset internal storage.
-    void clear() {
-        _content = null;
-    }
+  // Writing to the internal storage.
+  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
+    // auto interpolatedMessage = interpolate(logMessage, logContext);
+    // TODO _content ~= _formatter.format(logLevel, interpolatedMessage, logContext);
+    return this;
+  }
+
+  // Read the internal storage
+  string[] read() {
+    return _content;
+  }
+
+  // Reset internal storage.
+  void clear() {
+    _content = null;
+  }
 }
+
 mixin(LoggerCalls!("Memory"));
 
 unittest {
-    auto logger = MemoryLogger;
-    assert(logger !is null);
+  auto logger = MemoryLogger;
+  assert(logger !is null);
 }

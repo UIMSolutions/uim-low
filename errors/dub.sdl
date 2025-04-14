@@ -13,12 +13,11 @@ dependency "uim-base" version="~>25.4.8"
 sourcePaths "."
 importPaths "."
 
-/* configuration "test_uim_errors" {
+configuration "test_uim_errors" {
 	targetType "library"
 	versions "test_uim_errors"
 }
 configuration "test_all" {
 	targetType "library"
-	versions "test_uim_core" "test_uim_oop"
+	versions "test_uim_core" "test_uim_oop" "test_uim_errors"
 }
- */
