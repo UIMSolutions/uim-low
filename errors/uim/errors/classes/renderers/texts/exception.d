@@ -29,7 +29,7 @@ class DTextExceptionRenderer : IExceptionRenderer{
   // Render an exception into a plain text message.
   string render() {
     return "%s : %s on line %s of %s\nTrace:\n%s".format(
-      _error.code(),
+      _error.loglevel(),
       _error.message(),
       _error.line(),
       _error.fileName(),

@@ -16,10 +16,12 @@ import uim.errors;
 
 
 interface IError {
-  string code();
-  IError code(string newCode);
+  string loglabel();
+  IError loglabel(string newLabel);
 
-  string label();
+  // Read-Only
+  string loglevel();
+  // Read-Only
   string line();
 
   string message();

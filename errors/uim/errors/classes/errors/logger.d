@@ -43,8 +43,8 @@ class DErrorLogger : UIMObject, IErrorLogger {
         }
         /* label = error.loglevel();
         level = match (label) {
-            "strict": LogLevels.trace,
-            "deprecated": LogLevels.debug__,
+            "strict": loglevels.trace,
+            "deprecated": loglevels.debug__,
             default: label,
         };
 

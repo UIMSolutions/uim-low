@@ -55,8 +55,8 @@ class DConsoleErrorRenderer : DErrorRenderer {
   override string render(IError error, bool shouldDebug) {
     return "<error>%s: %s . %s</error> on line %s of %s%s"
       .format(
-        error.logLabel(),
-        error.logLevel(),
+        error.loglabel(),
+        error.loglevel(),
         error.message(),
         error.line() ? error.line() : "",
         error.fileName() ? error.fileName() : "",

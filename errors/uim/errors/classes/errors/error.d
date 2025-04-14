@@ -22,23 +22,23 @@ class DError : UIMObject, IError {
     return true;
   }
 
-  // #region logLabel
-  protected string _logLabel;
-  string logLabel() {
-    return _logLabel;
+  // #region loglabel
+  protected string _loglabel;
+  string loglabel() {
+    return _loglabel;
   }
   // Set the error code.
-  IError logLabel(string newLabel) {
-    _logLabel = newLabel;
+  IError loglabel(string newLabel) {
+    _loglabel = newLabel;
     return this;
   }
-  // #endregion logLabel
+  // #endregion loglabel
 
-  // #region logLevel
-  string logLevel() {
-    return LogLevels(label(), "error");
+  // #region loglevel
+  string loglevel() {
+    return uim.core.logging.loglevels.level(loglabel());
   }
-  // #endregion logLevel
+  // #endregion loglevel
 
   // #region line
   string line() {
