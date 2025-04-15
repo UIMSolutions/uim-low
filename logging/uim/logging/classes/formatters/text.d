@@ -5,10 +5,6 @@
 *****************************************************************************************************************/
 module uim.logging.classes.formatters.text;
 
-import uim.logging;
-
-@safe:
-
 mixin(Version!"test_uim_logging");
 
 import uim.logging;

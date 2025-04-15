@@ -157,7 +157,7 @@ mixin template TPluginAssets() {
     // Create directory
     protected bool _createDirectory(string directoryName) {
         /* auto old = umask(0);
-        // auto result = @mkdir(directoryName, 0755, true);
+        // auto result = @createFolder(directoryName, 0755, true);
         umask(old);
 
         /* if (result) {

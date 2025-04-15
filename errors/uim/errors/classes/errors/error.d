@@ -36,7 +36,7 @@ class DError : UIMObject, IError {
 
   // #region loglevel
   string loglevel() {
-    return uim.core.logging.loglevels.level(loglabel());
+    return uim.core.logging.LogLevels.level(loglabel());
   }
   // #endregion loglevel
 

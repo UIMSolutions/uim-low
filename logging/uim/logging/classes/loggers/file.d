@@ -48,19 +48,19 @@ class DFileLogger : DLogger {
       .setEntry("dirMask", 770)
       .setEntry("formatter", StandardLogFormatter.toJson);
 
-    auto logPath = configuration.getStringEntry("path", tempDir() ~ "logs/");
-    if (!isDir(logPath)) {
-      mkdir(logPath, configuration.getEntry("dirMask"), true);
+    auto logPath = configuration.hasEntry("Path") ? configuration.getStringEntry("path") : tempDir() ~ "logs/";
+    if (!existsFolder(logPath)) {
+      createFolder(logPath/* , configuration.getEntry("dirMask") */);
     }
     if (!configuration.isEmptyEntry("file")) {
       _filename = configuration.getStringEntry("file");
-      if (!_filename.endsWith(".log")) {
+      if (_filename.extension.empty) {
         _filename ~= ".log";
       }
     }
     /* if (!configuration.isEmptyEntry("size")) {
       _maxFileSize = isNumeric(configuration.getEntry("size"))
-        ? configuration.toLong("size") : Text.parseFileSize(configuration.getEntry("size"));
+        ? configuration.toLong("size") : Text.parsegetSize(configuration.getEntry("size"));
     } */
 
     return true;
@@ -81,12 +81,21 @@ class DFileLogger : DLogger {
 
   // #region fileName
   // The name of the file to save logs into.
-  protected string _fileName = null;
+  protected string _filename = null;
+  // The name of the file to save logs into.
+  string fileName() {
+    return _filename;
+  }
+
+  ILogger fileName(string newName) {
+    _filename = newName;
+    return this;
+  }
 
   // The name of the loglevel file to save logs into.
   string logLevelFileName(string logLevel) {
-    if (!_fileName.isEmpty) {
-      return _fileName;
+    if (!_filename.isEmpty) {
+      return _filename;
     }
 
     string[] debugTypes = ["notice", "info", "debug"];
@@ -97,16 +106,6 @@ class DFileLogger : DLogger {
     }
     return logLevel ~ ".log";
   }
-
-  // The name of the file to save logs into.
-  string fileName() {
-    return _fileName;
-  }
-
-  ILogger fileName(string newName) {
-    _fileName = newName;
-    return this;
-  }
   // #endregion fileName
 
   // #region maxFileSize
@@ -114,12 +113,12 @@ class DFileLogger : DLogger {
   protected int _maxFileSize = 0; // If size is 0, no rotation is made.
 
   // Get the max file size.
-  int maxFileSize() {
+  int maxgetSize() {
     return _maxFileSize;
   };
 
   // Set the max file size.
-  ILogger maxFileSize(int newMaxSize) {
+  ILogger maxgetSize(int newMaxSize) {
     _maxFileSize = newMaxSize;
     return this;
   };
@@ -128,10 +127,10 @@ class DFileLogger : DLogger {
     auto logger = new DFileLogger;
     assert(logger.maxFileSize == 0);
 
-    logger.maxFileSize(1024);
+    logger.maxgetSize(1024);
     assert(logger.maxFileSize == 1024);
 
-    logger.maxFileSize(0);
+    logger.maxgetSize(0);
     assert(logger.maxFileSize == 0);
   }
   // #endregion maxFileSize
@@ -173,7 +172,7 @@ class DFileLogger : DLogger {
   protected void rotateFile(string filename) {
     string logFilepath = logPath ~ filename;
 
-    if (!logFilepath.isFile || fileSize(logFilepath) < _maxFileSize) {
+    if (!logFilepath.isFile || getSize(logFilepath) < _maxFileSize) {
       return; // do nothing
     }
 

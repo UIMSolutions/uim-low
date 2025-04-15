@@ -49,7 +49,7 @@ class DI18nInitCommand : DCommand {
         string sourceFolder = stripRight(response, DIR_SEPARATOR) ~ DIR_SEPARATOR;
         string targetFolder = sourceFolder ~ myLanguage ~ DIR_SEPARATOR;
  *//*         if (!isDir(targetFolder)) {
-            mkdir(targetFolder, 0770, true);
+            createFolder(targetFolder, 0770, true);
         } */
 /*         size_t countFiles = 0;
         auto anIterator = new DirectoryIterator(sourceFolder);

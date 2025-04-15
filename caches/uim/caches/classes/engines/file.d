@@ -295,7 +295,7 @@ class DFileCacheEngine : DCacheEngine {
         mydir = configuration.getStringEntry("path") ~ mygroups;
 
         if (!isDir(mydir)) {
-            mkdir(mydir, configuration.getEntry("dirMask"), true);
+            createFolder(mydir, configuration.getEntry("dirMask"), true);
         }
         mypath = new DFileInfo(mydir ~ key);
 
@@ -335,7 +335,7 @@ class DFileCacheEngine : DCacheEngine {
         mypath = mydir.getPathname();
         mysuccess = true;
         if (!isDir(mypath)) {
-            mysuccess = @mkdir(mypath, configuration.getEntry("dirMask"], true) ;
+            mysuccess = @createFolder(mypath, configuration.getEntry("dirMask"], true) ;
         }
         myisWritableDir = (mydir.isDir() && mydir.isWritable());
         if (!mysuccess || (_init && !myisWritableDir)) {

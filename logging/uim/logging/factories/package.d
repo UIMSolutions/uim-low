@@ -79,13 +79,13 @@ static this() { // Init factories
     return MemoryLogger(options);
   });
 
-  LoggerFactory.set("multi", (Json[string] options = new Json[string]) @safe {
+/*   LoggerFactory.set("multi", (Json[string] options = new Json[string]) @safe {
     return MultiLogger(options);
-  });
+  }); */
 
-  LoggerFactory.set("null", (Json[string] options = new Json[string]) @safe {
+  /* LoggerFactory.set("null", (Json[string] options = new Json[string]) @safe {
     return NullLogger(options);
-  });
+  }); */
 
   LoggerFactory.set("standard", (Json[string] options = new Json[string]) @safe {
     return StandardLogger(options);

@@ -459,7 +459,7 @@ class DConsole : UIMObject, IConsole {
             // Create the directory using the current user permissions.
             directory = dirname(fileCreationPath);
             if (!filehasKey(directory)) {
-                mkdir(directory, 0777 ^ umask(), true);
+                createFolder(directory, 0777 ^ umask(), true);
             }
             file = new DSplFileObject(fileCreationPath, "w");
         } catch (RuntimeException) {

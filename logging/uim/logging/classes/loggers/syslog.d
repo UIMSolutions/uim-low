@@ -51,28 +51,17 @@ class DSysLogger : DLogger {
         configuration
             .setEntry("levels", Json.emptyArray)
             .setEntry("scopes", Json.emptyArray) //.setEntry("flag", LogLevels.ODELAY)
-            .setEntry("prefix", "") // .setEntry("facility", LogLevels.USER)
+            .setEntry("prefix", "") 
+            .setEntry("facility", "USER")
            /*  .setEntry("formatter", createMap!(string, Json)
                     .set("classname", StandardLogFormatter.classname)
                     .set("includeDate", false)
             ) */;
 
-        _levelMap = [
-            "emergency": LogLevels.FATAL,
-            "alert": LogLevels.WARNING,
-            "critical": LogLevels.CRITICAL,
-            "error": LogLevels.ERROR,
-            "warning": LogLevels.WARNING,
-            "notice": LogLevels.TRACE,
-            "info": LogLevels.INFO,
-            "debug": LogLevels.DEBUG,
-        ];
+
 
         return true;
     }
-    // Used to map the string names back to their LOG_* constants
-    protected LogLevels[string] _levelMap;
-
     // Whether the logger connection is open or not
     protected bool _isopen = false;
 
@@ -87,7 +76,7 @@ class DSysLogger : DLogger {
            /* _open(configuration.getEntry("prefix"), configuration.getEntry("flag"), configuration.getEntry("facility"));
            _isopen = true; */
         }
-        auto priority = LogLevels.DEBUG;
+        auto priority = uim.core.logging.LogLevels.level("DEBUG");
         /* if (_levelMap.hasKey(severityLevel)) {
             priority = _levelMap[level];
         } */

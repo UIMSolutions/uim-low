@@ -682,7 +682,7 @@ class DI18nExtractCommand : DCommand {
     // Checks whether a given path is usable for writing.
     protected bool _isPathUsable(string folderToPath) {
         if (!isDir(folderToPath)) {
-            mkdir(folderToPath, 0770, true);
+            createFolder(folderToPath, 0770, true);
         }
         return isDir(folderToPath) && is_writable(folderToPath);
     } */

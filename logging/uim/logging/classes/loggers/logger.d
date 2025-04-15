@@ -87,5 +87,5 @@ class DLogger : UIMObject, ILogger {
     return value.toString;
   }
 
-  abstract ILogger log(LogLevels level, string message, Json[string] contextValues = null);
+  abstract ILogger log(string level, string message, Json[string] contextValues = null);
 }
