@@ -8,7 +8,7 @@ module uim.errors;
 mixin(ImportPhobos!());
 
 public { // uim libraries
-  import uim.base;
+  import uim.oop;
 }
 
 public { // uim.filesystem libraries

@@ -1,14 +1,53 @@
-.dub
-*.a
-*.dll
-*.dx
-*.dylib
-*.exe
-*.lib
-*.lst
-*.obj
+# Compiled Object files
 *.o
 *.obj
-*.pdb
+
+# Compiled Dynamic libraries
 *.so
-*.json
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.a
+*.lib
+
+# Executables
+*.exe
+
+# DUB
+.dub
+docs.json
+__dummy.html
+docs/
+
+# Code coverage
+*.lst
+*.pdb
+*.dx
+*.so
+*.lib
+*.dll
+*.exe
+.*.sw*
+*.lst
+*.map
+*.pdb
+*.suo
+*.sln
+*.visualdproj
+*.exe_cv
+
+docs.json
+/docs
+__dummy.html
+
+.dub
+dub.selections.json
+
+# Auto-generated
+tls/openssl_version.d
+
+# Auto-downloaded 3rd-party (Meson)
+lib/subprojects/allocator
+lib/subprojects/diet/
+lib/subprojects/openssl/
