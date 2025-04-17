@@ -15,7 +15,7 @@ public {
 }
 
 public { // uim libraries
-  import uim.oop;
+  import uim.base;
   import uim.consoles;
 }
 

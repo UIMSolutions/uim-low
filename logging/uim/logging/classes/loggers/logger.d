@@ -65,26 +65,26 @@ class DLogger : UIMObject, ILogger {
       return message;
     }
 
-    STRINGAA replacements = logContext.toSringMap;
-    contextValues.each!((key, value) => replacements[key] = interpolateCentextValue(value));
+    STRINGAA replacements;
+    contextValues.each!((key, value) => replacements[key] = interpolate(value));
     return message.mustache(replacements);
   }
 
-  string interpolateLogCentextValue(Json value) {
-    return value.toString;
-    if (value.isScalar) {
-      return value.toString;
+  string interpolate(Json contextValue) {
+    return contextValue.toString;
+    if (contextValue.isScalar) {
+      return contextValue.toString;
     }
 
-    if (value.isArray) {
-      return value.toString;
+    if (contextValue.isArray) {
+      return contextValue.toString;
     }
 
-    if (value.isObject) {
-      return value.toString;
+    if (contextValue.isObject) {
+      return contextValue.toString;
     }
 
-    return value.toString;
+    return contextValue.toString;
   }
 
   abstract ILogger log(string level, string message, Json[string] contextValues = null);

@@ -113,12 +113,12 @@ class DFileLogger : DLogger {
   protected int _maxFileSize = 0; // If size is 0, no rotation is made.
 
   // Get the max file size.
-  int maxgetSize() {
+  int maxFileSize() {
     return _maxFileSize;
   };
 
   // Set the max file size.
-  ILogger maxgetSize(int newMaxSize) {
+  ILogger maxFileSize(int newMaxSize) {
     _maxFileSize = newMaxSize;
     return this;
   };
@@ -127,10 +127,10 @@ class DFileLogger : DLogger {
     auto logger = new DFileLogger;
     assert(logger.maxFileSize == 0);
 
-    logger.maxgetSize(1024);
+    logger.maxFileSize(1024);
     assert(logger.maxFileSize == 1024);
 
-    logger.maxgetSize(0);
+    logger.maxFileSize(0);
     assert(logger.maxFileSize == 0);
   }
   // #endregion maxFileSize
@@ -176,10 +176,8 @@ class DFileLogger : DLogger {
       return; // do nothing
     }
 
-    renameFile(logFilepath, logFilepath ~ "." ~ time());
+    rename(logFilepath, "%s.%s".format(logFilepath, toTimestamp(now())));
     createFile(logFilepath);
-
-    return result;
   }
 }
 

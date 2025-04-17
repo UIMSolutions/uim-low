@@ -7,7 +7,7 @@ module uim.containers.classes.maps.map;
 
 mixin(Version!"test_uim_containers");
 
-import uim.oop;
+import uim.base;
 @safe:
 
 class DMap(K, T:
