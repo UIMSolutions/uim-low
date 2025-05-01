@@ -58,8 +58,8 @@ void stackTrace(Json[string] options = new Json[string]) {
     } */
 
     options
-        .merge("start", 0)
-        .set("start", options.getLong("start") + 1);
+        .mergeValue("start", 0)
+        .setValue("start", options.getLong("start") + 1);
 
     /* string trace = Debugger.trace(formatOptions);
     writeln(trace); */

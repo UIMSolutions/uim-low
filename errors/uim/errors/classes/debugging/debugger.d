@@ -56,30 +56,30 @@ class DDebugger : UIMObject, IErrorDebugger {
     _stringContents["log"] = logMap;
 
     Json[string] jsMap; 
-    jsMap.set(["error", "info", "code", "dumpContext"], "");
-    jsMap.set("trace", htmlDoubleTag("pre", ["stack-trace"], "{:trace}"));
-    jsMap.set("links", Json.emptyArray);
-    jsMap.set("escapeContext", true);
+    jsMap.setValue(["error", "info", "code", "dumpContext"], "");
+    jsMap.setValue("trace", htmlDoubleTag("pre", ["stack-trace"], "{:trace}"));
+    jsMap.setValue("links", Json.emptyArray);
+    jsMap.setValue("escapeContext", true);
     _stringContents["js"] = jsMap;
 
     Json[string] htmlMap; 
-    htmlMap.set("trace", htmlDoubleTag("pre", ["uim-error trace"], "<b>Trace</b> <p>{:trace}</p>"));
-    htmlMap.set("dumpContext", htmlDoubleTag("pre", [
+    htmlMap.setValue("trace", htmlDoubleTag("pre", ["uim-error trace"], "<b>Trace</b> <p>{:trace}</p>"));
+    htmlMap.setValue("dumpContext", htmlDoubleTag("pre", [
         "uim-error dumpContext"
       ], "<b>Context</b> <p>{:dumpContext}</p>"));
-    htmlMap.set("escapeContext", true);
+    htmlMap.setValue("escapeContext", true);
     _stringContents["html"] = htmlMap;
 
     Json[string] txtMap; 
-    txtMap.set(["code", "info"], "");
-    txtMap.set("error", "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}");
+    txtMap.setValue(["code", "info"], "");
+    txtMap.setValue("error", "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}");
     _stringContents["txt"] = txtMap;
 
     Json[string] baseMap; 
-    baseMap.set("traceLine", "{:reference} - {:path}, line {:line}");
-    baseMap.set("trace", "Trace:\n{:trace}\n");
-    baseMap.set("dumpContext", "Context:\n{:dumpContext}\n");
-    _stringContents["base"] = baseMap;
+    baseMap.setValue("traceLine", "{:reference} - {:path}, line {:line}");
+    baseMap.setValue("trace", "Trace:\n{:trace}\n");
+    baseMap.setValue("dumpContext", "Context:\n{:dumpContext}\n");
+    _stringContents["base"] = MapHelper;
 
     return true;
   }

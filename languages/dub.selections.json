@@ -2,7 +2,7 @@
 	"fileVersion": 1,
 	"versions": {
 		"colored": "0.0.33",
-		"diet-ng": "1.8.3",
+		"diet-ng": "1.8.4",
 		"dlib": "1.2.1",
 		"eventcore": "0.9.35",
 		"libasync": "0.8.6",
@@ -13,14 +13,14 @@
 		"silly": "1.1.1",
 		"stdx-allocator": "2.77.5",
 		"taggedalgebraic": "0.11.23",
-		"uim-base": "25.4.17",
+		"uim-base": "25.4.20",
 		"uim-low": "25.4.16",
 		"unit-threaded": "2.2.3",
 		"vibe-container": "1.6.0",
 		"vibe-core": "2.10.1",
 		"vibe-d": "0.10.2",
 		"vibe-http": "1.2.2",
-		"vibe-inet": "1.1.1",
+		"vibe-inet": "1.1.2",
 		"vibe-serialization": "1.1.0",
 		"vibe-stream": "1.1.1"
 	}
