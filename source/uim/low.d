@@ -17,7 +17,7 @@ public {
     import uim.caches;
     import uim.commands;
     import uim.consoles;
-    import uim.errors;
+    import uim.base;
     import uim.events;
     import uim.i18n;
 //     import uim.languages;

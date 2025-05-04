@@ -5,15 +5,10 @@
 *****************************************************************************************************************/
 module uim.consoles.tests.stubconsoleinput;
 
-import uim.consoles;
-@safe:
-
 mixin(Version!"test_uim_consoles");
 
 import uim.consoles;
 @safe:
-
-
 
 /**
  * Stub class used by the console integration harness.

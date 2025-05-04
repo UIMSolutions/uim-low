@@ -5,15 +5,10 @@
 *****************************************************************************************************************/
 module uim.consoles.tests.stubconsoleoutput;
 
-import uim.consoles;
-@safe:
-
 mixin(Version!"test_uim_consoles");
 
 import uim.consoles;
 @safe:
-
-
 
 /**
  * StubOutput makes testing shell commands/shell helpers easier.
