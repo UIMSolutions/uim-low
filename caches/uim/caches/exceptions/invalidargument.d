@@ -5,8 +5,9 @@
 *****************************************************************************************************************/
 module uim.caches.exceptions.invalidargument;
 
-import uim.caches;
+mixin(Version!"test_uim_caches");
 
+import uim.caches;
 @safe:
 
 // Exception raised when cache keys are invalid.

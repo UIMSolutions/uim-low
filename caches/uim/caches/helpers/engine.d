@@ -5,7 +5,10 @@
 *****************************************************************************************************************/
 module uim.caches.helpers.engine;
 
+mixin(Version!"test_uim_caches");
+
 import uim.caches;
+@safe:
 
 bool isEngine(Object instance) {
     if (cast(ICacheEngine) instance) {

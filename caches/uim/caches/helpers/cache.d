@@ -5,7 +5,10 @@
 *****************************************************************************************************************/
 module uim.caches.helpers.cache;
 
+mixin(Version!"test_uim_caches");
+
 import uim.caches;
+@safe:
 
 bool isCache(Object instance) {
     if (cast(ICache) instance) {
