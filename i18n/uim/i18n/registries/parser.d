@@ -1,7 +1,8 @@
 module uim.i18n.registries.parser;
 
-import uim.i18n;
+mixin(Version!"test_uim_i18n");
 
+import uim.i18n;
 @safe:
 
 class DParserRegistry : DObjectRegistry!DParser {

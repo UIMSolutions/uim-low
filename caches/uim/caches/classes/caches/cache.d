@@ -1,7 +1,8 @@
 module uim.caches.classes.caches.cache;
 
-import uim.caches;
+mixin(Version!"test_uim_caches");
 
+import uim.caches;
 @safe:
 
 /**

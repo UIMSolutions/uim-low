@@ -9,9 +9,6 @@ targetName "uim_low"
 targetType "library"
 
 // External dependencies
-dependency "vibe-d" version="~>0.10.2"
-dependency "unit-threaded" version="~>2.2.2"
-dependency "colored" version="~>0.0.31"
 dependency "uim-base" version="~>25.4.15"
 
 dependency ":caches" version="*"

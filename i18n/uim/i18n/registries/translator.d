@@ -1,13 +1,9 @@
 module uim.i18n.registries.translator;
 
-import uim.i18n;
-@safe:
-
 mixin(Version!"test_uim_i18n");
 
 import uim.i18n;
 @safe:
-
 
 class DTranslatorRegistry : DObjectRegistry!DTranslator {
     /* // Fallback loader name.

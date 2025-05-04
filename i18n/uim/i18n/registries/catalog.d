@@ -5,9 +5,6 @@
 *****************************************************************************************************************/
 module uim.i18n.registries.catalog;
 
-import uim.i18n;
-@safe:
-
 mixin(Version!"test_uim_i18n");
 
 import uim.i18n;
@@ -19,4 +16,8 @@ class DMessageCatalogRegistry : DObjectRegistry!DMessageCatalog {
 
 auto MessageCatalogRegistration() {
     return DMessageCatalogRegistry.registration;
+}
+
+unittest {
+    // TODO: Test the registration of the message catalog.
 }
