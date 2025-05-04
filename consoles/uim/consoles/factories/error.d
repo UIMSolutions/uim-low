@@ -10,7 +10,6 @@ mixin(Version!"test_uim_consoles");
 import uim.consoles;
 @safe:
 
-
 class DErrorOutputFactory : DFactory!DErrorOutput {
 }
 

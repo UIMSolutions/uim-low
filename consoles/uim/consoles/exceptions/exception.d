@@ -5,14 +5,10 @@
 *****************************************************************************************************************/
 module uim.consoles.exceptions.exception;
 
-import uim.consoles;
-@safe:
-
 mixin(Version!"test_uim_consoles");
 
 import uim.consoles;
 @safe:
-
 
 // Exception class for Console libraries. This exception will be thrown from Console library classes when they encounter an error.
 class DConsoleException : DException {

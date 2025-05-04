@@ -10,7 +10,6 @@ mixin(Version!"test_uim_consoles");
 import uim.consoles;
 @safe:
 
-
 /**
  * Object wrapper for outputting information from a shell application.
  * Can be connected to any stream resource that can be used with fopen()
