@@ -5,9 +5,6 @@
 *****************************************************************************************************************/
 module uim.commands.classes.consoles.help;
 
-import uim.commands;
-@safe:
-
 mixin(Version!"test_uim_commands");
 
 import uim.commands;
