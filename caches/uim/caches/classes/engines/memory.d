@@ -5,8 +5,9 @@
 *****************************************************************************************************************/
 module uim.caches.classes.engines.memory;
 
-import uim.caches;
+mixin(Version!"test_uim_caches");
 
+import uim.caches;
 @safe:
 
 /**

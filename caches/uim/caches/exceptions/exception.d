@@ -5,8 +5,9 @@
 *****************************************************************************************************************/
 module uim.caches.exceptions.exception;
 
-import uim.caches;
+mixin(Version!"test_uim_caches");
 
+import uim.caches;
 @safe:
 
 // Base Caches exception.
