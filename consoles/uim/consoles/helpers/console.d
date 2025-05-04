@@ -5,9 +5,6 @@
 *****************************************************************************************************************/
 module uim.consoles.helpers.console;
 
-import uim.consoles;
-@safe:
-
 mixin(Version!"test_uim_consoles");
 
 import uim.consoles;
