@@ -5,13 +5,6 @@
 *****************************************************************************************************************/
 module uim.caches;
 
-mixin(ImportPhobos!());
-
-// Dub
-public {
-  import colored;
-}
-
 public { // uim libraries
   import uim.base;
 }
