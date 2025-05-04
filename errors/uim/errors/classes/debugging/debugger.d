@@ -6,13 +6,14 @@
 module uim.errors.classes.debugging.debugger;
 
 import uim.errors;
+
 @safe:
 
 mixin(Version!"test_uim_errors");
 
 import uim.errors;
-@safe:
 
+@safe:
 
 // Provide custom logging and error handling.
 class DDebugger : UIMObject, IErrorDebugger {
@@ -48,38 +49,34 @@ class DDebugger : UIMObject, IErrorDebugger {
       "vscode": "vscode://file/{file}:{line}",
     ];
 
-     _stringContents = null;
+    _stringContents = null;
 
-    Json[string] logMap; // These templates are not actually used, as Debugger.log() is called instead.
-    logMap.set("trace", "{:reference} - {:path}, line {:line}");
-    logMap.set("error", "{:error} ({:code}): {:description} in [{:file}, line {:line}]");
-    _stringContents["log"] = logMap;
+    // These templates are not actually used, as Debugger.log() is called instead.
+    _stringContents["log"] = MapHelper.create!(string, Json)
+      .setValue("trace", "{:reference} - {:path}, line {:line}")
+      .setValue("error", "{:error} ({:code}): {:description} in [{:file}, line {:line}]");
 
-    Json[string] jsMap; 
-    jsMap.set(["error", "info", "code", "dumpContext"], "");
-    jsMap.set("trace", htmlDoubleTag("pre", ["stack-trace"], "{:trace}"));
-    jsMap.set("links", Json.emptyArray);
-    jsMap.set("escapeContext", true);
-    _stringContents["js"] = jsMap;
+    _stringContents["js"] = MapHelper.create!(string, Json)
+      .setValues(["error", "info", "code", "dumpContext"], "")
+      .setValue("trace", htmlDoubleTag("pre", ["stack-trace"], "{:trace}"))
+      .setValue("links", Json.emptyArray)
+      .setValue("escapeContext", true);
 
-    Json[string] htmlMap; 
-    htmlMap.set("trace", htmlDoubleTag("pre", ["uim-error trace"], "<b>Trace</b> <p>{:trace}</p>"));
-    htmlMap.set("dumpContext", htmlDoubleTag("pre", [
-        "uim-error dumpContext"
-      ], "<b>Context</b> <p>{:dumpContext}</p>"));
-    htmlMap.set("escapeContext", true);
-    _stringContents["html"] = htmlMap;
+    _stringContents["html"] = MapHelper.create!(string, Json)
+      .setValue("trace", htmlDoubleTag("pre", ["uim-error trace"], "<b>Trace</b> <p>{:trace}</p>"))
+      .setValue("dumpContext", htmlDoubleTag("pre", [
+            "uim-error dumpContext"
+          ], "<b>Context</b> <p>{:dumpContext}</p>"))
+      .setValue("escapeContext", true);
 
-    Json[string] txtMap; 
-    txtMap.set(["code", "info"], "");
-    txtMap.set("error", "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}");
-    _stringContents["txt"] = txtMap;
+    _stringContents["txt"] = MapHelper.create!(string, Json)
+      .setValues(["code", "info"], "")
+      .setValue("error", "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}");
 
-    Json[string] baseMap; 
-    baseMap.set("traceLine", "{:reference} - {:path}, line {:line}");
-    baseMap.set("trace", "Trace:\n{:trace}\n");
-    baseMap.set("dumpContext", "Context:\n{:dumpContext}\n");
-    _stringContents["base"] = baseMap;
+    _stringContents["base"] = MapHelper.create!(string, Json)
+      .setValue("traceLine", "{:reference} - {:path}, line {:line}")
+      .setValue("trace", "Trace:\n{:trace}\n")
+      .setValue("dumpContext", "Context:\n{:dumpContext}\n");
 
     return true;
   }
@@ -163,7 +160,7 @@ class DDebugger : UIMObject, IErrorDebugger {
         ]);
     }
     return templateText(file, lineNumber); */
-    return null; 
+    return null;
   }
   /*
     //Holds current output data when outputFormat is false.
@@ -261,7 +258,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
     // Reverse loop through both traces removing frames that
     // are the same.
-/*     for (index = frameCount, p = parentCount; index >= 0 && p >= 0; p--) {
+    /*     for (index = frameCount, p = parentCount; index >= 0 && p >= 0; p--) {
       parentTail = parentFrames[p];
       tail = frames[index];
 
@@ -280,7 +277,7 @@ class DDebugger : UIMObject, IErrorDebugger {
       }
     }
     return frames; */
-    return null; 
+    return null;
   }
 
   /**
@@ -301,7 +298,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     backtrace.shift;
 
     return Debugger.formatTrace(backtrace, options); */
-  
+
     return null;
   }
 
@@ -333,7 +330,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     /* auto count = count(backtrace) + 1;
     string[] back = null; */
 
-/*     for (index = options.getLong("start"); index < count && index < options.getLong("depth");
+    /*     for (index = options.getLong("start"); index < count && index < options.getLong("depth");
       index++) {
       frame = ["file": "[main]", "line": ""];
       if (isSet(backtrace[index])) {
@@ -379,7 +376,7 @@ class DDebugger : UIMObject, IErrorDebugger {
       return back;
     } */
     // return back.join("\n");
-    return null; 
+    return null;
   }
 
   // Shortens file paths by replacing the application base path with 'APP", and the UIM core path with 'CORE'.
@@ -392,7 +389,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     }
     return defined("ROOT") && pathToShorten.startsWith(ROOT)
       ? pathToShorten.replace(ROOT, "ROOT") : pathToShorten; */
-    return null; 
+    return null;
   }
 
   /**
@@ -463,7 +460,7 @@ class DDebugger : UIMObject, IErrorDebugger {
         "");
     }
     return highlight; */
-    return null; 
+    return null;
   }
 
   // Get the configured export formatter or infer one based on the environment.
@@ -513,15 +510,15 @@ class DDebugger : UIMObject, IErrorDebugger {
     auto node = export_(value, context);
 
     return getInstance().getExportFormatter().dump(node); */
-    return null; 
+    return null;
   }
 
   // Converts a variable to a plain text string.
   static string exportVarAsPlainText(Json value, int maxOutputDepth = 3) {
-/*     return (new DTextFormatter()).dump(
+    /*     return (new DTextFormatter()).dump(
       export_(value, new DDebugContext(maxOutputDepth))
     ); */
-    return null; 
+    return null;
   }
 
   /**
@@ -532,7 +529,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      */
   static IErrorNode exportVarAsNodes(Json value, int maxOutputDepth = 3) {
     // return export_(value, new DDebugContext(maxOutputDepth));
-    return null; 
+    return null;
   }
 
   /**
@@ -667,7 +664,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
   // Get the type of the given variable. Will return the class name for objects.
   static string getType(Json variableToCheck) {
-/*     string variableType = get_debug_type(variableToCheck);
+    /*     string variableType = get_debug_type(variableToCheck);
 
     switch (variableType) {
     case "double":
@@ -677,7 +674,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     default:
       return variableType;
     } */
-    return null; 
+    return null;
   }
 
   // Prints out debug information about given variable.
@@ -722,7 +719,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
   // Verifies that the application`s salt and cipher seed value has been changed from the default value.
   static void checkSecurityKeys() {
-/*     auto salt = Security.getSalt();
+    /*     auto salt = Security.getSalt();
     if (salt == "__SALT__" || salt.length < 32) {
       trigger_error(
         "Please change the value of `Security.salt` in `ROOT/config/app_local.d` " ~
@@ -753,35 +750,35 @@ class DDebugger : UIMObject, IErrorDebugger {
                 "uim-stack-trace"
             ], ["style": "display: none;"], "{:links}{:info}");
         e ~= `</pre>`;
-        _stringContents.set("js.error", e);
+        _stringContents.setValue("js.error", e);
         t = `<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">`;
         t ~= `{:dumpContext}{:code}{:trace}</div>`;
-        _stringContents.set("js.info", t);
+        _stringContents.setValue("js.info", t);
 
         Json[string] links;
         string link = "<a href=\"javascript:void(0);\" onclick=\"document.getElementById(\"{:id}-code\")";
         link ~= ".style.display = (document.getElementById(\"{:id}-code\").style.display == ";
         link ~= "\"none\" ? \"\" : \"none\")\">Code</a>";
-        links.set("code", link);
+        links.setValue("code", link);
 
         link = "<a href=\"javascript:void(0);\" onclick=\"document.getElementById(\"{:id}-dumpContext\")";
         link ~= ".style.display = (document.getElementById(\"{:id}-dumpContext\").style.display == ";
         link ~= "\"none\" ? \"\" : \"none\")\">Context</a>";
-        links.set("dumpContext", link);
+        links.setValue("dumpContext", link);
 
-        _stringContents.set("js.links", links);
-        _stringContents.set("js.dumpContext", htmlDoubleTag("pre", "{:id}-dumpContext", [
+        _stringContents.setValue("js.links", links);
+        _stringContents.setValue("js.dumpContext", htmlDoubleTag("pre", "{:id}-dumpContext", [
                     "uim-dumpContext", "uim-debug"
                 ], ["style": "display: none;"], "{:dumpContext}"));
-        _stringContents.set("js.code", htmlDoubleTag("pre", "{:id}-code", [
+        _stringContents.setValue("js.code", htmlDoubleTag("pre", "{:id}-code", [
                     "uim-code-dump"
                 ], ["style": "display: none;"], "{:code}"));
-        _stringContents.set("html.error", htmlDoubleTag("pre", [
+        _stringContents.setValue("html.error", htmlDoubleTag("pre", [
                     "uim-error"
                 ],
                 htmlDoubleTag("b", "{:error}") ~ "({:code}) : {:description} [<b>{:path}</b>, line <b>{:line}]</b>"));
 
-        _stringContents.set("html.dumpContext", htmlDoubleTag("pre", [
+        _stringContents.setValue("html.dumpContext", htmlDoubleTag("pre", [
                     "uim-dumpContext uim-debug"
                 ],
                 htmlDoubleTag("b", "Context") ~
@@ -802,7 +799,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     }
 
     return instance[0]; */
-    return null; 
+    return null;
   }
 
   // Read or write configuration options for the Debugger instance.
@@ -831,7 +828,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     // addEditor(editorName, string templateName) {
   } */
 
-/*   static void addEditor(string editorName, string templateName) {
+  /*   static void addEditor(string editorName, string templateName) {
     auto instance = getInstance();
     instance.editors[editorName] = templatenName;
   } */
@@ -951,10 +948,10 @@ class DDebugger : UIMObject, IErrorDebugger {
         auto count = count(backtrace);
         auto back = null;
         _trace = MapHelper.create!(string, Json)
-            .set("line", "??")
-            .set("file", "[internal]")
-            .set("class", Json(null))
-            .set("function", "[main]");
+            .setValue("line", "??")
+            .setValue("file", "[internal]")
+            .setValue("class", Json(null))
+            .setValue("function", "[main]");
 
         for (i = options.getLong("start"); i < count && i < options.getLong(
                 "depth"); i++) {
@@ -1012,8 +1009,8 @@ class DDebugger : UIMObject, IErrorDebugger {
                             "traceLine"
                         ]));
             }
-            trace.set("path", trimPath(trace["file"]));
-            trace.set("reference", reference);
+            trace.setValue("path", trimPath(trace["file"]));
+            trace.setValue("reference", reference);
             trace.removeKey("object", "args");
             back ~= Text.insert(tpl, trace, [
                     "before": "{:",
@@ -1310,11 +1307,11 @@ class DDebugger : UIMObject, IErrorDebugger {
 
     auto classnameName = get_class(
         objToConvert); */
-    /*     if (isRef) {
+  /*     if (isRef) {
         return new DReferenceErrorNode(null, refNum);
     }
  */
-    /* auto node = new DClassErrorNode(null, refNum);
+  /* auto node = new DClassErrorNode(null, refNum);
     auto remaining = dumpContext
         .remainingDepth();
     if (remaining > 0) {
@@ -1427,7 +1424,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     if (
       location.hasKey(
         "file")) {
-      location.set("file", trimPath(
+      location.setValue("file", trimPath(
           location.getString(
           "file")));
     }

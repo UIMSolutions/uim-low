@@ -89,12 +89,12 @@ class DArguments {
 
   // Get an option`s value or null
   Json option(string name) {
-    return _options.getJson(name);
+    return name in _options ? _options[name] : Json(null);
   }
 
   // Check if an option is defined and not null.
   bool hasOption(string name) {
-    return _options.hasKey(name);
+    return name in _options ? true : false;
   }
   // #endregion options
 }
