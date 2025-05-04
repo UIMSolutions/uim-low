@@ -9,7 +9,6 @@ targetname "uim_commands"
 targetType "library"
 
 // Internal dependencies
-dependency "uim-low:errors" version="*"
 dependency "uim-low:consoles" version="*"
 dependency "uim-low:events" version="*"
 dependency "uim-low:i18n" version="*"

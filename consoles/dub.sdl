@@ -9,8 +9,6 @@ targetname "uim_consoles"
 targetType "library"
 
 // Internal dependencies
-dependency "uim-low:errors" version="*"
-
 sourcePaths "."
 importPaths "."
 

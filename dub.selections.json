@@ -12,7 +12,6 @@
 		"uim-base": "25.4.20",
 		"uim-containers": {"path":"containers"},
 		"uim-core": {"path":"../uim-base/core"},
-		"uim-errors": {"path":"errors"},
 		"uim-i18n": {"path":"i18n"},
 		"uim-phobos": {"path":"../uim-base/phobos"},
 		"uim-vibe": {"path":"../uim-base/vibe"},

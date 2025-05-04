@@ -10,7 +10,6 @@ targetName "uim_languages"
 targetType "library"
 
 // Internal dependencies
-dependency "uim-low:errors" version="*"
 dependency "uim-low:filesystems" version="*"
 dependency "uim-low:models" version="*"
 

@@ -8,7 +8,6 @@ targetType "library"
 targetname "uim_events"
 
 // Internal dependencies
-dependency "uim-low:errors" version="*"
 
 sourcePaths "."
 importPaths "."

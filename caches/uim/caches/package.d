@@ -15,9 +15,7 @@ public {
 }
 
 public { // uim libraries
-  import uim.core;
   import uim.base;
-  import uim.errors;
 }
 
 public { // uim.filesystem libraries
