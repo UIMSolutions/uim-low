@@ -5,9 +5,6 @@
 *****************************************************************************************************************/
 module uim.i18n.classes.number;
 
-import uim.i18n;
-@safe:
-
 mixin(Version!"test_uim_i18n");
 
 import uim.i18n;
