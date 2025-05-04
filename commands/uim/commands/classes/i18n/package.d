@@ -6,7 +6,7 @@
 module uim.commands.classes.i18n;
 
 public {
-    import uim.commands.classes.i18n.i18n;
-    import uim.commands.classes.i18n.i18nextract;
-    import uim.commands.classes.i18n.i18ninit;
+  import uim.commands.classes.i18n.i18n;
+  import uim.commands.classes.i18n.i18nextract;
+  import uim.commands.classes.i18n.i18ninit;
 }

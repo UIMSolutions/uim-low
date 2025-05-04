@@ -5,8 +5,9 @@
 *****************************************************************************************************************/
 module uim.commands.classes.plugins.load;
 
-import uim.commands;
+mixin(Version!"test_uim_commands");
 
+import uim.commands;
 @safe:
 
 // Command for loading plugins.

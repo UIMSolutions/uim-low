@@ -5,31 +5,26 @@
 *****************************************************************************************************************/
 module uim.commands.classes.i18n.i18n;
 
-import uim.commands;
-
-@safe:
-
 mixin(Version!"test_uim_commands");
 
 import uim.commands;
 @safe:
 
-
 // Command for interactive I18N management.
 class DI18nCommand : DCommand {
-    mixin(CommandThis!("I18n"));
+  mixin(CommandThis!("I18n"));
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        return true;
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
     }
 
-    // Execute interactive mode
-    override bool execute(Json[string] arguments, IConsole console = null) {
-        /* console.writeln("<info>I18n Command</info>");
+    return true;
+  }
+
+  // Execute interactive mode
+  override bool execute(Json[string] arguments, IConsole console = null) {
+    /* console.writeln("<info>I18n Command</info>");
         console.hr();
         console.writeln("[E]xtract POT file from sources");
         console.writeln("[I]nitialize a language from POT file");
@@ -66,11 +61,11 @@ class DI18nCommand : DCommand {
         }
         while (choice != "q"); */
 
-        return true;
-    }
+    return true;
+  }
 
-    //  Gets the option parser instance and configures it.
-    /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
+  //  Gets the option parser instance and configures it.
+  /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
         parserToUpdate.description(
             "I18n commands let you generate .pot files to power translations in your application."
         );

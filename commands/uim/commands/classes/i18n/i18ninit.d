@@ -5,26 +5,21 @@
 *****************************************************************************************************************/
 module uim.commands.classes.i18n.i18ninit;
 
-import uim.commands;
-
-@safe:
-
 mixin(Version!"test_uim_commands");
 
 import uim.commands;
 @safe:
 
-
 // Command for interactive I18N management.
 class DI18nInitCommand : DCommand {
-    mixin(CommandThis!("I18nInit"));
+  mixin(CommandThis!("I18nInit"));
 
-    static string defaultName() {
-        return "i18n-init";
-    }
+  static string defaultName() {
+    return "i18n-init";
+  }
 
-    override bool execute(Json[string] arguments, IConsole console = null) {
-/*         auto myLanguage = commandArguments.getArgument("language");
+  override bool execute(Json[string] arguments, IConsole console = null) {
+    /*         auto myLanguage = commandArguments.getArgument("language");
         if (myLanguage.isNull) {
             myLanguage = console.ask(
                 "Please specify language code, e.g. `en`, `eng`, `en_US` etc.");
@@ -36,7 +31,7 @@ class DI18nInitCommand : DCommand {
             return false;
         } */
 
-/*         auto somePaths = App.path("locales");
+    /*         auto somePaths = App.path("locales");
         if (arguments.hasKey("plugin")) {
             plugin = arguments.getString("plugin").camelize;
             somePaths = [
@@ -44,14 +39,14 @@ class DI18nInitCommand : DCommand {
                     plugin) ~ "resources" ~ DIR_SEPARATOR ~ "locales" ~ DIR_SEPARATOR
             ];
         } */
-        
-/*         string response = console.ask("What folder?", stripRight(somePaths[0], DIR_SEPARATOR) ~ DIR_SEPARATOR);
+
+    /*         string response = console.ask("What folder?", stripRight(somePaths[0], DIR_SEPARATOR) ~ DIR_SEPARATOR);
         string sourceFolder = stripRight(response, DIR_SEPARATOR) ~ DIR_SEPARATOR;
         string targetFolder = sourceFolder ~ myLanguage ~ DIR_SEPARATOR;
- *//*         if (!isDir(targetFolder)) {
+ */ /*         if (!isDir(targetFolder)) {
             createFolder(targetFolder, 0770, true);
         } */
-/*         size_t countFiles = 0;
+    /*         size_t countFiles = 0;
         auto anIterator = new DirectoryIterator(sourceFolder);
         anIterator
             .filter!(fileInfo => fileInfo.isFile())
@@ -69,15 +64,15 @@ class DI18nInitCommand : DCommand {
             });
         console.writeln("Generated " ~ countFiles ~ " PO files in " ~ targetFolder);
  */
-        return true;
-    }
+    return true;
+  }
 
-    /**
+  /**
      * Gets the option parser instance and configures it.
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The parser to update
      */
-    /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser aParser) {
+  /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser aParser) {
         aParser.description("Initialize a language PO file from the POT file")
             .addOption("plugin", [
                     "help": "The plugin to create a PO file in.",

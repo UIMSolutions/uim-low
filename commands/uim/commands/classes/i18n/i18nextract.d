@@ -5,15 +5,10 @@
 *****************************************************************************************************************/
 module uim.commands.classes.i18n.i18nextract;
 
-import uim.commands;
-
-@safe:
-
 mixin(Version!"test_uim_commands");
 
 import uim.commands;
 @safe:
-
 
 // Language string extractor
 class DI18nExtractCommand : DCommand {

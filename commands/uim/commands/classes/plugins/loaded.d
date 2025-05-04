@@ -5,8 +5,9 @@
 *****************************************************************************************************************/
 module uim.commands.classes.plugins.loaded;
 
-import uim.commands;
+mixin(Version!"test_uim_commands");
 
+import uim.commands;
 @safe:
 
 // Displays all currently loaded plugins.
