@@ -5,10 +5,6 @@
 *****************************************************************************************************************/
 module uim.commands.classes.schemacaches.clear;
 
-import uim.commands;
-
-@safe:
-
 mixin(Version!"test_uim_commands");
 
 import uim.commands;

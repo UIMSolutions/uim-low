@@ -5,9 +5,6 @@
 *****************************************************************************************************************/
 module uim.commands.collections.command;
 
-import uim.commands;
-@safe:
-
 mixin(Version!"test_uim_commands");
 
 import uim.commands;

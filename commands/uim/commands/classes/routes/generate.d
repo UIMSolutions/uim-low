@@ -5,15 +5,10 @@
 *****************************************************************************************************************/
 module uim.commands.classes.routes.generate;    
 
-import uim.commands;
-
-@safe:
-
 mixin(Version!"test_uim_commands");
 
 import uim.commands;
 @safe:
-
 
 // Provides interactive CLI tools for URL generation
 class DRoutesGenerateCommand : DCommand {

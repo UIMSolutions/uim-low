@@ -5,8 +5,9 @@
 *****************************************************************************************************************/
 module uim.commands.classes.plugins.assets.symlink;
 
-import uim.commands;
+mixin(Version!"test_uim_commands");
 
+import uim.commands;
 @safe:
 
 // Command for symlinking / copying plugin assets to app`s webroot.

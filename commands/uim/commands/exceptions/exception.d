@@ -5,8 +5,9 @@
 *****************************************************************************************************************/
 module uim.commands.exceptions.exception;
 
-import uim.commands;
+mixin(Version!"test_uim_commands");
 
+import uim.commands;
 @safe:
 
 // Base commands exception.
