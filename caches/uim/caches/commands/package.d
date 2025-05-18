@@ -3,11 +3,11 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.caches;
+module uim.caches.commands;
 
 public {
-    import uim.commands.classes.caches.clear;
-    import uim.commands.classes.caches.clearall;
-    import uim.commands.classes.caches.cleargroup;
-    import uim.commands.classes.caches.list;
+    import uim.caches.commands.clear;
+    import uim.caches.commands.clearall;
+    import uim.caches.commands.cleargroup;
+    import uim.caches.commands.list;
 }

@@ -7,11 +7,13 @@ module uim.caches;
 
 public { // uim libraries
   import uim.base;
+  import uim.commands;
 }
 
 public { // uim.filesystem libraries
   import uim.caches.classes;
   import uim.caches.collections;
+  import uim.caches.commands;
   import uim.caches.enumerations;
   import uim.caches.errors;
   import uim.caches.exceptions;

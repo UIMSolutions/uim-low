@@ -7,7 +7,7 @@ module uim.i18n.commands.i18nextract;
 
 mixin(Version!"test_uim_commands");
 
-import uim.commands;
+import uim.i18n;
 @safe:
 
 // Language string extractor

@@ -1,9 +1,9 @@
-# Package 📦 uim.commands.classes.caches
+# Package 📦 uim.caches.commands
 
 ## Packages
 
 ## Modules
-* uim.commands.classes.caches.clear
-* uim.commands.classes.caches.clearall
-* uim.commands.classes.caches.cleargroup
-* uim.commands.classes.caches.list
+* uim.caches.commands.clear
+* uim.caches.commands.clearall
+* uim.caches.commands.cleargroup
+* uim.caches.commands.list

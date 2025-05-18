@@ -3,11 +3,11 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.i18n.i18n;
+module uim.i18n.classes.i18n.i18n;
 
 mixin(Version!"test_uim_commands");
 
-import uim.commands;
+import uim.i18n;
 @safe:
 
 // Command for interactive I18N management.

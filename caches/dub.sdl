@@ -10,6 +10,7 @@ targetType "library"
 
 // External dependencies
 dependency "uim-base" version="*"
+dependency "uim-low:commands" path=".."
 
 // Internal dependencies
 sourcePaths "."
