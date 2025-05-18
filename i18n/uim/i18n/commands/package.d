@@ -3,32 +3,10 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.i18n;
+module uim.i18n.commands;
 
-mixin(ImportPhobos!());
-
-// Dub
 public {
-  import colored;
-  import vibe.d;
-  import vibe.http.session : HttpSession = Session;
-}
-
-public { // uim libraries
-  import uim.base;
-}
-
-public { // uim.filesystem libraries
-  import uim.i18n.classes;
-  import uim.i18n.collections;
-  import uim.i18n.commands;
-  import uim.i18n.enumerations;
-  import uim.i18n.errors;
-  import uim.i18n.exceptions;
-  import uim.i18n.factories;
-  import uim.i18n.helpers;
-  import uim.i18n.interfaces;
-  import uim.i18n.mixins;
-  import uim.i18n.registries;
-  import uim.i18n.tests;
+    import uim.i18.commands.i18n;
+    import uim.i18.commands.i18nextract.d;
+    import uim.i18.commands.i18init.d;
 }
