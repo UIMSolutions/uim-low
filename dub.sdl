@@ -9,7 +9,7 @@ targetName "uim_low"
 targetType "library"
 
 // External dependencies
-dependency "uim-base" version="~>25.4.15"
+dependency "uim-base" version="*"
 
 dependency ":caches" version="*"
 dependency ":commands" version="*"

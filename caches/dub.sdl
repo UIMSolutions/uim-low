@@ -1,5 +1,5 @@
 name "caches"
-description "V in MVC"
+description "Cache management"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
@@ -7,6 +7,9 @@ license "Apache-2.0"
 // target
 targetname "uim_caches"
 targetType "library"
+
+// External dependencies
+dependency "uim-base" version="*"
 
 // Internal dependencies
 sourcePaths "."
