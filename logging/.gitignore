@@ -2,6 +2,8 @@
 docs.json
 __dummy.html
 docs/
+backlogs/
+backlogs/
 .dub
 *.a
 *.dll

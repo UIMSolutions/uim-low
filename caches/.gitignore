@@ -1,6 +1,7 @@
 docs.json
 __dummy.html
 docs/
+backlogs/
 *-test-*
 .dub
 *.a
