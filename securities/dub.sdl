@@ -16,7 +16,7 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_securities" {
+configuration "test_library" {
 	versions "test_uim_securities"
 }
 configuration "test_all" {

@@ -15,7 +15,7 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_logging" {
+configuration "test_library" {
 	versions "test_uim_logging"
 }
 configuration "test_all" {

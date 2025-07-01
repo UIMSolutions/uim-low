@@ -14,7 +14,7 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_events" {
+configuration "test_library" {
 	versions "test_uim_events"
 }
 configuration "test_all" {
