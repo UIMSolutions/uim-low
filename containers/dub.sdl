@@ -14,7 +14,7 @@ importPaths "."
 
 // configuration "default" {}
 
-/* configuration "test_uim_containers" {
+/* configuration "test_library" {
 	versions "test_uim_containers"
 }
 configuration "test_all" {

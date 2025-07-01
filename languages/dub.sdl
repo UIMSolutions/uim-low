@@ -13,5 +13,10 @@ targetType "library"
 dependency "uim-low:filesystems" path=".."
 dependency "uim-low:models" path=".."
 
-sourcePaths "."
-importPaths "."
+configuration "test_library" {
+	versions "test_uim_languages"
+}
+configuration "test_all" {
+	versions "test_uim_core" "test_uim_oop"
+}
+

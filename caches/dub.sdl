@@ -12,13 +12,9 @@ targetType "library"
 dependency "uim-base" version="*"
 dependency "uim-low:commands" path=".."
 
-// Internal dependencies
-sourcePaths "."
-importPaths "."
-
 // configuration "default" {}
 
-configuration "test_uim_caches" {
+configuration "test_library" {
 	versions "test_uim_caches"
 }
 configuration "test_all" {
