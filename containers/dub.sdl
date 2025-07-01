@@ -8,9 +8,6 @@ license "Apache-2.0"
 targetname "uim_containers"
 targetType "library"
 
-// Internal dependencies
-sourcePaths "."
-importPaths "."
 
 // configuration "default" {}
 

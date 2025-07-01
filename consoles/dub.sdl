@@ -10,13 +10,10 @@ targetType "library"
 
 dependency "uim-base" version="*"
 
-// Internal dependencies
-sourcePaths "."
-importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_consoles" {
+configuration "test_library" {
 	versions "test_uim_consoles"
 }
 configuration "test_all" {

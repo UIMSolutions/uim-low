@@ -7,9 +7,6 @@ license "Apache-2.0"
 targetType "library"
 targetname "uim_scriptings"
 
-// Internal dependencies
-sourcePaths "."
-importPaths "."
 
 // configuration "default" {}
 
