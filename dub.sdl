@@ -11,8 +11,6 @@ targetType "library"
 // External dependencies
 dependency "uim-base" version="*"
 
-dependency ":caches" version="*"
-dependency ":commands" version="*"
 dependency ":consoles" version="*"
 dependency ":containers" version="*"
 dependency ":events" version="*"
@@ -24,8 +22,6 @@ dependency ":securities" version="*"
 
 sourceFiles "./source/uim/low.d"
 
-subPackage "caches"
-subPackage "commands"
 subPackage "consoles"
 subPackage "containers"
 subPackage "events"

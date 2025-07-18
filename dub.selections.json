@@ -12,7 +12,7 @@
 		"stdx-allocator": "2.77.5",
 		"taggedalgebraic": "1.0.0",
 		"tinyendian": "0.2.0",
-		"uim-base": "25.6.1",
+		"uim-base": "25.6.2",
 		"uim-containers": {"path":"containers"},
 		"uim-core": {"path":"../uim-base/core"},
 		"uim-i18n": {"path":"i18n"},
