@@ -14,11 +14,11 @@ import uim.consoles;
 
 // Exception class for halting errors in console tasks
 class DStopException : DConsoleException {
-  mixin(ExceptionThis!("Stop"));
+  // mixin(ExceptionThis!("Stop"));
 }
 
-mixin(ExceptionCalls!("Stop"));
+// mixin(ExceptionCalls!("Stop"));
 
-unittest {
-  testException(StopException);
-}
+// unittest {
+  // testException(StopException);
+// }

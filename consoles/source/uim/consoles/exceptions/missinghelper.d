@@ -16,7 +16,7 @@ import uim.consoles;
 
 // Used when a Helper cannot be found.
 class DMissingHelperException : DConsoleException {
-  mixin(ExceptionThis!("MissingHelper"));
+  // mixin(ExceptionThis!("MissingHelper"));
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {

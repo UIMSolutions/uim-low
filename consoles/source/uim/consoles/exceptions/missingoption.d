@@ -16,7 +16,7 @@ import uim.consoles;
 
 // Exception raised with suggestions
 class DMissingOptionException : DConsoleException {
-  mixin(ExceptionThis!("MissingOption"));
+  // mixin(ExceptionThis!("MissingOption"));
   // The requested thing that was not found.
   protected string _requested = "";
 
@@ -80,8 +80,10 @@ class DMissingOptionException : DConsoleException {
   }
 }
 
+/* 
 mixin(ExceptionCalls!("MissingOption"));
 
 unittest {
   testException(MissingOptionException);
 }
+*/

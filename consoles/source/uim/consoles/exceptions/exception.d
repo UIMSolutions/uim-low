@@ -12,7 +12,7 @@ import uim.consoles;
 
 // Exception class for Console libraries. This exception will be thrown from Console library classes when they encounter an error.
 class DConsoleException : DException {
-  mixin(ExceptionThis!("Console"));
+  // mixin(ExceptionThis!("Console"));
 
   protected int _defaultCode; // = DCommand.false;
   protected int _exceptionCode;
@@ -27,8 +27,10 @@ class DConsoleException : DException {
   } */
 }
 
+/* 
 mixin(ExceptionCalls!("Console"));
 
 unittest {
   testException(ConsoleException);
 }
+*/

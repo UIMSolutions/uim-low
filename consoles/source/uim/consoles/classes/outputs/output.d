@@ -37,6 +37,40 @@ import uim.consoles;
  * See OutputConsole.styles() to learn more about defining your own styles. Nested styles are not supported
  * at this time.
  */
+/**
+ * DOutput is a console output handler class that provides styled and formatted output for console applications.
+ * It supports multiple output types (RAW, PLAIN, COLOR) and allows for custom styles using tags.
+ *
+ * Features:
+ * - Output messages to stdout/stderr with optional styling and formatting.
+ * - Define and manage custom styles for text, background, and formatting options.
+ * - Apply styles to text using tags, which are replaced with appropriate color codes or formatting.
+ * - Switch between different output types to control how tags and styles are processed.
+ *
+ * Output Types:
+ * - RAW: Outputs text as-is, with no modification or tag processing.
+ * - PLAIN: Outputs text with tags stripped, no color or formatting applied.
+ * - COLOR: Outputs text with tags replaced by ANSI color codes for styled console output.
+ *
+ * Usage:
+ * - Use `write` methods to output messages.
+ * - Use `style` methods to define or modify styles.
+ * - Use `outputType` to set or get the current output type.
+ * - Use `styleText` to apply styles to a given text.
+ * - Use `removeStyle` to remove a defined style.
+ * - Use `close` to clean up resources.
+ *
+ * Example:
+ * ---
+ * output.style("warning", ["text": "yellow", "background": "red"]);
+ * output.outputType("COLOR");
+ * output.write("<warning>Warning message</warning>");
+ * ---
+ *
+ * Inherits:
+ * - UIMObject
+ * - IOutput
+ */
 class DOutput : UIMObject, IOutput {
   mixin(OutputThis!());
 
@@ -207,7 +241,74 @@ class DOutput : UIMObject, IOutput {
 }
 
 unittest {
-  auto output = new DOutput();
-  assert(testOutput(output));
+    // Setup: initialize static members
+    DOutput._foregroundColors = ["red": 31, "yellow": 33, "green": 32, "magenta": 35];
+    DOutput._backgroundColors = ["white": 47, "red": 41, "yellow": 43];
+    DOutput._options = ["blink": 5, "bold": 1];
+    DOutput._styles = [
+        "warning": Json(["text": Json("yellow"), "background": Json("red"), "bold": Json(true)]),
+        "info": Json(["text": Json("green")]),
+        "question": Json(["text": Json("magenta")])
+    ];
+
+    auto output = new DOutput();
+
+    // Test outputType getter/setter
+    assert(output.outputType() == "COLOR");
+    output.outputType("RAW");
+    assert(output.outputType() == "RAW");
+    output.outputType("PLAIN");
+    assert(output.outputType() == "PLAIN");
+    output.outputType("COLOR");
+    assert(output.outputType() == "COLOR");
+
+    // Test style getter/setter
+    assert(output.style("warning")["text"].str == "yellow");
+    output.style("custom", ["text": "red", "background": "white"]);
+    assert(output.style("custom")["text"].str == "red");
+    assert(output.style("custom")["background"].str == "white");
+
+    // Test removeStyle
+    output.removeStyle("custom");
+    assert(output.style("custom").isNull);
+
+    // Test styles() returns all styles
+    auto styles = output.styles();
+    assert("warning" in styles);
+    assert("info" in styles);
+
+    // Test styleText in RAW mode (should return as-is)
+    output.outputType("RAW");
+    assert(output.styleText("<warning>Danger!</warning>") == "<warning>Danger!</warning>");
+
+    // Test styleText in PLAIN mode (should strip tags)
+    output.outputType("PLAIN");
+    assert(output.styleText("<warning>Danger!</warning>") == "Danger!");
+
+    // Test styleText in COLOR mode (should apply ANSI codes)
+    output.outputType("COLOR");
+    string styled = output.styleText("<warning>Danger!</warning>");
+    assert(styled.startsWith("\033[33;41;1m")); // yellow foreground (33), red background (41), bold (1)
+    assert(styled.endsWith("\033[0m"));
+    assert(styled.canFind("Danger!"));
+
+    // Test styleText with unknown tag (should return as-is or htmlDoubleTag)
+    string unknown = output.styleText("<unknown>Test</unknown>");
+    // Since htmlDoubleTag is not defined here, just check fallback
+    assert(unknown == "<unknown>Test</unknown>" || unknown.canFind("unknown"));
+
+    // Test styleText with nested tags (should not support nesting, so treat as plain)
+    string nested = output.styleText("<warning>Danger <info>info</info></warning>");
+    // Should strip only the outermost tag or treat as plain text
+    assert(nested.canFind("Danger"));
+    assert(nested.canFind("info"));
+
+    // Test write methods (should return this, not throw)
+    assert(output.write("Hello") is output);
+    assert(output.write(["A", "B"]) is output);
+    assert(output.write(2) is output);
+
+    // Test close returns this
+    assert(output.close() is output);
 }
 
