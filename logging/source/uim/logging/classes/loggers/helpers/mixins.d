@@ -3,16 +3,25 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.factories.logger;
-
-mixin(Version!"test_uim_logging");
+module uim.logging.classes.loggers.helpers.mixins;
 
 import uim.logging;
 @safe:
 
-class DLoggerFactory : DFactory!DLogger {
+string loggerThis(string name = null) {
+    string fullName = name ~ "Logger";
+    return objThis(fullName);
 }
 
-auto LoggerFactory() {
-  return DLoggerFactory.factory;
+template LoggerThis(string name = null) {
+    const char[] LoggerThis = loggerThis(name);
+}
+
+string loggerCalls(string name) {
+    string fullName = name ~ "Logger";
+    return objCalls(fullName);
+}
+
+template LoggerCalls(string name) {
+    const char[] LoggerCalls = loggerCalls(name);
 }

@@ -3,25 +3,25 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.mixins.logger;
+module uim.logging.classes.formatters.helpers.mixins;
 
 import uim.logging;
 @safe:
 
-string loggerThis(string name = null) {
-    string fullName = name ~ "Logger";
+string logFormatterThis(string name = null) {
+    string fullName = name ~ "LogFormatter";
     return objThis(fullName);
 }
 
-template LoggerThis(string name = null) {
-    const char[] LoggerThis = loggerThis(name);
+template LogFormatterThis(string name = null) {
+    const char[] LogFormatterThis = logFormatterThis(name);
 }
 
-string loggerCalls(string name) {
-    string fullName = name ~ "Logger";
+string logFormatterCalls(string name) {
+    string fullName = name ~ "LogFormatter";
     return objCalls(fullName);
 }
 
-template LoggerCalls(string name) {
-    const char[] LoggerCalls = loggerCalls(name);
+template LogFormatterCalls(string name) {
+    const char[] LogFormatterCalls = logFormatterCalls(name);
 }

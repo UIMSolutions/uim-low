@@ -3,25 +3,21 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.mixins.formatter;
+module uim.logging.classes.loggers.helpers.factory;
+
+mixin(Version!"test_uim_logging");
 
 import uim.logging;
 @safe:
 
-string logFormatterThis(string name = null) {
-    string fullName = name ~ "LogFormatter";
-    return objThis(fullName);
+class DLoggerFactory : DFactory!DLogger {
+  mixin(FactoryThis!("Logger"));
 }
+mixin(FactoryCalls!("Logger"));
 
-template LogFormatterThis(string name = null) {
-    const char[] LogFormatterThis = logFormatterThis(name);
-}
+unittest {
+  auto factory = LogLoggerFactory;
+  assert(factory !is null, "LoggerFactory is null");
 
-string logFormatterCalls(string name) {
-    string fullName = name ~ "LogFormatter";
-    return objCalls(fullName);
-}
-
-template LogFormatterCalls(string name) {
-    const char[] LogFormatterCalls = logFormatterCalls(name);
+  assert(testFactory(factory, "Logger"), "Test LoggerFactory failed");
 }
