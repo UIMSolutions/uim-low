@@ -5,16 +5,12 @@
 *****************************************************************************************************************/
 module uim.logging.classes.formatters;
 
-public { // Main class
+public { // Modules
     import uim.logging.classes.formatters.formatter;
+    import uim.logging.classes.formatters.interfaces;
 }
 
-public { // Subclasses
-    import uim.logging.classes.formatters.csv;
-    import uim.logging.classes.formatters.html;
-    import uim.logging.classes.formatters.json;
-    import uim.logging.classes.formatters.standard;
-    import uim.logging.classes.formatters.text;
-    import uim.logging.classes.formatters.xml;
-    import uim.logging.classes.formatters.yaml;
+public { // Packages
+    import uim.logging.classes.formatters.commands;
+    import uim.logging.classes.formatters.helpers;
 }

@@ -3,15 +3,20 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.registries.registry;
+module uim.logging.classes.formatters.helpers.registry;
 
 import uim.logging;
 
 @safe:
 
 class DLogFormatterRegistry : DObjectRegistry!DLogFormatter {
+    mixin(RegistryThis!("LogFormatter"));
 }
+mixin(RegistryCalls!("LogFormatter"));
 
-auto LogFormatterRegistry() {
-    return DLogFormatterRegistry.registration;
+unittest {
+  auto registry = LogFormatterRegistry;
+  assert(registry !is null);
+
+  assert(testRegistry(registry, "LogFormatter"), "Test LogFormatterRegistry failed");
 }
