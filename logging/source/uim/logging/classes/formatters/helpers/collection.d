@@ -3,10 +3,21 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.interfaces.formatter;
+module uim.logging.classes.formatters.helpers.collection;
+
+mixin(Version!"test_uim_logging");
 
 import uim.logging;
 @safe:
 
-interface ILogFormatter : IObject {
+class DLogFormatterCollection : DCollection!DLogFormatter {   
+  mixin(CollectionThis!("LogFormatter"));
+}
+mixin(CollectionCalls!("LogFormatter"));
+
+unittest {
+  auto collection = LogFormatterCollection;
+  assert(collection !is null);
+
+  assert(testCollection(collection, "LogFormatter"), "Test LogFormatterCollection failed");
 }
