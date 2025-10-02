@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.classes.formatters.xml;
+module uim.logging.classes.formatters.subclasses.yaml;
 
 import uim.logging;
 
@@ -14,8 +14,8 @@ mixin(Version!"test_uim_logging");
 import uim.logging;
 @safe:
 
-class DXmlLogFormatter : DLogFormatter {
-    mixin(LogFormatterThis!("Xml"));
+class DYamlLogFormatter : DLogFormatter {
+    mixin(LogFormatterThis!("Yaml"));
 
     override string format(string logLevel, string logMessage, Json[string] logData = null) {
         string result = logMessage;
@@ -24,11 +24,11 @@ class DXmlLogFormatter : DLogFormatter {
     }
 }
 
-mixin(LogFormatterCalls!("Xml"));
+mixin(LogFormatterCalls!("Yaml"));
 
 unittest {
-  auto formatter = XmlLogFormatter;
+/*   auto formatter = YamlLogFormatter;
   assert(testLogFormatter(formatter));
   
-  assert(LogFormatterFactory.create("xml").name == "XmlLogFormatter");
+  assert(LogFormatterFactory.create("yaml").name == "YamlLogFormatter"); */
 }

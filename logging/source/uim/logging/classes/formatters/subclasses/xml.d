@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.classes.formatters.standard;
+module uim.logging.classes.formatters.subclasses.xml;
 
 import uim.logging;
 
@@ -14,30 +14,21 @@ mixin(Version!"test_uim_logging");
 import uim.logging;
 @safe:
 
-// Base class for LogFormatters
-class DStandardLogFormatter : DLogFormatter {
-  mixin(LogFormatterThis!("Standard"));
+class DXmlLogFormatter : DLogFormatter {
+    mixin(LogFormatterThis!("Xml"));
 
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
+    override string format(string logLevel, string logMessage, Json[string] logData = null) {
+        string result = logMessage;
+        // TODO
+        return result;
     }
-
-    return true;
-  }
-
-  override string format(string logLevel, string logMessage, Json[string] logData = null) {
-    string result = logMessage;
-    // TODO
-    return result;
-  }
 }
 
-mixin(LogFormatterCalls!("Standard"));
+mixin(LogFormatterCalls!("Xml"));
 
 unittest {
-/*   auto formatter = StandardLogFormatter;
+  auto formatter = XmlLogFormatter;
   assert(testLogFormatter(formatter));
   
-  assert(LogFormatterFactory.create("standard").name == "StandardLogFormatter");
- */}
+  assert(LogFormatterFactory.create("xml").name == "XmlLogFormatter");
+}
