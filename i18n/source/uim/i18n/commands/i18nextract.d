@@ -84,7 +84,7 @@ class DI18nExtractCommand : DCommand {
                 abort();
             }
             if (response.upper == "D" && count(_paths)) {
-                 console.writeln();
+                 output.writeln();
 
                 return;
             }
@@ -96,7 +96,7 @@ class DI18nExtractCommand : DCommand {
             } else {
                  console.writeErrorMessages("The directory path you supplied was not found. Please try again.");
             }
-             console.writeln();
+             output.writeln();
         }
     } */
 
@@ -172,7 +172,7 @@ class DI18nExtractCommand : DCommand {
     if (arguments.hasOption("merge")) {
       _merge = !(strtolower(to!string(arguments.getOption("merge")) == "no"));
     } else {
-      console.writeln();
+      output.writeln();
       response = console.askChoice(
         "Would you like to merge all domain strings into the default.pot file?",
         ["y", "n"],
@@ -224,26 +224,26 @@ class DI18nExtractCommand : DCommand {
 
   // Extract text
   /* protected void _extract(Json[string] commandArguments, IConsole console = null) {
-         console.writeln();
-         console.writeln();
-         console.writeln("Extracting...");
+         output.writeln();
+         output.writeln();
+         output.writeln("Extracting...");
          console.hr();
-         console.writeln("Paths:");
-        _paths.each!(path => console.writeln("   " ~ path));
+         output.writeln("Paths:");
+        _paths.each!(path => output.writeln("   " ~ path));
 
-         console.writeln("Output Directory: " ~ _output);
+         output.writeln("Output Directory: " ~ _output);
          console.hr();
        _extractTokens(commandArguments,  console);
        _buildFiles(commandArguments);
        _writeFiles(commandArguments,  console);
        _paths = _fileNames = _storage = null;
        _translations = _tokens = null;
-         console.writeln();
+         output.writeln();
         if (_countMarkerError) {
              console.writeErrorMessages("{_countMarkerError} marker error(s) detected.");
              console.writeErrorMessages(": Use the --marker-error option to display errors.");
         }
-         console.writeln("Done.");
+         output.writeln("Done.");
     } */
 
   // Gets the option parser instance and configures it.
@@ -467,7 +467,7 @@ class DI18nExtractCommand : DCommand {
 
   // Write the files that need to be stored
   protected void _writeFiles(Json[string] commandArguments, IConsole console = null) {
-    /* console.writeln(); */
+    /* output.writeln(); */
     bool overwriteAll = false;
 /*     if (commandArguments.getOption("overwrite")) {
       overwriteAll = true;
@@ -481,13 +481,13 @@ class DI18nExtractCommand : DCommand {
       auto outputPath = _output ~ filename;
 
       if (checkUnchanged(outputPath, lengthOfFileheader, outputHeader) == true) {
-        console.writeln(filename ~ " is unchanged. Skipping.");
+        output.writeln(filename ~ " is unchanged. Skipping.");
         continue;
       }
 
       string response = "";
       while (overwriteAll == false && file.hasKey(outputPath) && response.upper != "Y") {
-        console.writeln();
+        output.writeln();
         response = console.askChoice(
           "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format(filename),
           ["y", "n", "a"],

@@ -62,7 +62,7 @@ class DI18nInitCommand : DCommand {
                 aConsole.createFile(targetFolder ~ newFilename, content);
                 countFiles++;
             });
-        console.writeln("Generated " ~ countFiles ~ " PO files in " ~ targetFolder);
+        output.writeln("Generated " ~ countFiles ~ " PO files in " ~ targetFolder);
  */
     return true;
   }

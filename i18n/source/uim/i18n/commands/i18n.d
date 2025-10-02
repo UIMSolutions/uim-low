@@ -5,7 +5,7 @@
 *****************************************************************************************************************/
 module uim.i18n.classes.i18n.i18n;
 
-mixin(Version!"test_uim_commands");
+mixin(Version!"test_uim_i18n");
 
 import uim.i18n;
 @safe:
@@ -24,12 +24,12 @@ class DI18nCommand : DCommand {
 
   // Execute interactive mode
   override bool execute(Json[string] arguments, IConsole console = null) {
-    /* console.writeln("<info>I18n Command</info>");
-        console.hr();
-        console.writeln("[E]xtract POT file from sources");
-        console.writeln("[I]nitialize a language from POT file");
-        console.writeln("[H]elp");
-        console.writeln("[Q]uit");
+    /* Output.writeln("<info>I18n Command</info>");
+        Output.hr();
+        Output.writeln("[E]xtract POT file from sources");
+        Output.writeln("[I]nitialize a language from POT file");
+        Output.writeln("[H]elp");
+        Output.writeln("[Q]uit");
 
         do {
             string choice = console.askChoice("What would you like to do?", [
@@ -45,7 +45,7 @@ class DI18nCommand : DCommand {
                 code = executeCommand(I18nInitCommand.classname, [], console);
                 break;
             case "h":
-                console.writeln(getOptionParser().help());
+                output.writeln(getOptionParser().help());
                 break;
             case "q": // Do nothing
                 break;
