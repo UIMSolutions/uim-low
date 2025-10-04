@@ -5,9 +5,9 @@
 *****************************************************************************************************************/
 module uim.logging.classes.loggers.helpers.collection;
 
+import uim.logging;
 mixin(Version!"test_uim_logging");
 
-import uim.logging;
 @safe:
 
 class DLoggerCollection : DCollection!DLogger {   

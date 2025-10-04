@@ -5,9 +5,9 @@
 *****************************************************************************************************************/
 module uim.logging.tests.logger;
 
+import uim.logging;
 mixin(Version!"test_uim_logging");
 
-import uim.logging;
 @safe:
 
 bool testLogger(ILogger logger) {
