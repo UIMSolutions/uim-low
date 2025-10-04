@@ -5,3 +5,19 @@
 *****************************************************************************************************************/
 module uim.events.classes.events.helpers.factory;
 
+import uim.events;
+
+mixin(Version!"test_uim_events");
+@safe:
+
+class DEventsFactory : DFactory!IEvent {
+    mixin(FactoryThis!("Event"));
+}
+mixin(FactoryCalls!("Event"));
+
+unittest {
+  auto factory = new DEventsFactory();
+  assert(factory !is null, "EventsFactory is null");
+
+  assert(testFactory(factory, "Event"), "Test EventsFactory failed");
+}

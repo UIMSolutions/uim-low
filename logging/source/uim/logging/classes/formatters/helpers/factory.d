@@ -5,9 +5,9 @@
 *****************************************************************************************************************/
 module uim.logging.classes.formatters.helpers.factory;
 
-mixin(Version!"test_uim_logging");
-
 import uim.logging;
+
+mixin(Version!"test_uim_logging");
 @safe:
 
 class DLogFormatterFactory : DFactory!DLogFormatter {
@@ -17,7 +17,7 @@ mixin(FactoryCalls!("LogFormatter"));
 
 unittest {
   auto factory = new DLogFormatterFactory;
-  assert(factory !is null);
+  assert(factory !is null, "LogFormatterFactory is null");
 
   assert(testFactory(factory, "LogFormatter"), "Test LogFormatterFactory failed");
 }
