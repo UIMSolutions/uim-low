@@ -5,9 +5,9 @@
 *****************************************************************************************************************/
 module uim.i18n.classes.i18n.i18ninit;
 
+import uim.i18n;
 mixin(Version!"test_uim_commands");
 
-import uim.i18n;
 @safe:
 
 // Command for interactive I18N management.

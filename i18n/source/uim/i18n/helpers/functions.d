@@ -5,9 +5,9 @@
 *****************************************************************************************************************/
 module uim.i18n.helpers.functions;
 
+import uim.i18n;
 mixin(Version!"test_uim_i18n");
 
-import uim.i18n;
 @safe:
 
 // Returns a translated string if one is found; Otherwise, the submitted message.
