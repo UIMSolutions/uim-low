@@ -6,11 +6,8 @@
 module uim.i18n.classes.loaders.messagesfile;
 
 import uim.i18n;
-@safe:
-
 mixin(Version!"test_uim_i18n");
 
-import uim.i18n;
 @safe:
 
 
