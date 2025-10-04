@@ -5,9 +5,9 @@
 *****************************************************************************************************************/
 module uim.logging.classes.loggers.logger;
 
+import uim.logging;
 mixin(Version!"test_uim_logging");
 
-import uim.logging;
 
 @safe:
 

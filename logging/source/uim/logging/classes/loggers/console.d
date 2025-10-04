@@ -5,9 +5,9 @@
 *****************************************************************************************************************/
 module uim.logging.classes.loggers.console;
 
+import uim.logging;
 mixin(Version!"test_uim_logging");
 
-import uim.logging;
 @safe:
 
 // Console logging. Writes logs to console output.

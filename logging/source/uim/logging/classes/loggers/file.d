@@ -5,9 +5,9 @@
 *****************************************************************************************************************/
 module uim.logging.classes.loggers.file;
 
-mixin(Version!"test_uim_logging");
-
 import uim.logging;
+
+mixin(Version!"test_uim_logging");
 
 @safe:
 
@@ -48,9 +48,10 @@ class DFileLogger : DLogger {
       .setEntry("dirMask", 770)
       .setEntry("formatter", StandardLogFormatter.toJson);
 
-    auto logPath = configuration.hasEntry("Path") ? configuration.getStringEntry("path") : tempDir() ~ "logs/";
+    auto logPath = configuration.hasEntry("Path") ? configuration.getStringEntry(
+      "path") : tempDir() ~ "logs/";
     if (!existsFolder(logPath)) {
-      createFolder(logPath/* , configuration.getEntry("dirMask") */);
+      createFolder(logPath /* , configuration.getEntry("dirMask") */ );
     }
     if (!configuration.isEmptyEntry("file")) {
       _filename = configuration.getStringEntry("file");

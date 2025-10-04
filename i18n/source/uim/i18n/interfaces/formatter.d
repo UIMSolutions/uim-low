@@ -5,9 +5,9 @@
 *****************************************************************************************************************/
 module uim.i18n.interfaces.formatter;
 
+import uim.i18n;
 mixin(Version!"test_uim_i18n");
 
-import uim.i18n;
 @safe:
 
 
