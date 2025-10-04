@@ -5,3 +5,5 @@
 *****************************************************************************************************************/
 module uim.securities.helpers;
 
+import uim.securities;
+mixin(ImportHelpers!"uim.securities");

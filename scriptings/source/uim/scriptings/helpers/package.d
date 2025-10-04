@@ -5,3 +5,5 @@
 *****************************************************************************************************************/
 module uim.scriptings.helpers;
 
+import uim.scriptings;
+mixin(ImportHelpers!"uim.scriptings");

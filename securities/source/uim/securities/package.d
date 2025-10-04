@@ -23,6 +23,5 @@ public { // uim.filesystem libraries
   import uim.securities.exceptions;
   import uim.securities.helpers;
   import uim.securities.interfaces;
-  import uim.securities.mixins;
   import uim.securities.tests;
 }

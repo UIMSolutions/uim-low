@@ -27,6 +27,5 @@ public { // uim.filesystem libraries
   import uim.scriptings.exceptions;
   import uim.scriptings.helpers;
   import uim.scriptings.interfaces;
-  import uim.scriptings.mixins;
   import uim.scriptings.tests;
 }

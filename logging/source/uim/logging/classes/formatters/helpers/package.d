@@ -6,5 +6,4 @@
 module uim.logging.classes.formatters.helpers;
 
 import uim.logging;
-
-mixin(ImportHelpers!"uim.logging.classes.collections");
+mixin(ImportHelpers!"uim.logging.classes.formatters");

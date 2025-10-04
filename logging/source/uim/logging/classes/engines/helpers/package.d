@@ -5,3 +5,5 @@
 *****************************************************************************************************************/
 module uim.logging.classes.engines.helpers;
 
+import uim.logging;
+mixin(ImportHelpers!"uim.logging.classes.engines");

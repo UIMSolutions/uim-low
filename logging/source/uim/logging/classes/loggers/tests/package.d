@@ -5,3 +5,6 @@
 *****************************************************************************************************************/
 module uim.logging.classes.loggers.tests;
 
+public {
+  import uim.logging.classes.loggers.tests.test;
+}
