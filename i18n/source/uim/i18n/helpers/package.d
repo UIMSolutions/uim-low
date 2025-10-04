@@ -5,6 +5,5 @@
 *****************************************************************************************************************/
 module uim.i18n.helpers;
 
-public {
-    import uim.i18n.helpers.functions;
-}
+import uim.i18n;
+mixin(ImportHelpers!"uim.i18n");

@@ -20,15 +20,11 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.i18n.classes;
-  import uim.i18n.collections;
   import uim.i18n.commands;
   import uim.i18n.enumerations;
   import uim.i18n.errors;
   import uim.i18n.exceptions;
-  import uim.i18n.factories;
   import uim.i18n.helpers;
   import uim.i18n.interfaces;
-  import uim.i18n.mixins;
-  import uim.i18n.registries;
   import uim.i18n.tests;
 }

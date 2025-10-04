@@ -5,3 +5,7 @@
 *****************************************************************************************************************/
 module uim.languages.helpers;
 
+import uim.languages;
+mixin(ImportHelpers!"uim.languages");
+
+

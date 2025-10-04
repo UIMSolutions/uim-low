@@ -24,6 +24,5 @@ public { // uim.filesystem libraries
   import uim.languages.exceptions;
   import uim.languages.helpers;
   import uim.languages.interfaces;
-  import uim.languages.mixins;
   import uim.languages.tests;
 }
