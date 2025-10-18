@@ -3,10 +3,33 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.interfaces;
+module uim.logging.classes.loggers.subclasses.multi;
 
-public {
-    import uim.logging.interfaces.aware;
-    import uim.logging.interfaces.engine;
-    import uim.logging.interfaces.formatter;
+import uim.logging;
+mixin(Version!"test_uim_logging");
+
+@safe:
+
+class DMultiLogger : DLogger {
+  mixin(LoggerThis!("Multi"));
+
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  override ILogger log(string logLevel, string logMessage, Json[string] logContext = null) {
+    // TODO
+    return this;
+  }
+}
+
+mixin(LoggerCalls!("Multi"));
+
+unittest {
+  auto logger = MultiLogger;
+  assert(testLogger(logger));
 }
