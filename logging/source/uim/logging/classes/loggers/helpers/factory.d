@@ -17,7 +17,5 @@ mixin(FactoryCalls!("Logger"));
 
 unittest {
   auto factory = LogLoggerFactory;
-  assert(factory !is null, "LoggerFactory is null");
-
   assert(testFactory(factory, "Logger"), "Test LoggerFactory failed");
 }

@@ -5,16 +5,15 @@
 *****************************************************************************************************************/
 module uim.logging.classes.loggers;
 
-public { // Main class
+public { // Modules
   import uim.logging.classes.loggers.logger;
+  import uim.logging.classes.loggers.interfaces;
 }
 
-public { // Subclasses
-  import uim.logging.classes.loggers.console;
-  import uim.logging.classes.loggers.file;
-  import uim.logging.classes.loggers.memory;
-  import uim.logging.classes.loggers.standard;
-  import uim.logging.classes.loggers.multi;
-  import uim.logging.classes.loggers.null_;
-  import uim.logging.classes.loggers.syslog;
+public { // Packages
+  import uim.logging.classes.loggers.commands;
+  import uim.logging.classes.loggers.errors;
+  import uim.logging.classes.loggers.helpers;
+  import uim.logging.classes.loggers.subclasses;
+  import uim.logging.classes.loggers.tests;
 }

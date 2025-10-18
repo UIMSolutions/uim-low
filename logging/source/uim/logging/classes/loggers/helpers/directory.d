@@ -3,33 +3,18 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.classes.loggers.null_;
+module uim.logging.classes.loggers.helpers.directory;
 
 import uim.logging;
 mixin(Version!"test_uim_logging");
 
 @safe:
 
-class DNullLogger : DLogger {
-  mixin(LoggerThis!("Null"));
-
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    return true;
-  }
-
-  override ILogger log(string logLevel, string logMessage, Json[string] logContext = null) {
-    // TODO
-    return this;
-  }
+class DLoggerDirectory : DDirectory!DLogger {   
 }
-
-mixin(LoggerCalls!("Null"));
+mixin(DirectoryCalls!("Logger"));
 
 unittest {
-  auto logger = NullLogger;
-  assert(testLogger(logger));
+  auto directory = LoggerDirectory;
+  assert(testDirectory(directory, "Logger"), "Test LoggerDirectory failed");
 }

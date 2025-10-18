@@ -16,7 +16,5 @@ mixin(CollectionCalls!("Logger"));
 
 unittest {
   auto collection = LoggerCollection;
-  assert(collection !is null);
-
   assert(testCollection(collection, "Logger"), "Test LoggerCollection failed");
 }
