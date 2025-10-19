@@ -11,7 +11,7 @@ import uim.logging;
 @safe:
 // TODO
 /* 
-class DLogEngineFactory : DFactory!DLogEngine {
+class DLogEngineFactory : DFactory!ILogEngine {
 }
 auto LogEngineFactory() { return DLogEngineFactory.factory; }
 */ 

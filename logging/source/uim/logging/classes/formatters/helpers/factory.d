@@ -10,7 +10,7 @@ import uim.logging;
 mixin(Version!"test_uim_logging");
 @safe:
 
-class DLogFormatterFactory : DFactory!DLogFormatter {
+class DLogFormatterFactory : DFactory!ILogFormatter {
     mixin(FactoryThis!("LogFormatter"));
 }
 mixin(FactoryCalls!("LogFormatter"));

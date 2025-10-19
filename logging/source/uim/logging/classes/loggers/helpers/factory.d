@@ -10,7 +10,7 @@ mixin(Version!"test_uim_logging");
 import uim.logging;
 @safe:
 
-class DLoggerFactory : DFactory!DLogger {
+class DLoggerFactory : DFactory!ILogger {
   mixin(FactoryThis!("Logger"));
 }
 mixin(FactoryCalls!("Logger"));

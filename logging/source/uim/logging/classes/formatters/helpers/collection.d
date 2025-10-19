@@ -10,14 +10,12 @@ mixin(Version!"test_uim_logging");
 import uim.logging;
 @safe:
 
-class DLogFormatterCollection : DCollection!DLogFormatter {   
+class DLogFormatterCollection : DCollection!ILogFormatter {
   mixin(CollectionThis!("LogFormatter"));
 }
 mixin(CollectionCalls!("LogFormatter"));
 
 unittest {
   auto collection = LogFormatterCollection;
-  assert(collection !is null);
-
   assert(testCollection(collection, "LogFormatter"), "Test LogFormatterCollection failed");
 }

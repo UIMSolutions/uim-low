@@ -10,7 +10,8 @@ mixin(Version!"test_uim_logging");
 
 @safe:
 
-class DLoggerCollection : DCollection!DLogger {   
+class DLoggerCollection : DCollection!ILogger {
+  mixin(CollectionThis!("Logger"));
 }
 mixin(CollectionCalls!("Logger"));
 
