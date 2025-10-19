@@ -3,13 +3,19 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.classes.formatters.helpers;
+module uim.logging.classes.formatters.helpers.directory;
 
-public {
-  import uim.logging.classes.formatters.helpers.collection;
-  import uim.logging.classes.formatters.helpers.directory;
-  import uim.logging.classes.formatters.helpers.factory;
-  import uim.logging.classes.formatters.helpers.functions;
-  import uim.logging.classes.formatters.helpers.mixins;
-  import uim.logging.classes.formatters.helpers.registry;
+mixin(Version!"test_uim_logging");
+
+import uim.logging;
+@safe:
+
+class DLogFormatterDirectory : DDirectory!ILogFormatter {
+  mixin(DirectoryThis!("LogFormatter"));
+}
+mixin(DirectoryCalls!("LogFormatter"));
+
+unittest {
+  auto directory = LogFormatterDirectory;
+  assert(testDirectory(directory, "LogFormatter"), "Test LogFormatterDirectory failed");
 }
