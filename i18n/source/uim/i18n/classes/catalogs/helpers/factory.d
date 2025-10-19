@@ -3,8 +3,24 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.containers.factories;
+module uim.i18n.classes.catalogs.helpers.factory;
 
-public {
-    
+mixin(Version!"test_uim_i18n");
+
+import uim.i18n;
+@safe:
+
+class DMessageCatalogFactory : DObjectFactory!IMessageCatalog {
+    override DMessageCatalog create(string name) {
+        return new DMessageCatalog(name);
+    }
+}
+
+auto MessageCatalogFactory() {
+    return DMessageCatalogFactory.factory;
+}
+
+static this() {
+    // Init the factory for the message catalog.
+    MessageCatalogFactory();
 }
