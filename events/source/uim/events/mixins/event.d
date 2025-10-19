@@ -5,8 +5,6 @@
 *****************************************************************************************************************/
 module uim.events.mixins.event;
 
-import uim.events;
-@safe:
 
 mixin(Version!"test_uim_events");
 
