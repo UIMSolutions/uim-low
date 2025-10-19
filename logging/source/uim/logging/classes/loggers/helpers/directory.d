@@ -10,7 +10,7 @@ mixin(Version!"test_uim_logging");
 
 @safe:
 
-class DLoggerDirectory : DDirectory!DLogger {   
+class DLoggerDirectory : DDirectory!ILogger {   
 }
 mixin(DirectoryCalls!("Logger"));
 

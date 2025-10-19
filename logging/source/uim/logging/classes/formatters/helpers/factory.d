@@ -17,8 +17,6 @@ mixin(FactoryCalls!("LogFormatter"));
 
 unittest {
   auto factory = new DLogFormatterFactory;
-  assert(factory !is null, "LogFormatterFactory is null");
-
   assert(testFactory(factory, "LogFormatter"), "Test LogFormatterFactory failed");
 }
 

@@ -10,7 +10,7 @@ mixin(Version!"test_uim_i18n");
 import uim.i18n;
 @safe:
 
-class DMessageCatalogFactory : DObjectFactory!DMessageCatalog {
+class DMessageCatalogFactory : DObjectFactory!IMessageCatalog {
     override DMessageCatalog create(string name) {
         return new DMessageCatalog(name);
     }
