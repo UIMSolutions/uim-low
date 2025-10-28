@@ -5,9 +5,10 @@
 *****************************************************************************************************************/
 module uim.logging.classes.loggers.helpers.factory;
 
+import uim.logging;
+
 mixin(Version!"test_uim_logging");
 
-import uim.logging;
 @safe:
 
 class DLoggerFactory : DFactory!ILogger {

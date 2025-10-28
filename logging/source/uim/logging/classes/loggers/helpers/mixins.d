@@ -6,6 +6,9 @@
 module uim.logging.classes.loggers.helpers.mixins;
 
 import uim.logging;
+
+mixin(Version!"test_uim_logging");
+
 @safe:
 
 string loggerThis(string name = null) {

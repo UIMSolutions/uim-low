@@ -6,6 +6,7 @@
 module uim.logging.classes.loggers.helpers.directory;
 
 import uim.logging;
+
 mixin(Version!"test_uim_logging");
 
 @safe:
