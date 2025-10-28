@@ -10,7 +10,6 @@ mixin(Version!"test_uim_i18n");
 import uim.i18n;
 @safe:
 
-
 class DMessageCatalogRegistry : DObjectRegistry!DMessageCatalog {
 }
 

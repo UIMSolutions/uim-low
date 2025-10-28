@@ -11,7 +11,6 @@ mixin(Version!"test_uim_i18n");
 
 @safe:
 
-
 class DPotI18NParser : DI18NParser {
     mixin(I18NParserThis!("Pot"));
 }
