@@ -5,9 +5,10 @@
 *****************************************************************************************************************/
 module uim.logging.classes.formatters.helpers.directory;
 
+import uim.logging;
+
 mixin(Version!"test_uim_logging");
 
-import uim.logging;
 @safe:
 
 class DLogFormatterDirectory : DDirectory!ILogFormatter {

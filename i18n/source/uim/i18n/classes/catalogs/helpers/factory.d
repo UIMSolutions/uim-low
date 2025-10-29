@@ -5,9 +5,10 @@
 *****************************************************************************************************************/
 module uim.i18n.classes.catalogs.helpers.factory;
 
+import uim.i18n;
+
 mixin(Version!"test_uim_i18n");
 
-import uim.i18n;
 @safe:
 
 class DMessageCatalogFactory : DObjectFactory!IMessageCatalog {
